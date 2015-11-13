@@ -8,6 +8,7 @@ public class BattlefieldCreater : MonoBehaviour {
 	public float sizeX;
 	public float sizeZ;
 	GameObject[,] Zellen;
+    float timeAcc = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,16 @@ public class BattlefieldCreater : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        timeAcc += Time.deltaTime;
+        Debug.Log(5.0f - timeAcc);
+        if(timeAcc >= 5.0f)
+        {
+            timeAcc = 0.0f;
+            Debug.Log("HALLO");
+            int randomX = (int)Random.Range(0, sizeX*10);
+            int randomY = (int)Random.Range(0, sizeZ*10);
+            DEBUG_dijstraStuff.executeDijsktra(getCell(randomX, randomY));
+        }
 	}
 
 	void initiateBattlefield()
@@ -64,9 +75,10 @@ public class BattlefieldCreater : MonoBehaviour {
 				currentCell.setNeighbours(upper, left, right, lower);
 			}
 		}
-        //DEBUG SHIT
-        transformPlane.gameObject.SetActive(false);
-        DEBUG_dijstraStuff.executeDijsktra(getCell(5, 5));
+        //
+        MeshRenderer mehsy = (MeshRenderer)transformPlane.gameObject.GetComponent(typeof(MeshRenderer));
+        mehsy.enabled = false;
+
 	}
     public GameObject getGameObjectOfArray(int x, int y)
     { return Zellen[x, y]; }

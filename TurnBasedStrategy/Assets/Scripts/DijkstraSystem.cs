@@ -35,6 +35,7 @@ public class DijkstraSystem : MonoBehaviour {
             Cell currentCell = (Cell)entdeckteZellen[lastIndex];
             entdeckteZellen.RemoveAt(lastIndex);
             currentCell.dij_ZellZustand = Cell.dij_Zustand.DIJ_ABGESCHLOSSEN;
+            colorCell(currentCell);
             for(int i = 0; i < currentCell.neighbours.Count; ++i)
             {
                 Cell currentNeighbour = (Cell)currentCell.neighbours[i];
@@ -48,28 +49,25 @@ public class DijkstraSystem : MonoBehaviour {
 
     void updateDistance(Cell zielKnoten, Cell vorgaenger)
     {
-        MeshRenderer meshRend = (MeshRenderer)zielKnoten.gameObject.GetComponent(typeof(MeshRenderer));
         if((vorgaenger.dij_GesamtKosten + zielKnoten.dij_KnotenKosten) < zielKnoten.dij_GesamtKosten)
         {
             zielKnoten.dij_Vorgaenger = vorgaenger;
             zielKnoten.dij_GesamtKosten = vorgaenger.dij_GesamtKosten + zielKnoten.dij_KnotenKosten;
-        }
-
-        if(zielKnoten.dij_GesamtKosten <= range)
-        {
-            meshRend.material = begebarMat;
-            if(zielKnoten.dij_ZellZustand != Cell.dij_Zustand.DIJ_ABGESCHLOSSEN)
-                entdeckteZellen.Add(zielKnoten);
-        }
-        else if(zielKnoten.dij_GesamtKosten <= range+attackRange)
-        {
-            meshRend.material = attackableMat;
-            if (zielKnoten.dij_ZellZustand != Cell.dij_Zustand.DIJ_ABGESCHLOSSEN)
-                entdeckteZellen.Add(zielKnoten);
-        }
-        if(zielKnoten.dij_ZellZustand != Cell.dij_Zustand.DIJ_ABGESCHLOSSEN)
             zielKnoten.dij_ZellZustand = Cell.dij_Zustand.DIJ_ENTDECKT;
+            entdeckteZellen.Add(zielKnoten);
+        }
     }
+
+    void colorCell(Cell cell)
+    {
+        MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
+        if (cell.dij_GesamtKosten <= range)
+            meshRend.material = begebarMat;
+        else if (cell.dij_GesamtKosten <= range + attackRange)
+            meshRend.material = attackableMat;
+
+    }
+
     void resetDijkstra()
     {
         for(int i = 0; i < (battleField.sizeX*10);++i)
