@@ -6,6 +6,7 @@ public class DijkstraSystem : MonoBehaviour {
     public BattlefieldCreater battleField;
     public Material begebarMat;
     public Material attackableMat;
+    public Material defaultMat;
     int range;
     int attackRange;
     ArrayList entdeckteZellen;
@@ -25,7 +26,7 @@ public class DijkstraSystem : MonoBehaviour {
     public void executeDijsktra(Cell start)
     {
         resetDijkstra();
-        entdeckteZellen.Clear();
+
         start.dij_GesamtKosten = 0;
         entdeckteZellen.Add(start);
 
@@ -70,10 +71,13 @@ public class DijkstraSystem : MonoBehaviour {
 
     void resetDijkstra()
     {
+        entdeckteZellen.Clear();
         for(int i = 0; i < (battleField.sizeX*10);++i)
             for(int j = 0; j < (battleField.sizeZ*10);++j)
             {
                 Cell currentCell = battleField.getCell(i, j);
+                MeshRenderer meshRend = (MeshRenderer)currentCell.gameObject.GetComponent(typeof(MeshRenderer));
+                meshRend.material = defaultMat;
                 currentCell.dij_ZellZustand = Cell.dij_Zustand.DIJ_UNBESUCHT;
                 currentCell.dij_Vorgaenger = null;
                 currentCell.dij_GesamtKosten = int.MaxValue;

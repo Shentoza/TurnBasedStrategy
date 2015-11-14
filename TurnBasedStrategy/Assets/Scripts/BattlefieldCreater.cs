@@ -8,7 +8,6 @@ public class BattlefieldCreater : MonoBehaviour {
 	public float sizeX;
 	public float sizeZ;
 	GameObject[,] Zellen;
-    float timeAcc = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -18,11 +17,8 @@ public class BattlefieldCreater : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        timeAcc += Time.deltaTime;
-        Debug.Log(5.0f - timeAcc);
-        if(timeAcc >= 5.0f)
+        if(Input.GetMouseButtonDown(0))
         {
-            timeAcc = 0.0f;
             Debug.Log("HALLO");
             int randomX = (int)Random.Range(0, sizeX*10);
             int randomY = (int)Random.Range(0, sizeZ*10);
@@ -57,6 +53,8 @@ public class BattlefieldCreater : MonoBehaviour {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
                 zelle.AddComponent<Cell>();
+                MeshRenderer meshRend = (MeshRenderer)zelle.gameObject.GetComponent(typeof(MeshRenderer));
+                Debug.Log(meshRend.material);
 				zelle.transform.position = new Vector3((x + 0.5f), 0 , (z - 0.5f));
 
 				Zellen[(int)x, (int)-z] = zelle;
