@@ -53,8 +53,6 @@ public class BattlefieldCreater : MonoBehaviour {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
                 zelle.AddComponent<Cell>();
-                MeshRenderer meshRend = (MeshRenderer)zelle.gameObject.GetComponent(typeof(MeshRenderer));
-                Debug.Log(meshRend.material);
 				zelle.transform.position = new Vector3((x + 0.5f), 0 , (z - 0.5f));
 
 				Zellen[(int)x, (int)-z] = zelle;
