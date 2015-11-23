@@ -4,8 +4,9 @@ using System.Collections;
 public class BattlefieldCreater : MonoBehaviour {
 
 	Transform transformPlane;
-	float sizeX;
-	float sizeZ;
+    public DijkstraSystem DEBUG_dijstraStuff;
+	public float sizeX;
+	public float sizeZ;
 	GameObject[,] Zellen;
 
 	// Use this for initialization
@@ -16,6 +17,13 @@ public class BattlefieldCreater : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("HALLO");
+            int randomX = (int)Random.Range(0, sizeX*10);
+            int randomY = (int)Random.Range(0, sizeZ*10);
+            DEBUG_dijstraStuff.executeDijsktra(getCell(randomX, randomY));
+        }
 	}
 
 	void initiateBattlefield()
@@ -44,7 +52,7 @@ public class BattlefieldCreater : MonoBehaviour {
 			for (float x = 0; x < (sizeX*10); x++) {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
-				zelle.AddComponent<Cell>();
+                zelle.AddComponent<Cell>();
 				zelle.transform.position = new Vector3((x + 0.5f), 0 , (z - 0.5f));
 
 				Zellen[(int)x, (int)-z] = zelle;
@@ -63,5 +71,16 @@ public class BattlefieldCreater : MonoBehaviour {
 				currentCell.setNeighbours(upper, left, right, lower);
 			}
 		}
+        //
+        MeshRenderer mehsy = (MeshRenderer)transformPlane.gameObject.GetComponent(typeof(MeshRenderer));
+        mehsy.enabled = false;
+
 	}
+    public GameObject getGameObjectOfArray(int x, int y)
+    { return Zellen[x, y]; }
+
+    public Cell getCell(int x, int y)
+    {
+        return (Cell)Zellen[x, y].GetComponent(typeof(Cell));
+    }
 }
