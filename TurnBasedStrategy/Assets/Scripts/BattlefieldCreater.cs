@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class BattlefieldCreater : MonoBehaviour {
-
+	
 	Transform transformPlane;
-	float sizeX;
-	float sizeZ;
+	public float sizeX;
+	public float sizeZ;
 	GameObject[,] Zellen;
 	Material material;
 
@@ -57,7 +57,7 @@ public class BattlefieldCreater : MonoBehaviour {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
 				zelle.AddComponent<Cell>();
-				zelle.transform.position = new Vector3((x + 0.5f), 1f, (z - 0.5f));
+				zelle.transform.position = new Vector3((x + 0.5f), 1, (z - 0.5f));
 				MeshRenderer mr = (MeshRenderer)zelle.GetComponent (typeof(MeshRenderer));
 				mr.material = material;
 
@@ -84,12 +84,12 @@ public class BattlefieldCreater : MonoBehaviour {
 		ObjectSetter[] os = FindObjectsOfType (typeof(ObjectSetter)) as ObjectSetter[];
 		foreach (ObjectSetter obs in os) 
 		{
-			obs.move ();
+			obs.move (Zellen);
 		}
 	}
 
-	public GameObject[,] getZellen()
+	public Cell getCell(int x, int y)
 	{
-		return Zellen;
+		return (Cell)Zellen [x, y].GetComponent (typeof(Cell));
 	}
 }
