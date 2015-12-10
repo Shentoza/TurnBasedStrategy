@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AttributeComponent : MonoBehaviour {
 
-	public Cell currentCell;
+	Cell currentCell;
 
 	// Use this for initialization
 	void Start () {

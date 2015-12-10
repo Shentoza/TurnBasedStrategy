@@ -3,22 +3,21 @@ using System.Collections;
 
 public class MovementSystem : MonoBehaviour {
 
-    Transform unitTrans;
     AttributeComponent playerAttr;
-    Cell currentCell;
-    Cell targetCell;
-    ArrayList pfad;
-    public float secondsPerCell;
-    float deltaSum;
     DijkstraSystem dijkstra;
 
+    public float secondsPerCell;
     public int range;
+
+    ArrayList pfad;
+    Cell targetCell;
+
+    float deltaSum;
+    
 	// Use this for initialization
 	void Start () {
         dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
-        unitTrans = (Transform)this.gameObject.GetComponent(typeof(Transform));
         playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
-        currentCell = playerAttr.getCurrentCell();
 	}
 	
 	// Update is called once per frame
@@ -31,7 +30,7 @@ public class MovementSystem : MonoBehaviour {
         if(target.dij_GesamtKosten <= range)
         {
             targetCell = target;
-            pfad = dijkstra.getPath(currentCell, targetCell);
+            pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
         }
     }
 
@@ -40,9 +39,12 @@ public class MovementSystem : MonoBehaviour {
         if (targetCell == null)
             return;
 
-        if(currentCell != targetCell)
+        if(playerAttr.getCurrentCell() != targetCell)
         {
+            Cell currentCell = playerAttr.getCurrentCell();
+
             Cell nextCell = (Cell)pfad[pfad.Count-1];
+
             float progress = Mathf.Clamp01(deltaSum / secondsPerCell);
             Debug.Log(progress);
             playerAttr.transform.position = Vector3.Lerp(currentCell.transform.position, nextCell.transform.position, progress);
@@ -50,10 +52,12 @@ public class MovementSystem : MonoBehaviour {
             if(progress == 1.0f)
             {
                 currentCell.setOccupied(null);
+                currentCell = nextCell;
+
                 nextCell.setOccupied(this.gameObject);
                 playerAttr.setCurrentCell(nextCell);
-                pfad.Remove(nextCell);
                 deltaSum = 0.0f;
+                pfad.RemoveAt(pfad.Count - 1);
             }
             deltaSum += Time.deltaTime;
         }

@@ -58,7 +58,7 @@ public class DijkstraSystem : MonoBehaviour {
         while(currentNode != startKnoten)
         {
             result.Add(currentNode);
-            currentNode = zielKnoten.dij_Vorgaenger;
+            currentNode = currentNode.dij_Vorgaenger;
         }
         return result;
     }

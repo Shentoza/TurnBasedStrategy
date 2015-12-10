@@ -13,7 +13,7 @@ public class inputSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton (0)) 
+		if (Input.GetMouseButtonDown(0)) 
 		{
 			Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
@@ -40,7 +40,7 @@ public class inputSystem : MonoBehaviour {
                 }
 			}
 		}
-        if(Input.GetMouseButton(1))
+        if(Input.GetMouseButtonDown(1))
         {
 
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
