@@ -31,16 +31,4 @@ public class ObjectSetter : MonoBehaviour {
 		playerAttr.setCurrentCell (zellecell);
 
 	}
-
-	public void moveTo(GameObject zelle)
-	{
-		objecttrans = (Transform)this.gameObject.GetComponent (typeof(Transform));
-		AttributeComponent playerAttr = (AttributeComponent)this.gameObject.GetComponent (typeof(AttributeComponent));
-		zelletrans = (Transform) zelle.GetComponent (typeof(Transform));
-		Cell zellecell = (Cell)zelle.GetComponent (typeof(Cell));
-		zellecell.setOccupied (this.gameObject);
-		objecttrans.position = new Vector3 (zelletrans.position.x, objecttrans.position.y, zelletrans.position.z);
-		playerAttr.setCurrentCell (zellecell);
-
-	}
 }

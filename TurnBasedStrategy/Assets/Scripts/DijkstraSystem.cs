@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class DijkstraSystem : MonoBehaviour {
 
@@ -7,15 +8,15 @@ public class DijkstraSystem : MonoBehaviour {
     public Material begebarMat;
     public Material attackableMat;
     public Material defaultMat;
-    int range;
-    int attackRange;
+
+    CellComparer comp;
+
     ArrayList entdeckteZellen;
 
 	// Use this for initialization
 	void Start () {
-        range = 3;
-        attackRange = 1;
         entdeckteZellen = new ArrayList();
+        comp = new CellComparer();
 	}
 	
 	// Update is called once per frame
@@ -23,7 +24,7 @@ public class DijkstraSystem : MonoBehaviour {
 	
 	}
 
-    public void executeDijsktra(Cell start)
+    public void executeDijsktra(Cell start, int moveRange,int attackRange)
     {
         resetDijkstra();
 
@@ -32,15 +33,17 @@ public class DijkstraSystem : MonoBehaviour {
 
         while(entdeckteZellen.Count != 0)
         {
-            int lastIndex = entdeckteZellen.Count - 1;
-            Cell currentCell = (Cell)entdeckteZellen[lastIndex];
-            entdeckteZellen.RemoveAt(lastIndex);
+            entdeckteZellen.Sort(comp);
+            Cell currentCell = (Cell)entdeckteZellen[entdeckteZellen.Count-1];
+            entdeckteZellen.RemoveAt(entdeckteZellen.Count-1);
             currentCell.dij_ZellZustand = Cell.dij_Zustand.DIJ_ABGESCHLOSSEN;
-            colorCell(currentCell);
+            colorCell(currentCell,moveRange, attackRange);
+            if (currentCell.dij_GesamtKosten > moveRange + attackRange)
+                return;
             for(int i = 0; i < currentCell.neighbours.Count; ++i)
             {
                 Cell currentNeighbour = (Cell)currentCell.neighbours[i];
-                if (currentNeighbour.dij_ZellZustand != Cell.dij_Zustand.DIJ_ABGESCHLOSSEN);
+                if (currentNeighbour.dij_ZellZustand != Cell.dij_Zustand.DIJ_ABGESCHLOSSEN)
                 {
                     updateDistance(currentNeighbour, currentCell);
                 }
@@ -48,8 +51,26 @@ public class DijkstraSystem : MonoBehaviour {
         }
     }
 
+    public ArrayList getPath(Cell startKnoten, Cell zielKnoten)
+    {
+        ArrayList result = new ArrayList();
+        Cell currentNode = zielKnoten;
+        while(currentNode != startKnoten)
+        {
+            result.Add(currentNode);
+            currentNode = zielKnoten.dij_Vorgaenger;
+        }
+        return result;
+    }
+
     void updateDistance(Cell zielKnoten, Cell vorgaenger)
     {
+        if(zielKnoten.isOccupied)
+        {
+            zielKnoten.dij_ZellZustand = Cell.dij_Zustand.DIJ_ABGESCHLOSSEN;
+            zielKnoten.dij_Vorgaenger = null;
+            return;
+        }
         if((vorgaenger.dij_GesamtKosten + zielKnoten.dij_KnotenKosten) < zielKnoten.dij_GesamtKosten)
         {
             zielKnoten.dij_Vorgaenger = vorgaenger;
@@ -59,12 +80,12 @@ public class DijkstraSystem : MonoBehaviour {
         }
     }
 
-    void colorCell(Cell cell)
+    void colorCell(Cell cell,int moveRange, int attackRange)
     {
         MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
-        if (cell.dij_GesamtKosten <= range)
+        if (cell.dij_GesamtKosten <= moveRange)
             meshRend.material = begebarMat;
-        else if (cell.dij_GesamtKosten <= range + attackRange)
+        else if (cell.dij_GesamtKosten <= moveRange + attackRange)
             meshRend.material = attackableMat;
 
     }
@@ -82,5 +103,26 @@ public class DijkstraSystem : MonoBehaviour {
                 currentCell.dij_Vorgaenger = null;
                 currentCell.dij_GesamtKosten = int.MaxValue;
              }
+    }
+}
+
+
+//SORTS FROM HIGH TO LOW
+public class CellComparer: IComparer
+{
+    int IComparer.Compare(object x, object y)
+    {
+        if(x.GetType() == y.GetType() && x.GetType() == typeof(Cell))
+        {
+            Cell xCell = (Cell)x;
+            Cell yCell = (Cell)y;
+
+            if (xCell.dij_GesamtKosten == yCell.dij_GesamtKosten)
+                return 0;
+            if (xCell.dij_GesamtKosten < yCell.dij_GesamtKosten)
+                return 1;
+            return -1;
+        }
+        return 0;
     }
 }
