@@ -15,9 +15,7 @@ public class Cell : MonoBehaviour {
     public enum dij_Zustand { DIJ_UNBESUCHT, DIJ_ENTDECKT, DIJ_ABGESCHLOSSEN };
     public dij_Zustand dij_ZellZustand;
 	GameObject objectOnCell;
-	bool isOccupied = false;
-	int deckung = 0;
-	bool[] deckungsRichtung; //Links, Rechts, Oben, Unten
+	public bool isOccupied = false;
 
 	// Use this for initialization
 	void Start () {
@@ -56,15 +54,6 @@ public class Cell : MonoBehaviour {
 	public void setOccupied(GameObject gObj)
 	{
 		objectOnCell = gObj;
-		isOccupied = true;
-	}
-
-	public void setDeckung(int deckungsHoehe, bool dLinks, bool dRechts, bool dOben, bool dUnten)
-	{
-		deckung = deckungsHoehe;
-		deckungsRichtung [0] = dLinks;
-		deckungsRichtung [1] = dRechts;
-		deckungsRichtung [2] = dOben;
-		deckungsRichtung [3] = dUnten;
+		isOccupied = (gObj != null);
 	}
 }

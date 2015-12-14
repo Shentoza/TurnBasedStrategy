@@ -3,7 +3,13 @@ using System.Collections;
 
 public class AttributeComponent : MonoBehaviour {
 
-	Cell currentCell;
+    public int hp;
+    public int ap;
+    public int movementRange;
+    public float accuracy;
+    public float attackRange;
+    public GameObject weapon;
+    public GameObject[] items;
 
 	// Use this for initialization
 	void Start () {
@@ -13,15 +19,5 @@ public class AttributeComponent : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-	}
-
-	public void setCurrentCell(Cell currCell)
-	{
-		currentCell = currCell;
-	}
-
-	public Cell getCurrentCell()
-	{
-		return currentCell;
 	}
 }
