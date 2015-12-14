@@ -6,6 +6,11 @@ public class ObjectSetter : MonoBehaviour {
 
 	public int x;
 	public int z;
+	public int deckung;
+	public bool deckungLinks;
+	public bool deckungRechts;
+	public bool deckungOben;
+	public bool deckungUnten;
 	Transform objecttrans;
 	GameObject zelle;
 	Transform zelletrans;
@@ -39,6 +44,7 @@ public class ObjectSetter : MonoBehaviour {
 		zelletrans = (Transform) zelle.GetComponent (typeof(Transform));
 		Cell zellecell = (Cell)zelle.GetComponent (typeof(Cell));
 		zellecell.setOccupied (this.gameObject);
+		zellecell.setDeckung (deckung, deckungLinks, deckungRechts, deckungOben, deckungUnten);
 		objecttrans.position = new Vector3 (zelletrans.position.x, objecttrans.position.y, zelletrans.position.z);
 		playerAttr.setCurrentCell (zellecell);
 
