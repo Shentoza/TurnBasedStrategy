@@ -7,7 +7,7 @@ public class AttributeComponent : MonoBehaviour {
     public int ap;
     public int movementRange;
     public float accuracy;
-    public float attackRange;
+    public int attackRange;
     public GameObject weapon;
     public GameObject[] items;
     public static int maxMoveAP;
