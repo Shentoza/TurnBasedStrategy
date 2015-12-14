@@ -10,6 +10,8 @@ public class AttributeComponent : MonoBehaviour {
     public float attackRange;
     public GameObject weapon;
     public GameObject[] items;
+    public static int maxMoveAP;
+    public static int maxShootAP;
 
 	// Use this for initialization
 	void Start () {
