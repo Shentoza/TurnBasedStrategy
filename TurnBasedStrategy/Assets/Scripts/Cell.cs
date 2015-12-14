@@ -14,6 +14,8 @@ public class Cell : MonoBehaviour {
     public int dij_GesamtKosten = int.MaxValue;
     public enum dij_Zustand { DIJ_UNBESUCHT, DIJ_ENTDECKT, DIJ_ABGESCHLOSSEN };
     public dij_Zustand dij_ZellZustand;
+	GameObject objectOnCell;
+	public bool isOccupied = false;
 
 	// Use this for initialization
 	void Start () {
@@ -47,5 +49,11 @@ public class Cell : MonoBehaviour {
             lowerNeighbour = (Cell)lo.GetComponent(typeof(Cell));
             neighbours.Add(lowerNeighbour);
         }
+	}
+
+	public void setOccupied(GameObject gObj)
+	{
+		objectOnCell = gObj;
+		isOccupied = (gObj != null);
 	}
 }

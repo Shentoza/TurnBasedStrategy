@@ -2,35 +2,31 @@
 using System.Collections;
 
 public class BattlefieldCreater : MonoBehaviour {
-
+	
 	Transform transformPlane;
-    public DijkstraSystem DEBUG_dijstraStuff;
 	public float sizeX;
 	public float sizeZ;
 	GameObject[,] Zellen;
+	Material material;
 
 	// Use this for initialization
 	void Start () {
 		transformPlane = (Transform) this.GetComponent (typeof(Transform));
+		material = (Material) Resources.Load("MaterialQuad");
 		initiateBattlefield ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("HALLO");
-            int randomX = (int)Random.Range(0, sizeX*10);
-            int randomY = (int)Random.Range(0, sizeZ*10);
-            DEBUG_dijstraStuff.executeDijsktra(getCell(randomX, randomY));
-        }
 	}
 
 	void initiateBattlefield()
 	{
+		//Bitte kein 1.4 oder ein vielfaches davon benutzen. Danke!
 		sizeX = transformPlane.localScale.x;
-		sizeZ = transformPlane.localScale.y;
+		sizeZ = transformPlane.localScale.z;
 
+		//Prüft ob die größe der Plane größer 1 ist
 		if (sizeX < 1){
 			transformPlane.localScale = new Vector3(1, 0, transformPlane.localScale.z);
 		}
@@ -38,49 +34,64 @@ public class BattlefieldCreater : MonoBehaviour {
 			transformPlane.localScale = new Vector3(transformPlane.localScale.x ,0 ,1);
 		}
 
+		//Runden die größe der Plane auf erste nachkommastelle
 		sizeX = Mathf.Round (sizeX * 10);
 		sizeX = sizeX / 10;
 
 		sizeZ = Mathf.Round (sizeZ * 10);
 		sizeZ = sizeZ / 10;
 
-		Zellen = new GameObject[(int)(sizeX * 10), (int)(sizeZ * 10)];
+		int sizeZint = (int)(sizeZ * 10);
+		int sizeXint = (int)(sizeX * 10);
 
+		transformPlane.localScale = new Vector3 (sizeX, 0, sizeZ);
+
+		Zellen = new GameObject[(int)(sizeXint), (int)(sizeZint)];
+
+		//Verschiebt Plane in den 0 Punkt(Oben links)
 		transformPlane.position = new Vector3 (sizeX * 5, 0, sizeZ * -5);
 
-		for (float z = 0; z > -(sizeZ*10); z--) {
-			for (float x = 0; x < (sizeX*10); x++) {
+		//Initialisiert alle Zellen
+		for (float z = 0; z > -(sizeZint); z--) {
+			for (float x = 0; x < (sizeXint); x++) {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
-                zelle.AddComponent<Cell>();
-				zelle.transform.position = new Vector3((x + 0.5f), 0 , (z - 0.5f));
+				zelle.AddComponent<Cell>();
+                zelle.tag = "Cell";
+                zelle.name = x + "|" + -z;
+				zelle.transform.position = new Vector3((x + 0.5f), 1, (z - 0.5f));
+				MeshRenderer mr = (MeshRenderer)zelle.GetComponent (typeof(MeshRenderer));
+				mr.material = material;
 
 				Zellen[(int)x, (int)-z] = zelle;
 			}
 		}
-		for(int i = 0; i < (sizeZ * 10); i++)
+
+		//Setzt die Nachbarn der Zellen
+		for(int i = 0; i < (sizeZint); i++)
 		{
-			for(int j = 0; j < (sizeX*10); j++)
+			for(int j = 0; j < (sizeXint); j++)
 			{
-				Cell currentCell = (Cell) Zellen[i, j].GetComponent(typeof(Cell));
-				GameObject upper = j - 1 >= 0 ? Zellen[i, (j-1)]:null;
-				GameObject lower = j + 1 < (sizeX * 10) ? Zellen[i, (j+1)]:null;
-				GameObject left = i - 1 >= 0 ? Zellen[(i-1), j]:null;
-				GameObject right = i + 1 < (sizeZ * 10) ? Zellen[(i+1), j]:null;
+				Cell currentCell = (Cell) Zellen[j, i].GetComponent(typeof(Cell));
+				GameObject upper = i - 1 >= 0 ? Zellen[j, (i-1)]:null;
+				GameObject lower = i + 1 < (sizeZint) ? Zellen[j, (i+1)]:null;
+				GameObject left = j - 1 >= 0 ? Zellen[(j-1), i]:null;
+				GameObject right = j + 1 < (sizeXint) ? Zellen[(j+1), i]:null;
 
 				currentCell.setNeighbours(upper, left, right, lower);
 			}
 		}
-        //
-        MeshRenderer mehsy = (MeshRenderer)transformPlane.gameObject.GetComponent(typeof(MeshRenderer));
-        mehsy.enabled = false;
 
+		//Setzt Objekte an richtiche Stelle
+		ObjectSetter[] os = FindObjectsOfType (typeof(ObjectSetter)) as ObjectSetter[];
+		foreach (ObjectSetter obs in os) 
+		{
+			obs.move (Zellen);
+		}
 	}
-    public GameObject getGameObjectOfArray(int x, int y)
-    { return Zellen[x, y]; }
 
-    public Cell getCell(int x, int y)
-    {
-        return (Cell)Zellen[x, y].GetComponent(typeof(Cell));
-    }
+	public Cell getCell(int x, int y)
+	{
+		return (Cell)Zellen [x, y].GetComponent (typeof(Cell));
+	}
 }
