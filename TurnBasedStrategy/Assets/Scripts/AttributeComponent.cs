@@ -10,6 +10,9 @@ public class AttributeComponent : MonoBehaviour {
     public float attackRange;
     public GameObject weapon;
     public GameObject[] items;
+    public static int maxMoveAP;
+    public static int maxShootAP;
+    Cell cell;
 
 	// Use this for initialization
 	void Start () {
@@ -20,4 +23,14 @@ public class AttributeComponent : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void setCurrentCell(Cell cell)
+    {
+        this.cell = cell;
+    }
+
+    public Cell getCurrentCell()
+    {
+        return cell;
+    }
 }

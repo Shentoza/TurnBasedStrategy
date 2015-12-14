@@ -30,7 +30,7 @@ public class inputSystem : MonoBehaviour {
 					figurGewaehlt = true;
 					AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
 					Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
-					dijSys.executeDijsktra(currentCell);
+					dijSys.executeDijsktra(currentCell,playerAttr.movementRange,(int)playerAttr.attackRange);
 				}
 				if (angriffAusgewaehlt)
 				{
