@@ -27,7 +27,7 @@ public class inputSystem : MonoBehaviour {
                     MovementSystem moveSystem = (MovementSystem)player.GetComponent(typeof(MovementSystem));
 					Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
                     //ToDo: fill in attackSystem
-					dijSys.executeDijsktra(currentCell,moveSystem.range,1);
+					dijSys.executeDijsktra(currentCell,playerAttr.movementRange,(int)playerAttr.attackRange);
 				}
                 else if (hit.collider.gameObject.tag == "Cell")
                 {
