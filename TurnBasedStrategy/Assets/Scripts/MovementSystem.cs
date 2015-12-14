@@ -7,7 +7,6 @@ public class MovementSystem : MonoBehaviour {
     DijkstraSystem dijkstra;
 
     public float secondsPerCell;
-    public int range;
 
     ArrayList pfad;
     Cell targetCell;

@@ -71,23 +71,6 @@ public class RTSCameraScript : MonoBehaviour {
 
         cam.transform.position = new Vector3(transform.position.x, oldCamera.y, transform.position.z);
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            if (currentTarget == target1)
-            {
-                currentTarget = target2;
-                lerpTime = 0.0f;
-                //lastCamPos = cam.transform.position;
-                setDefinedRot();
-            }
-            else
-            {
-                currentTarget = target1;
-                lerpTime = 0.0f;
-                //lastCamPos = cam.transform.position;
-                setDefinedRot();
-            }
-        }
 
         if(currentTarget != null)
         {
@@ -96,42 +79,12 @@ public class RTSCameraScript : MonoBehaviour {
             cam.transform.position = Vector3.Lerp(cam.transform.position, temp, lerpTime);
         }
 
-        if(Input.GetKey("z"))
-        {
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, minDistance, Time.deltaTime);
-        }
-
-        if(Input.GetKey("u"))
-        {
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, maxDistance, Time.deltaTime);
-        }
-
        // this.transform.position = //camPos eintragen
         //this.transform.LookAt(currentTarget.transform.position);
 
-        if(Input.GetKey("i"))
-        {
-            setDefinedRot();
-        }
 
-        if(Input.GetMouseButton(1))
-        {
-            currentAngle += rotationSpeed * Time.deltaTime;
 
-            Quaternion q = Quaternion.Euler(0, currentAngle, 0);
-            Vector3 direction = q * Vector3.forward;
-            transform.position = currentTarget.transform.position - direction * distance;
-            transform.position += new Vector3(0, 10, 0);
-            transform.LookAt(currentTarget.transform.position);
-            Debug.Log(currentTarget);
-            //transform.RotateAround(currentTarget.transform.position, currentTarget.transform.up, rotationSpeed * Time.deltaTime);
-        }
-
-        if(Input.GetMouseButtonUp(1))
-        {
-            setDefinedRot();
-        }
-
+        
     }
 
     //Objekt ändern auf das die Kamera ausgerichtet ist
@@ -149,6 +102,48 @@ public class RTSCameraScript : MonoBehaviour {
     public void clearTarget()
     {
         currentTarget = null;
+    }
+
+    public void zoomIn()
+    {
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, minDistance, Time.deltaTime);
+    }
+
+    public void zoomOut()
+    {
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, maxDistance, Time.deltaTime);
+    }
+
+    public void rotateAroundFigure()
+    {
+        currentAngle += rotationSpeed * Time.deltaTime;
+
+        Quaternion q = Quaternion.Euler(0, currentAngle, 0);
+        Vector3 direction = q * Vector3.forward;
+        transform.position = currentTarget.transform.position - direction * distance;
+        transform.position += new Vector3(0, 10, 0);
+        transform.LookAt(currentTarget.transform.position);
+        Debug.Log(currentTarget);
+        //transform.RotateAround(currentTarget.transform.position, currentTarget.transform.up, rotationSpeed * Time.deltaTime);
+    }
+
+    public void moveToTarget()
+    {
+        if (currentTarget == target1)
+        {
+            currentTarget = target2;
+            lerpTime = 0.0f;
+            //lastCamPos = cam.transform.position;
+            setDefinedRot();
+        }
+        else
+        {
+            currentTarget = target1;
+            lerpTime = 0.0f;
+            //lastCamPos = cam.transform.position;
+            setDefinedRot();
+        }
+
     }
 
 }
