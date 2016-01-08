@@ -26,7 +26,7 @@ public class MovementSystem : MonoBehaviour {
 
     public void MoveTo(Cell target)
     {
-        if(target.dij_GesamtKosten <= range)
+        if(target.dij_GesamtKosten <= playerAttr.movementRange)
         {
             targetCell = target;
             pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
