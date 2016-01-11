@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using UnityEngine;
+using System.Collections;
+
 public class inputSystem : MonoBehaviour {
 	
 	GameObject player;
+	Cell zelle;
 	bool figurGewaehlt;
-	bool SpielerAmZug; //True = Spieler Eins, False = Spieler zwei
+	bool SpielerAmZug = true; //True = Spieler Eins, False = Spieler zwei
 	DijkstraSystem dijSys;
 	bool angriffAusgewaehlt;
 	MovementSystem moveSys;
+	bool smokeAusgewaehlt;
+	bool molotovAusgewaehlt;
 	// Use this for initialization
 	void Start () {
 		dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
@@ -29,7 +35,7 @@ public class inputSystem : MonoBehaviour {
 					figurGewaehlt = true;
 					AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
 					Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
-					dijSys.executeDijsktra(currentCell,playerAttr.movementRange,playerAttr.attackRange);
+					dijSys.executeDijsktra(currentCell, playerAttr.movementRange, playerAttr.attackRange);
 				}
 				if (angriffAusgewaehlt)
 				{
@@ -37,20 +43,58 @@ public class inputSystem : MonoBehaviour {
 					{
 						//FühreAngriffAus
 					}
+					}
+				if (smokeAusgewaehlt)
+				{
+					if(hit.collider.gameObject.tag == "Cell")
+					{
+						AbilitySystem playerAbilSys = (AbilitySystem) player.GetComponent(typeof(AbilitySystem));
+						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
+						playerAbilSys.throwSmoke(zelle);
+						smokeAusgewaehlt = false;
+					}
 				}
+				if (molotovAusgewaehlt)
+				{
+					if(hit.collider.gameObject.tag == "Cell")
+					{
+						AbilitySystem playerAbilSys = (AbilitySystem) player.GetComponent(typeof(AbilitySystem));
+						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
+						playerAbilSys.throwMolotov(zelle);
+						molotovAusgewaehlt = false;
+					}
+				}
+			}
+			else
+			{
+				figurGewaehlt = false;
 			}
 		}
 		if (Input.GetMouseButton (1)) {
 			Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			Physics.Raycast (clicked, out hit);
-			if(figurGewaehlt && hit.collider.gameObject.tag == "Cell")
+			if(hit.collider != null)
 			{
-				Cell zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-				MovementSystem moveSys = (MovementSystem) player.GetComponent (typeof(MovementSystem));
-				moveSys.MoveTo(zelle);				
+				if(figurGewaehlt && hit.collider.gameObject.tag == "Cell")
+				{
+					zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
+					MovementSystem moveSys = (MovementSystem) player.GetComponent(typeof(MovementSystem));
+					moveSys.MoveTo(zelle);
+				}
+			}
+			else
+			{
+				figurGewaehlt = false;
 			}
 		}
+		if (Input.GetKeyDown ("s")) {
+			smokeAusgewaehlt = true;
+		}
+		if (Input.GetKeyDown ("f")) {
+			molotovAusgewaehlt = true;
+		}
+
 	}
 }
 
