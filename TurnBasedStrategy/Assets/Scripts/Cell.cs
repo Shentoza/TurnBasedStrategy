@@ -16,6 +16,8 @@ public class Cell : MonoBehaviour {
     public dij_Zustand dij_ZellZustand;
 	GameObject objectOnCell;
 	public bool isOccupied = false;
+	public bool setOnFire = false;
+	public bool smoked = false;
 
 	// Use this for initialization
 	void Start () {
