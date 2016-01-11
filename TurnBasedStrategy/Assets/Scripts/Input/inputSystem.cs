@@ -10,7 +10,7 @@ public class inputSystem : MonoBehaviour {
 	GameObject player;
 	Cell zelle;
 	bool figurGewaehlt;
-    bool SpielerAmZug;
+    bool spielerAmZug;
 
     DijkstraSystem dijSys;
 	bool angriffAusgewaehlt;
@@ -21,22 +21,26 @@ public class inputSystem : MonoBehaviour {
 	void Start () {
 
         dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
-        manager = (ManagerSystem)FindObjectOfType(typeof(ManagerSystem));
+        manager = GameObject.Find("Manager").GetComponent<ManagerSystem>();
 	}
 	
 
 	// Update is called once per frame
 	void Update () {
-        SpielerAmZug = manager.getPlayerTurn();
+        
         if (Input.GetMouseButton (0)) 
 		{
+            spielerAmZug = manager.getPlayerTurn();
+            Debug.Log(spielerAmZug);
             //True = Spieler Eins, False = Spieler zwei
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			Physics.Raycast (clicked, out hit);
 			if(hit.collider != null)
 			{
-				if ((hit.collider.gameObject.tag == "FigurSpieler1" && SpielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !SpielerAmZug)) 
+                Debug.Log(spielerAmZug);
+                
+				if ((hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
 				{
                     manager.setSelectedFigurine(hit.collider.gameObject);
                     Debug.Log(hit.collider.gameObject.name);
@@ -48,7 +52,7 @@ public class inputSystem : MonoBehaviour {
 				}
 				if (angriffAusgewaehlt)
 				{
-					if(hit.collider.gameObject.tag == "FigurSpieler1" && SpielerAmZug || hit.collider.gameObject.tag == "FigurSpieler2" && !SpielerAmZug)
+					if(hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug || hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)
 					{
 						//FühreAngriffAus
 					}

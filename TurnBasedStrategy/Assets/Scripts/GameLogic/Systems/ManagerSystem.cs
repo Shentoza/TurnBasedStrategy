@@ -40,20 +40,19 @@ public class ManagerSystem : MonoBehaviour {
         return player1;
     }
 
+    //Legt fest, welcher Spieler am Zug ist
     public void setPlayerTurn()
     {
         isPlayer1 = !isPlayer1;
-        if(isPlayer1)
+        if(isPlayer1) //wenn Spieler 1 dran ist
         {
-            player1.GetComponent<inputSystem>().enabled = true;
+            player1.GetComponent<inputSystem>().enabled = true; //Aktiviere InputSys von Spieler1
             player2.GetComponent<inputSystem>().enabled = false;
-            Debug.Log("Spieler1 am Zug");
         }
         else
         {
             player1.GetComponent<inputSystem>().enabled = false;
-            player2.GetComponent<inputSystem>().enabled = true;
-            Debug.Log("Spieler2 am Zug");
+            player2.GetComponent<inputSystem>().enabled = true; //Aktiviere InputSys von Spieler2
         }
 
     }
