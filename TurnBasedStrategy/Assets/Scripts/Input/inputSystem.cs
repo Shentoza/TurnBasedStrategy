@@ -5,31 +5,40 @@ using UnityEngine;
 using System.Collections;
 
 public class inputSystem : MonoBehaviour {
-	
+
+    ManagerSystem manager;
 	GameObject player;
 	Cell zelle;
 	bool figurGewaehlt;
-	bool SpielerAmZug = true; //True = Spieler Eins, False = Spieler zwei
-	DijkstraSystem dijSys;
+    bool SpielerAmZug;
+
+    DijkstraSystem dijSys;
 	bool angriffAusgewaehlt;
 	bool smokeAusgewaehlt;
 	bool molotovAusgewaehlt;
 	// Use this for initialization
 	void Start () {
-		dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
+
+        dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
+        manager = (ManagerSystem)FindObjectOfType(typeof(ManagerSystem));
 	}
 	
+
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton (0)) 
+        SpielerAmZug = manager.getPlayerTurn();
+        if (Input.GetMouseButton (0)) 
 		{
-			Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
+            //True = Spieler Eins, False = Spieler zwei
+            Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			Physics.Raycast (clicked, out hit);
 			if(hit.collider != null)
 			{
-				if (hit.collider.gameObject.tag == "FigurSpieler1" && SpielerAmZug || hit.collider.gameObject.tag == "FigurSpieler2" && !SpielerAmZug) 
+				if ((hit.collider.gameObject.tag == "FigurSpieler1" && SpielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !SpielerAmZug)) 
 				{
+                    manager.setSelectedFigurine(hit.collider.gameObject);
+                    Debug.Log(hit.collider.gameObject.name);
 					player = hit.collider.gameObject;
 					figurGewaehlt = true;
 					AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
@@ -94,6 +103,11 @@ public class inputSystem : MonoBehaviour {
 		if (Input.GetKeyDown ("f")) {
 			molotovAusgewaehlt = true;
 		}
+
+        if(Input.GetKeyDown("n"))
+        {
+            manager.setPlayerTurn();
+        }
 
 	}
 }
