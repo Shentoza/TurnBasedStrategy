@@ -112,7 +112,10 @@ public class MovementSystem : MonoBehaviour {
         }
     }
 
-    //Checkt ob er in die aktuelle Richtung der Bewegung schaut
+    /*
+    Returns: True wenn er in die Richtung des Pfades schaut, false sonst
+    Interpoliert zwischen der aktuellen Position, und der RIchtung des Pfades und dreht Playerattr.
+    */
     private bool checkRotation(Cell currentCell, Cell targetCell)
     {
         Vector3 walkingDirection = targetCell.transform.position - currentCell.transform.position;
