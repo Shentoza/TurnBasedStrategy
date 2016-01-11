@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MovementSystem : MonoBehaviour {
 
@@ -15,17 +16,23 @@ public class MovementSystem : MonoBehaviour {
     bool yHeightSet = false;
 
     float deltaSum;
+
+    private float turningSpeed = 360.0f;
+    private float startAngle;
+    private bool startAngleSet;
+    private float turningDirection;
     
 	// Use this for initialization
 	void Start () {
         dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
         playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
+        startAngle = 0.0f;
+        startAngleSet = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
         continueMovement();
-        //Debug.Log("Player:"+playerAttr.transform.position+"  Cell:"+playerAttr.getCurrentCell().transform.position);
 	}
 
     public void MoveTo(Cell target)
@@ -53,6 +60,9 @@ public class MovementSystem : MonoBehaviour {
             Cell currentCell = playerAttr.getCurrentCell();
 
             Cell nextCell = (Cell)pfad[pfad.Count-1];
+
+            if (!checkRotation(currentCell,nextCell))
+                return;
 
             float progress = Mathf.Clamp01(deltaSum / secondsPerCell);
 
@@ -100,5 +110,43 @@ public class MovementSystem : MonoBehaviour {
             }
             deltaSum += Time.deltaTime;
         }
+    }
+
+    //Checkt ob er in die aktuelle Richtung der Bewegung schaut
+    private bool checkRotation(Cell currentCell, Cell targetCell)
+    {
+        Vector3 walkingDirection = targetCell.transform.position - currentCell.transform.position;
+        Vector3 facingDirection = playerAttr.transform.forward;
+
+        float angle = Vector3.Angle(walkingDirection.normalized, facingDirection);
+
+        //Todo: in mehreren Frames Y Rotation auf angle interpolieren
+        if (angle != 0.0f)
+        {
+            if (!startAngleSet)
+            {
+                if (Vector3.Cross(walkingDirection.normalized, facingDirection).y < 0.0f)
+                {
+                    turningDirection = 1.0f;
+                }
+                else
+                {
+                    turningDirection = -1.0f;
+                }
+
+                startAngle = angle;
+                startAngleSet = true;
+            }
+
+            float yRotation = Mathf.Clamp(Time.deltaTime * turningSpeed * turningDirection, -angle, angle);
+            angle += yRotation;
+            Vector3 euler = playerAttr.transform.rotation.eulerAngles;
+            euler.y += yRotation;
+            playerAttr.transform.rotation = Quaternion.Euler(euler);
+        }
+        else
+            startAngleSet = false;
+
+        return angle == 0.0f;
     }
 }
