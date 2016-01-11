@@ -12,6 +12,7 @@ public class inputSystem : MonoBehaviour {
 	bool SpielerAmZug = true; //True = Spieler Eins, False = Spieler zwei
 	DijkstraSystem dijSys;
 	bool angriffAusgewaehlt;
+	MovementSystem moveSys;
 	bool smokeAusgewaehlt;
 	bool molotovAusgewaehlt;
 	// Use this for initialization
@@ -42,7 +43,7 @@ public class inputSystem : MonoBehaviour {
 					{
 						//FühreAngriffAus
 					}
-				}
+					}
 				if (smokeAusgewaehlt)
 				{
 					if(hit.collider.gameObject.tag == "Cell")
@@ -63,7 +64,6 @@ public class inputSystem : MonoBehaviour {
 						molotovAusgewaehlt = false;
 					}
 				}
-
 			}
 			else
 			{
