@@ -48,7 +48,7 @@ public class inputSystem : MonoBehaviour {
 			{
 				Cell zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
 				MovementSystem moveSys = (MovementSystem) player.GetComponent (typeof(MovementSystem));
-				MovementSystem.MoveTo(zelle);				
+				moveSys.MoveTo(zelle);				
 			}
 		}
 	}
