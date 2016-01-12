@@ -108,7 +108,7 @@ public class DijkstraSystem : MonoBehaviour {
             }
     }
 
-    void resetDijkstra()
+    public void resetDijkstra()
     {
         entdeckteZellen.Clear();
         for(int i = 0; i < (battleField.sizeX*10);++i)

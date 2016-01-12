@@ -37,7 +37,7 @@ public class MovementSystem : MonoBehaviour {
 
     public void MoveTo(Cell target)
     {
-        if(target.dij_GesamtKosten <= playerAttr.maxMovRange)
+        if(target.dij_GesamtKosten <= playerAttr.actMovRange)
         {
             if(!yHeightSet)
             { 
@@ -48,6 +48,7 @@ public class MovementSystem : MonoBehaviour {
             startingCell = playerAttr.getCurrentCell();
             pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
             dijkstra.colorAllCells(true, 0, 0);
+            playerAttr.actMovRange -= target.dij_GesamtKosten;
         }
     }
 
@@ -113,7 +114,7 @@ public class MovementSystem : MonoBehaviour {
                 if(currentCell == targetCell)
                 {
                     //MovementRange abziehen(?)
-                    dijkstra.executeDijsktra(currentCell, playerAttr.movementRange, playerAttr.attackRange);
+                    dijkstra.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
                 }
             }
             deltaSum += Time.deltaTime;
