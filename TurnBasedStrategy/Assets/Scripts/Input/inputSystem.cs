@@ -30,8 +30,9 @@ public class inputSystem : MonoBehaviour {
         
         if (Input.GetMouseButton (0)) 
 		{
+            Debug.Log(manager.getPlayerTurn());
             spielerAmZug = manager.getPlayerTurn();
-            Debug.Log(spielerAmZug);
+           // Debug.Log(spielerAmZug);
             //True = Spieler Eins, False = Spieler zwei
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;

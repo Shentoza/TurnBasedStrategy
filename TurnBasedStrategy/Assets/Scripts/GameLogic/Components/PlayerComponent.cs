@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerComponent : MonoBehaviour {
 
-    GameObject[] figurines;
+    GameObject[] figurines; //Alle Figuren über die ein Spieler verfügt
     int actionPoints; //Anzahl an verfügbaren Aktionspunkten
     int maxAP; //Maxcap für AP
 
@@ -22,6 +22,7 @@ public class PlayerComponent : MonoBehaviour {
 	
 	}
 
+    //Löscht Spielfigur
     public void removeFigurine(GameObject figurine)
     {
         for(int i = 0; i < figurines.Length; i++)
