@@ -90,6 +90,24 @@ public class DijkstraSystem : MonoBehaviour {
 
     }
 
+    public void colorAllCells(bool reset, int moveRange, int attackRange)
+    {
+        for (int i = 0; i < (battleField.sizeX * 10); ++i)
+            for (int j = 0; j < (battleField.sizeZ * 10); ++j)
+            {
+                Cell currentCell = battleField.getCell(i, j);
+                if (reset)
+                {
+                    MeshRenderer meshRend = (MeshRenderer)currentCell.gameObject.GetComponent(typeof(MeshRenderer));
+                    meshRend.material = defaultMat;
+                }
+                else
+                {
+                    colorCell(currentCell, moveRange, attackRange);
+                }
+            }
+    }
+
     void resetDijkstra()
     {
         entdeckteZellen.Clear();
