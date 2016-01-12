@@ -47,6 +47,7 @@ public class MovementSystem : MonoBehaviour {
             targetCell = target;
             startingCell = playerAttr.getCurrentCell();
             pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
+            dijkstra.colorAllCells(true, 0, 0);
         }
     }
 
@@ -107,6 +108,13 @@ public class MovementSystem : MonoBehaviour {
                 playerAttr.setCurrentCell(nextCell);
                 deltaSum = 0.0f;
                 pfad.RemoveAt(pfad.Count - 1);
+
+                //Zielerreicht
+                if(currentCell == targetCell)
+                {
+                    //MovementRange abziehen(?)
+                    dijkstra.executeDijsktra(currentCell, playerAttr.movementRange, playerAttr.attackRange);
+                }
             }
             deltaSum += Time.deltaTime;
         }
