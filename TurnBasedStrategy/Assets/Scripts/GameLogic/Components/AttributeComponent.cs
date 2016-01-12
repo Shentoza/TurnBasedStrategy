@@ -3,15 +3,16 @@ using System.Collections;
 
 public class AttributeComponent : MonoBehaviour {
 
-    public int hp;
-    public int ap;
-    public int movementRange;
-    public float accuracy;
-    public int attackRange;
+    public int hp; //Lebenspunkte
+    public int ap; //Ausgegebene AP
+    public int maxMovRange; //Maximale Bewegungsreichweite
+    public int actMovRange; //Aktuelle Bewegungsreichweite
+    public float minAccuracy;
+    public int attackRange; //Auslagern in Weapon-Component
     public GameObject weapon;
-    public GameObject[] items;
-    public static int maxMoveAP;
-    public static int maxShootAP;
+    public GameObject[] items; //To-Do: Inventory schreiben
+    public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
+    public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
     Cell cell;
 
 	// Use this for initialization
