@@ -57,6 +57,8 @@ public class ManagerSystem : MonoBehaviour {
             player2.GetComponent<inputSystem>().enabled = true; //Aktiviere InputSys von Spieler2
         }
 
+        GameObject.Find("Plane").GetComponent<DijkstraSystem>().resetDijkstra();
+
     }
 
     public void setSelectedFigurine(GameObject selected)
