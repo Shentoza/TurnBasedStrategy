@@ -125,14 +125,20 @@ public class MovementSystem : MonoBehaviour {
     Returns: True wenn er in die Richtung des Pfades schaut, false sonst
     Interpoliert zwischen der aktuellen Position, und der RIchtung des Pfades und dreht Playerattr.
     */
-    private bool checkRotation(Cell currentCell, Cell targetCell)
+    public bool checkRotation(Cell currentCell, Cell targetCell)
     {
+
+        //Richtung, in die der Pfad von currentCell zu  targetCell schaut.
         Vector3 walkingDirection = targetCell.transform.position - currentCell.transform.position;
+
+        //Aktuelle Richtung in die wir schauen
         Vector3 facingDirection = playerAttr.transform.forward;
 
+
+        //Winkel zwischen unseren zwei Vektoren
         float angle = Vector3.Angle(walkingDirection.normalized, facingDirection);
 
-        //Todo: in mehreren Frames Y Rotation auf angle interpolieren
+        //Schaue ich schon in die passende Richtung?
         if (angle != 0.0f)
         {
             if (!startAngleSet)
