@@ -211,7 +211,7 @@ public class RebellTroopMenu : MonoBehaviour {
             }
             else if (Event.current.button == 1)
             {
-                unitsList.RemoveAt(activeUnit);
+                unitsList.RemoveAt(unitID);
             }
         }      
         

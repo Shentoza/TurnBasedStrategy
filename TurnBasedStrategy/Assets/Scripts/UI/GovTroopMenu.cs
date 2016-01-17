@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class GovTroopMenu : MonoBehaviour {
@@ -26,7 +27,7 @@ public class GovTroopMenu : MonoBehaviour {
 
     //dummys
     // 0 = keine einheit; 1 = streifenpolizist.....
-    int[] unitsList = {1,2,3,4,0,0};
+    List<int> unitsList = new List<int>();
    
 
 	// Use this for initialization
@@ -56,7 +57,7 @@ public class GovTroopMenu : MonoBehaviour {
         int yAnker = unitListYAnker;
 
 
-        for (int i = 0; i < unitsList.GetLength(0);i++ )
+        for (int i = 0; i < unitsList.Count; i++ )
         {
             //ist einheit ausgewählt
             if (i == activeUnit)
@@ -78,23 +79,23 @@ public class GovTroopMenu : MonoBehaviour {
         //einheiten auswahlbuttons
         if (GUI.Button(new Rect( (int)(Screen.width * 0.4), (int)(Screen.height * 0.4), 150, 100), unit1))
         {
-            unitsList[activeUnit] = 1;
-            activeUnit = (activeUnit+1) % unitsList.GetLength(0);
+            unitsList.Add(1);
+            activeUnit = (activeUnit+1) % unitsList.Count;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.6), (int)(Screen.height * 0.4), 150, 100), unit1))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.6), (int)(Screen.height * 0.4), 150, 100), unit2))
         {
-            unitsList[activeUnit] = 2;
-            activeUnit = (activeUnit + 1) % unitsList.GetLength(0);
+            unitsList.Add(2);
+            activeUnit = (activeUnit + 1) % unitsList.Count;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.4), (int)(Screen.height * 0.6), 150, 100), unit1))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.4), (int)(Screen.height * 0.6), 150, 100), unit3))
         {
-            unitsList[activeUnit] = 3;
-            activeUnit = (activeUnit + 1) % unitsList.GetLength(0);
+            unitsList.Add(3);
+            activeUnit = (activeUnit + 1) % unitsList.Count;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.6), (int)(Screen.height * 0.6), 150, 100), unit1))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.6), (int)(Screen.height * 0.6), 150, 100), unit4))
         {
-            unitsList[activeUnit] = 4;
-            activeUnit = (activeUnit + 1) % unitsList.GetLength(0);
+            unitsList.Add(4);
+            activeUnit = (activeUnit + 1) % unitsList.Count;
         }
 
 
@@ -113,7 +114,7 @@ public class GovTroopMenu : MonoBehaviour {
                 }
                 else if (Event.current.button == 1)
                 {
-                    unitsList[unitID] = 0;
+                    unitsList.RemoveAt(unitID);
                 }
             }
         }
@@ -126,7 +127,7 @@ public class GovTroopMenu : MonoBehaviour {
                 }
                 else if (Event.current.button == 1)
                 {
-                    unitsList[unitID] = 0;
+                   unitsList.RemoveAt(unitID);
                 }
             }
         }
@@ -140,7 +141,7 @@ public class GovTroopMenu : MonoBehaviour {
                 }
                 else if (Event.current.button == 1)
                 {
-                   unitsList[unitID] = 0;
+                    unitsList.RemoveAt(unitID);
                 }
             }
         }
@@ -154,7 +155,7 @@ public class GovTroopMenu : MonoBehaviour {
                 }
                 else if (Event.current.button == 1)
                 {
-                    unitsList[unitID] = 0;
+                    unitsList.RemoveAt(unitID);
                 }
             }
 
@@ -169,7 +170,7 @@ public class GovTroopMenu : MonoBehaviour {
                 }
                 else if (Event.current.button == 1)
                 {
-                    unitsList[unitID] = 0;
+                    unitsList.RemoveAt(unitID);
                 }
             }
         }
