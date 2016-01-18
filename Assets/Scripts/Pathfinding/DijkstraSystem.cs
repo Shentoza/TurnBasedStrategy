@@ -55,6 +55,12 @@ public class DijkstraSystem : MonoBehaviour {
     {
         ArrayList result = new ArrayList();
         Cell currentNode = zielKnoten;
+        Vector3 offset = new Vector3(0, 1, 0);
+        Ray raycast = new Ray(startKnoten.transform.position+offset,zielKnoten.transform.position - startKnoten.transform.position);
+        RaycastHit[] hits = Physics.RaycastAll(raycast, raycast.direction.magnitude, LayerMask.NameToLayer("Cell"),QueryTriggerInteraction.Collide);
+        Debug.DrawRay(raycast.origin, raycast.direction, Color.red, 10.0f);
+        foreach (RaycastHit tmp in hits)
+            Debug.Log(tmp.collider.gameObject.name);
         while(currentNode != startKnoten)
         {
             result.Add(currentNode);
