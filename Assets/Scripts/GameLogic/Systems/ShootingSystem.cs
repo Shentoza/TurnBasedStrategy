@@ -4,16 +4,16 @@ using System.Collections;
 public class ShootingSystem : MonoBehaviour
 {
     // Calculating accuracy with values between 0,1s
-    public static const float DEFAULT_ACCURACY = 0.75f;
+    public const float DEFAULT_ACCURACY = 0.75f;
 
     private AttributeComponent playerAttr;
-    private WeaponComponent weaponAttr;
+    //private WeaponComponent weaponAttr;
 
     // Use this for initialization
     void Start ()
     {
         playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
-        weaponAttr = (WeaponComponent)this.gameObject.GetComponent(typeof(WeaponComponent));
+        //weaponAttr = (WeaponComponent)this.gameObject.GetComponent(typeof(WeaponComponent));
     }
 	
 	// Update is called once per frame
@@ -21,7 +21,7 @@ public class ShootingSystem : MonoBehaviour
     {
 	
 	}
-
+   
     /*
         public int hp; //Lebenspunkte
         public int ap; //Ausgegebene AP
@@ -35,7 +35,7 @@ public class ShootingSystem : MonoBehaviour
         public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
         public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
         Cell cell;
-    */
+    
     public bool shoot(Cell target)
     {
         if (target.dij_GesamtKosten <= playerAttr.attackRange)
@@ -85,7 +85,7 @@ public class ShootingSystem : MonoBehaviour
         return 0.0f;
     }
 
-    /*
+    
         Schießen:
         -          Schießen kostet 1AP
         -          Es kann pro Figur je Zug nur 1AP für das Schießen ausgegeben werden
@@ -100,4 +100,5 @@ public class ShootingSystem : MonoBehaviour
         -          Grundangriffsreichweite + Waffenreichweite = actualReichweite
         -          Schadensmalus durch Rüstungswert des Verteidigers
         */
+        
 }
