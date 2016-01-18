@@ -8,6 +8,8 @@ public class RTSCameraScript : MonoBehaviour {
     public GameObject currentTarget;
     public Vector3 velocity = new Vector3(0, 0, 0);
     public float distance = 15.0f;
+	public Vector3 distanceVectorPlayerOne = new Vector3 (0, 15, -15);
+	public Vector3 distanceVectorPlayerTwo = new Vector3 (0, 15, 15);
     float mousePosX;
     float mousePosY;
     float scrollDistance = 0.98f;
@@ -25,9 +27,9 @@ public class RTSCameraScript : MonoBehaviour {
     Vector3 lastCamPos;
 
     float rotationSpeed = 20.0f;
+	CameraRotationScript rotationScript;
 
     float currentAngle;
-
 
 
     // Use this for initialization
@@ -35,6 +37,7 @@ public class RTSCameraScript : MonoBehaviour {
         cam = this.gameObject.GetComponent<Camera>();
        // constantPos = this.transform.position;
         constantRot = this.transform.rotation;
+		rotationScript = (CameraRotationScript)FindObjectOfType (typeof(CameraRotationScript));
 	}
 	
 	// Update is called once per frame
@@ -75,22 +78,19 @@ public class RTSCameraScript : MonoBehaviour {
         if(currentTarget != null)
         {
             lerpTime += Time.deltaTime;
-            Vector3 temp = currentTarget.transform.position + constantPos;
-            cam.transform.position = Vector3.Lerp(cam.transform.position, temp, lerpTime);
+			Vector3 temp = currentTarget.transform.position;
+            cam.transform.position = Vector3.Lerp(cam.transform.position, temp+distanceVectorPlayerOne, lerpTime);
         }
 
        // this.transform.position = //camPos eintragen
         //this.transform.LookAt(currentTarget.transform.position);
-
-
-
-        
     }
 
     //Objekt ändern auf das die Kamera ausgerichtet ist
     public void changeTarget(GameObject newTarget)
     {     
         currentTarget = newTarget;
+		rotationScript.setNewTarget (newTarget);
     }
 
 
@@ -116,6 +116,7 @@ public class RTSCameraScript : MonoBehaviour {
 
     public void rotateAroundFigure()
     {
+		/*
         currentAngle += rotationSpeed * Time.deltaTime;
 
         Quaternion q = Quaternion.Euler(0, currentAngle, 0);
@@ -123,8 +124,9 @@ public class RTSCameraScript : MonoBehaviour {
         transform.position = currentTarget.transform.position - direction * distance;
         transform.position += new Vector3(0, 10, 0);
         transform.LookAt(currentTarget.transform.position);
-        Debug.Log(currentTarget);
+        Debug.Log(currentTarget);*/
         //transform.RotateAround(currentTarget.transform.position, currentTarget.transform.up, rotationSpeed * Time.deltaTime);
+
     }
 
     public void moveToTarget()
