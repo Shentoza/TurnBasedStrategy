@@ -63,8 +63,8 @@ public class CameraRotationScript : MonoBehaviour {
 	{
 		//Beendet die Kamerfahrt am Anfang
 		//Führt die Kamerafahrt am Anfang durch
-		Debug.Log ("Start:" + startLerp);
-		Debug.Log ("Switch:" + startSwitch);
+		//Debug.Log ("Start:" + startLerp);
+		//Debug.Log ("Switch:" + startSwitch);
 		if (startLerp) {
 			lerpTime += Time.deltaTime;
 			transform.position = Vector3.Lerp(transform.position, new Vector3(5, 10, -15), lerpTime * 0.03f);
