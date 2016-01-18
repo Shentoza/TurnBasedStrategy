@@ -7,12 +7,12 @@ public class BattlefieldCreater : MonoBehaviour {
 	public float sizeX;
 	public float sizeZ;
 	GameObject[,] Zellen;
-	Material material;
+	public Material material;
+    public float gridHeight;
 
 	// Use this for initialization
 	void Start () {
 		transformPlane = (Transform) this.GetComponent (typeof(Transform));
-		material = (Material) Resources.Load("MaterialQuad");
 		initiateBattlefield ();
 	}
 
@@ -44,7 +44,7 @@ public class BattlefieldCreater : MonoBehaviour {
 		int sizeZint = (int)(sizeZ * 10);
 		int sizeXint = (int)(sizeX * 10);
 
-		transformPlane.localScale = new Vector3 (sizeX, 0, sizeZ);
+		transformPlane.localScale = new Vector3 (sizeX, 1, sizeZ);
 
 		Zellen = new GameObject[(int)(sizeXint), (int)(sizeZint)];
 
@@ -59,9 +59,12 @@ public class BattlefieldCreater : MonoBehaviour {
 				zelle.AddComponent<Cell>();
                 zelle.tag = "Cell";
                 zelle.name = x + "|" + -z;
-				zelle.transform.position = new Vector3((x + 0.5f), 1, (z - 0.5f));
+				zelle.transform.position = new Vector3((x + 0.5f), 0.001f, (z - 0.5f));
 				MeshRenderer mr = (MeshRenderer)zelle.GetComponent (typeof(MeshRenderer));
+                mr.receiveShadows = false;
+                mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				mr.material = material;
+                //zelle.active = false;
 
 				Zellen[(int)x, (int)-z] = zelle;
 			}

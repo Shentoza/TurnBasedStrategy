@@ -3,11 +3,14 @@ using System.Collections;
 
 public class ManagerSystem : MonoBehaviour {
 
+    CameraRotationScript cam;
     private int rounds;             //Spiegelt Rundenzahl wieder
     private bool isPlayer1;         //Spieler1 an der Reihe
     GameObject player1;
     GameObject player2;
     GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
+
+    int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
 
 	// Use this for initialization
@@ -17,6 +20,7 @@ public class ManagerSystem : MonoBehaviour {
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
         player2.GetComponent<inputSystem>().enabled = false;
+        cam = GameObject.Find("Main Camera").GetComponent<CameraRotationScript>();
     }
 	
 	// Update is called once per frame
@@ -41,20 +45,29 @@ public class ManagerSystem : MonoBehaviour {
     //Legt fest, welcher Spieler am Zug ist
     public void setPlayerTurn()
     {
+        roundHalf++;
+        if(roundHalf == 2)
+        {
+            nextRound();
+            roundHalf = 0;
+        }
         isPlayer1 = !isPlayer1;
         if(isPlayer1) //wenn Spieler 1 dran ist
         {
             //To-Do: Mit UI verknüpfen 
-            Debug.Log("Spieler1 ist am Zug"); 
-            player1.GetComponent<inputSystem>().enabled = true; //Aktiviere InputSys von Spieler1
+            Debug.Log("Spieler1 ist am Zug");
+            setSelectedFigurine(player1.transform.GetChild(0).gameObject);               //Wählt das erste Child von Spieler2
+            cam.setNewTarget(player1.transform.GetChild(0).gameObject);                 //Gibt der Kamera ein neues Target
+            player1.GetComponent<inputSystem>().enabled = true;                         //Aktiviere InputSys von Spieler1
             player2.GetComponent<inputSystem>().enabled = false;
         }
         else
         {
             //To-Do: Mit UI verknüpfen 
-            Debug.Log("Spieler2 ist am Zug");
+            setSelectedFigurine(player2.transform.GetChild(0).gameObject);             //Wählt das erste Child von Spieler2
+            cam.setNewTarget(player2.transform.GetChild(0).gameObject);              //Gibt der Kamera ein neues Target
             player1.GetComponent<inputSystem>().enabled = false;
-            player2.GetComponent<inputSystem>().enabled = true; //Aktiviere InputSys von Spieler2
+            player2.GetComponent<inputSystem>().enabled = true;                      //Aktiviere InputSys von Spieler2
         }
 
         GameObject.Find("Plane").GetComponent<DijkstraSystem>().resetDijkstra();
