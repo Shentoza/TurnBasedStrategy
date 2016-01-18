@@ -64,7 +64,7 @@ public class BattlefieldCreater : MonoBehaviour {
                 mr.receiveShadows = false;
                 mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				mr.material = material;
-                //zelle.active = false;
+                mr.enabled = false;
 
 				Zellen[(int)x, (int)-z] = zelle;
 			}
