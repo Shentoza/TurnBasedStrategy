@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using UnityEngine;
-using System.Collections;
-
 public class inputSystem : MonoBehaviour {
 
     ManagerSystem manager;
 	GameObject player;
 	Cell zelle;
 	DijkstraSystem dijSys;
-	RTSCameraScript cameraScript;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
@@ -43,13 +39,12 @@ public class inputSystem : MonoBehaviour {
 				{
 					if(player != hit.collider.gameObject)
 					{
-                    manager.setSelectedFigurine(hit.collider.gameObject);
-                    Debug.Log(hit.collider.gameObject.name);
+                        manager.setSelectedFigurine(hit.collider.gameObject);
 						player = hit.collider.gameObject;
 						figurGewaehlt = true;
 						AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
 						Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
-						dijSys.executeDijsktra(currentCell, playerAttr.movementRange, playerAttr.attackRange);
+						dijSys.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
 						rotationScript.setNewTarget(player);
 					}
 				}
@@ -108,7 +103,7 @@ public class inputSystem : MonoBehaviour {
 			rotationScript.setStartRotation ();
 		}
 		if (!Input.GetKey ("r")) {
-			rotationScript.setStopRotation ();
+			rotationScript.setStopRotation ();  
 		}
 
 		if (Input.GetKeyDown ("s")) {
