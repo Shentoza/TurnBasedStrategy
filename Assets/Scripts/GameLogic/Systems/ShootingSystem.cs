@@ -4,16 +4,16 @@ using System.Collections;
 public class ShootingSystem : MonoBehaviour
 {
     // Calculating accuracy with values between 0,1s
-    public static const float DEFAULT_ACCURACY = 0.75f;
+    //public static const float DEFAULT_ACCURACY = 0.75f;
 
     private AttributeComponent playerAttr;
-    private WeaponComponent weaponAttr;
+    //private WeaponComponent weaponAttr;
 
     // Use this for initialization
     void Start ()
     {
         playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
-        weaponAttr = (WeaponComponent)this.gameObject.GetComponent(typeof(WeaponComponent));
+    //    weaponAttr = (WeaponComponent)this.gameObject.GetComponent(typeof(WeaponComponent));
     }
 	
 	// Update is called once per frame
@@ -65,7 +65,7 @@ public class ShootingSystem : MonoBehaviour
             && playerAttr.canShoot
             && playerAttr.ap > 0)
         {
-            if(weaponAttr.currentBulletsInMagazine > 0)
+            /*if(weaponAttr.currentBulletsInMagazine > 0)
             {
                 return true;
             }
@@ -74,6 +74,7 @@ public class ShootingSystem : MonoBehaviour
                 //TO-DO: Hinweis zum Nachladen anzeigen (Nachlade Button highlighten etc.)
                 return false;
             }
+            */
         }
 
         return false;
