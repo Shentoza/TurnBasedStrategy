@@ -83,10 +83,13 @@ public class DijkstraSystem : MonoBehaviour {
     void colorCell(Cell cell,int moveRange, int attackRange)
     {
         MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
+        meshRend.enabled = true;
         if (cell.dij_GesamtKosten <= moveRange)
             meshRend.material = begebarMat;
         else if (cell.dij_GesamtKosten <= moveRange + attackRange)
             meshRend.material = attackableMat;
+        else
+            meshRend.enabled = false;
 
     }
 
@@ -100,6 +103,7 @@ public class DijkstraSystem : MonoBehaviour {
                 {
                     MeshRenderer meshRend = (MeshRenderer)currentCell.gameObject.GetComponent(typeof(MeshRenderer));
                     meshRend.material = defaultMat;
+                    meshRend.enabled = false;
                 }
                 else
                 {
@@ -117,6 +121,7 @@ public class DijkstraSystem : MonoBehaviour {
                 Cell currentCell = battleField.getCell(i, j);
                 MeshRenderer meshRend = (MeshRenderer)currentCell.gameObject.GetComponent(typeof(MeshRenderer));
                 meshRend.material = defaultMat;
+                meshRend.enabled = false;
                 currentCell.dij_ZellZustand = Cell.dij_Zustand.DIJ_UNBESUCHT;
                 currentCell.dij_Vorgaenger = null;
                 currentCell.dij_GesamtKosten = int.MaxValue;

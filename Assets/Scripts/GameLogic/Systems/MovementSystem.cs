@@ -7,7 +7,7 @@ public class MovementSystem : MonoBehaviour {
     AttributeComponent playerAttr;
     DijkstraSystem dijkstra;
 
-    public float secondsPerCell;
+    private float secondsPerCell;
 
     ArrayList pfad;
     Cell startingCell;
@@ -24,6 +24,7 @@ public class MovementSystem : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
+        secondsPerCell = 0.5f;
         dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
         playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
         startAngle = 0.0f;
