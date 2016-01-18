@@ -7,7 +7,7 @@ public class AttributeComponent : MonoBehaviour {
     public int ap; //Ausgegebene AP
     public int maxMovRange; //Maximale Bewegungsreichweite
     public int actMovRange; //Aktuelle Bewegungsreichweite
-    public float minAccuracy;
+    public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
     public int attackRange; //Auslagern in Weapon-Component
     public GameObject weapon;
     public GameObject[] items; //To-Do: Inventory schreiben

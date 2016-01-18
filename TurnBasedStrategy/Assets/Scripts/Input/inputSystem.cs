@@ -30,17 +30,12 @@ public class inputSystem : MonoBehaviour {
         
         if (Input.GetMouseButton (0)) 
 		{
-            Debug.Log(manager.getPlayerTurn());
-            spielerAmZug = manager.getPlayerTurn();
-           // Debug.Log(spielerAmZug);
-            //True = Spieler Eins, False = Spieler zwei
+            spielerAmZug = manager.getPlayerTurn();  //True = Spieler Eins, False = Spieler zwei
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			Physics.Raycast (clicked, out hit);
 			if(hit.collider != null)
-			{
-                Debug.Log(spielerAmZug);
-                
+			{                
 				if ((hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
 				{
                     manager.setSelectedFigurine(hit.collider.gameObject);
