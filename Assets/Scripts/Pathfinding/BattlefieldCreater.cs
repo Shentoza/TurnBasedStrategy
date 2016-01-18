@@ -50,9 +50,10 @@ public class BattlefieldCreater : MonoBehaviour {
 
 		//Verschiebt Plane in den 0 Punkt(Oben links)
 		transformPlane.position = new Vector3 (sizeX * 5, 0, sizeZ * -5);
+        LayerMask cellLayer = LayerMask.NameToLayer("Cell");
 
-		//Initialisiert alle Zellen
-		for (float z = 0; z > -(sizeZint); z--) {
+        //Initialisiert alle Zellen
+        for (float z = 0; z > -(sizeZint); z--) {
 			for (float x = 0; x < (sizeXint); x++) {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
@@ -64,7 +65,13 @@ public class BattlefieldCreater : MonoBehaviour {
                 mr.receiveShadows = false;
                 mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				mr.material = material;
-                //zelle.active = false;
+                mr.enabled = false;
+
+                BoxCollider box = (BoxCollider) zelle.AddComponent(typeof(BoxCollider));
+                box.isTrigger = true;
+                box.size = new Vector3(1, 1, 5);
+                box.center = new Vector3(0, 0, -2);
+                zelle.layer = cellLayer;
 
 				Zellen[(int)x, (int)-z] = zelle;
 			}

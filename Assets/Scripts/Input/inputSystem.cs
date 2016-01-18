@@ -112,9 +112,9 @@ public class inputSystem : MonoBehaviour {
 		if (Input.GetKeyDown ("f")) {
 			molotovAusgewaehlt = true;
 		}
-        if(Input.GetKeyDown("n"))
+        if(Input.GetKeyDown("space"))
         {
-            manager.setPlayerTurn();
+			rotationScript.backToTarget();
         }
 	}
 }
