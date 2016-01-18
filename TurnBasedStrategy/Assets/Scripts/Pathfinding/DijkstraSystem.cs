@@ -65,7 +65,7 @@ public class DijkstraSystem : MonoBehaviour {
 
     void updateDistance(Cell zielKnoten, Cell vorgaenger)
     {
-        if(zielKnoten.isOccupied)
+        if(zielKnoten.isOccupied || zielKnoten.setOnFire)
         {
             zielKnoten.dij_ZellZustand = Cell.dij_Zustand.DIJ_ABGESCHLOSSEN;
             zielKnoten.dij_Vorgaenger = null;
