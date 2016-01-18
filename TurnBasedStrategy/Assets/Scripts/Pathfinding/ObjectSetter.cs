@@ -22,13 +22,13 @@ public class ObjectSetter : MonoBehaviour {
 	public void move(GameObject[,] Zellen)
 	{
 		objecttrans = (Transform)this.gameObject.GetComponent (typeof(Transform));
-		AttributeComponent playerAttr = (AttributeComponent)this.gameObject.GetComponent (typeof(AttributeComponent));
+		AttributeComponent objectAttr = (AttributeComponent)this.gameObject.GetComponent (typeof(AttributeComponent));
 		zelle = Zellen[x, z];
 		zelletrans = (Transform) zelle.GetComponent (typeof(Transform));
 		Cell zellecell = (Cell)zelle.GetComponent (typeof(Cell));
 		zellecell.setOccupied (this.gameObject);
 		objecttrans.position = new Vector3 (zelletrans.position.x, objecttrans.position.y, zelletrans.position.z);
-		playerAttr.setCurrentCell (zellecell);
+		objectAttr.setCurrentCell (zellecell);
 
 	}
 }
