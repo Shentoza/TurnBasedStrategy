@@ -59,7 +59,7 @@ public class BattlefieldCreater : MonoBehaviour {
 				zelle.AddComponent<Cell>();
                 zelle.tag = "Cell";
                 zelle.name = x + "|" + -z;
-				zelle.transform.position = new Vector3((x + 0.5f), 0f, (z - 0.5f));
+				zelle.transform.position = new Vector3((x + 0.5f), 0.001f, (z - 0.5f));
 				MeshRenderer mr = (MeshRenderer)zelle.GetComponent (typeof(MeshRenderer));
                 mr.receiveShadows = false;
                 mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
