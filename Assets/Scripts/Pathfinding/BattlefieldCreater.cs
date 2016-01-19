@@ -67,10 +67,11 @@ public class BattlefieldCreater : MonoBehaviour {
 				mr.material = material;
                 mr.enabled = false;
 
-                BoxCollider box = (BoxCollider) zelle.AddComponent(typeof(BoxCollider));
+                BoxCollider box = (BoxCollider)zelle.AddComponent(typeof(BoxCollider));
+                box.size = new Vector3(1, 1, .25f);
+                box.center = new Vector3(0, 0, box.size.z / 2.0f);
                 box.isTrigger = true;
-                box.size = new Vector3(1, 1, 5);
-                box.center = new Vector3(0, 0, -2);
+                
                 zelle.layer = cellLayer;
 
 				Zellen[(int)x, (int)-z] = zelle;

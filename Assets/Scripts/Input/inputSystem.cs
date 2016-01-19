@@ -33,9 +33,7 @@ public class inputSystem : MonoBehaviour {
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 
-            LayerMask layer = LayerMask.NameToLayer("Cell");
-            layer.value = ~layer.value;
-            Physics.Raycast (clicked, out hit,layer);
+            Physics.Raycast(clicked, out hit, Mathf.Infinity);
 			if(hit.collider != null)
 			{                
 				if ((hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
