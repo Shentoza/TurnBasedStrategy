@@ -32,7 +32,8 @@ public class inputSystem : MonoBehaviour {
             spielerAmZug = manager.getPlayerTurn();  //True = Spieler Eins, False = Spieler zwei
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
-			Physics.Raycast (clicked, out hit);
+
+            Physics.Raycast(clicked, out hit, Mathf.Infinity);
 			if(hit.collider != null)
 			{                
 				if ((hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
