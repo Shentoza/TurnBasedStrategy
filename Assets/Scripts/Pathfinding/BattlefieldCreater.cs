@@ -7,12 +7,12 @@ public class BattlefieldCreater : MonoBehaviour {
 	public float sizeX;
 	public float sizeZ;
 	GameObject[,] Zellen;
-	Material material;
+	public Material material;
+    public float gridHeight;
 
 	// Use this for initialization
 	void Start () {
 		transformPlane = (Transform) this.GetComponent (typeof(Transform));
-		material = (Material) Resources.Load("MaterialQuad");
 		initiateBattlefield ();
 	}
 
@@ -44,24 +44,35 @@ public class BattlefieldCreater : MonoBehaviour {
 		int sizeZint = (int)(sizeZ * 10);
 		int sizeXint = (int)(sizeX * 10);
 
-		transformPlane.localScale = new Vector3 (sizeX, 0, sizeZ);
+		transformPlane.localScale = new Vector3 (sizeX, 1, sizeZ);
 
 		Zellen = new GameObject[(int)(sizeXint), (int)(sizeZint)];
 
 		//Verschiebt Plane in den 0 Punkt(Oben links)
 		transformPlane.position = new Vector3 (sizeX * 5, 0, sizeZ * -5);
+        LayerMask cellLayer = LayerMask.NameToLayer("Cell");
 
-		//Initialisiert alle Zellen
-		for (float z = 0; z > -(sizeZint); z--) {
+        //Initialisiert alle Zellen
+        for (float z = 0; z > -(sizeZint); z--) {
 			for (float x = 0; x < (sizeXint); x++) {
 				GameObject zelle = GameObject.CreatePrimitive(PrimitiveType.Quad);
 				zelle.transform.Rotate(new Vector3(90, 0, 0));
 				zelle.AddComponent<Cell>();
                 zelle.tag = "Cell";
                 zelle.name = x + "|" + -z;
-				zelle.transform.position = new Vector3((x + 0.5f), 1, (z - 0.5f));
+				zelle.transform.position = new Vector3((x + 0.5f), 0.001f, (z - 0.5f));
 				MeshRenderer mr = (MeshRenderer)zelle.GetComponent (typeof(MeshRenderer));
+                mr.receiveShadows = false;
+                mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				mr.material = material;
+                mr.enabled = false;
+
+                BoxCollider box = (BoxCollider)zelle.AddComponent(typeof(BoxCollider));
+                box.size = new Vector3(1, 1, .25f);
+                box.center = new Vector3(0, 0, box.size.z / 2.0f);
+                box.isTrigger = true;
+                
+                zelle.layer = cellLayer;
 
 				Zellen[(int)x, (int)-z] = zelle;
 			}

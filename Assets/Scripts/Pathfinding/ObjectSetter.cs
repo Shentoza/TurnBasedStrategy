@@ -9,9 +9,12 @@ public class ObjectSetter : MonoBehaviour {
 	Transform objecttrans;
 	GameObject zelle;
 	Transform zelletrans;
+    //float gridHeight;
 
 	// Use this for initialization
 	void Start () {
+        //BattlefieldCreater battlefield = (BattlefieldCreater)GameObject.FindObjectOfType(typeof(BattlefieldCreater));
+        //gridHeight = battlefield.gridHeight;
 	}
 	
 	// Update is called once per frame

@@ -9,6 +9,8 @@ public class CameraRotationScript : MonoBehaviour {
 	public Transform target;
 	public Transform oldTarget;
 
+	public GameObject cameraPointer;
+
 	public Vector3 startPosition = new Vector3 (5.5f, 5.0f, -9.0f);
 
 	//Für Zoom
@@ -41,6 +43,15 @@ public class CameraRotationScript : MonoBehaviour {
 	bool startLerp = true;
 	//Aktiviert den Lerp zwischen Figuren
 	bool startSwitch = false;
+	//aktiviert/deaktiviert target verfolgung
+	bool followCameraEnabled = true;
+
+
+	//Zum scrollen über den bildschirm
+	float mousePosX;
+	float mousePosY;
+	float scrollDistance = 0.9f;
+	float scrollSpeed = 15.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +60,8 @@ public class CameraRotationScript : MonoBehaviour {
 		Vector3 angles = transform.eulerAngles;
 		x = angles.y;
 		y = angles.x;
+
+		cameraPointer = GameObject.Find ("CameraPointer");
 		
 		rigidbody = GetComponent<Rigidbody>();
 		
@@ -61,10 +74,11 @@ public class CameraRotationScript : MonoBehaviour {
 	
 	void LateUpdate () 
 	{
-		//Beendet die Kamerfahrt am Anfang
+
+		mousePosX = Input.mousePosition.x;
+		mousePosY = Input.mousePosition.y;
+
 		//Führt die Kamerafahrt am Anfang durch
-		Debug.Log ("Start:" + startLerp);
-		Debug.Log ("Switch:" + startSwitch);
 		if (startLerp) {
 			lerpTime += Time.deltaTime;
 			transform.position = Vector3.Lerp(transform.position, new Vector3(5, 10, -15), lerpTime * 0.03f);
@@ -73,48 +87,79 @@ public class CameraRotationScript : MonoBehaviour {
 			}
 		}
 
-		//Die Rotation um ein Objekt
-		if (startRotation && !startLerp) {
-			if (target) {
-				x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.02f;
-				y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.02f;
-				
-				y = ClampAngle (y, yMinLimit, yMaxLimit);
-				
-				Quaternion rotation = Quaternion.Euler (y, x, 0);
-				
-				distance = Mathf.Clamp (distance - Input.GetAxis ("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
-				
-				RaycastHit hit;
-				if (Physics.Linecast (target.position, transform.position, out hit)) {
-					distance -= hit.distance;
-				}
-				Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
-				Vector3 position = rotation * negDistance + target.position;
-				
-				transform.rotation = rotation;
-				transform.position = position;
-				distanceToObject = transform.position - target.position;
-			}
+		if (mousePosX / Screen.width < 1 - scrollDistance) {
+			followCameraEnabled = false;
+			transform.Translate(transform.right * -scrollSpeed * Time.deltaTime, Space.World);
 		}
-		if (!startLerp) {
+		if (mousePosX / Screen.width >= scrollDistance) {
+			followCameraEnabled = false;
+			transform.Translate (transform.right * scrollSpeed * Time.deltaTime, Space.World);
+		}
+		if (mousePosY / Screen.height < 1 - scrollDistance) {
+			followCameraEnabled = false;
+			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * -scrollSpeed * Time.deltaTime, Space.World);
+		}
+		if (mousePosY / Screen.height >= scrollDistance) {
+			followCameraEnabled = false;
+			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * scrollSpeed * Time.deltaTime, Space.World);
+		}
+
+		//Die Rotation um ein Objekt
+		if (startRotation && !startLerp && target && followCameraEnabled) {
+			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.02f;
+			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.02f;
+
+			y = ClampAngle (y, yMinLimit, yMaxLimit);
+
+			Quaternion rotation = Quaternion.Euler (y, x, 0);
+
+			distance = Mathf.Clamp (distance - Input.GetAxis ("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+			/*
+			RaycastHit hit;
+			if (Physics.Linecast (target.position, transform.position, out hit)) {
+				distance -= hit.distance;
+			}*/
+			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
+			Vector3 position = rotation * negDistance + target.position;
+
+			transform.rotation = rotation;
+			transform.position = position;
+			distanceToObject = transform.position - target.position;
+		}
+
+		if (!startLerp && target && followCameraEnabled) {
 			lerpTime += Time.deltaTime;
 			y = ClampAngle (y, yMinLimit, yMaxLimit);
 			
 			Quaternion rotation = Quaternion.Euler (y, x, 0);
 			
 			distance = Mathf.Clamp (distance - Input.GetAxis ("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
-			
+			/*
 			RaycastHit hit;
 			if (Physics.Linecast (target.position, transform.position, out hit)) {
 				distance -= hit.distance;
-			}
+			}*/
 			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
 			Vector3 position = rotation * negDistance + target.position;
 			
 			transform.rotation = rotation;
 			transform.position = Vector3.Lerp(transform.position, position, lerpTime * 0.03f);
 			distanceToObject = transform.position - target.position;
+		}
+
+		if (!followCameraEnabled && startRotation) {
+			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.02f;
+			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.02f;
+			
+			y = ClampAngle (y, yMinLimit, yMaxLimit);
+			
+			Quaternion rotation = Quaternion.Euler (y, x, 0);
+
+			distance = Mathf.Clamp (distance - Input.GetAxis ("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+
+			transform.rotation = rotation;
+			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
+			Vector3 position = rotation * negDistance;
 		}
 	}
 	
@@ -153,5 +198,10 @@ public class CameraRotationScript : MonoBehaviour {
 			distanceToObject = new Vector3 (5, 5, 0);
 		}
 		startSwitch = true;
+	}
+
+	public void backToTarget()
+	{
+		followCameraEnabled = true;
 	}
 }
