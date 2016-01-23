@@ -10,6 +10,9 @@ public class AttributeComponent : MonoBehaviour {
     public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
     public int attackRange; //Auslagern in Weapon-Component
     public bool canShoot; // Spieler kann nur 1 mal pro Runde schießen
+    public bool highCover; // Spieler ist hinter hoher Deckung
+    public bool lowCover; // Spieler ist niedriger hoher Deckung
+    public bool armored; // Spieler hat Rüstung
     public GameObject weapon;
     public GameObject[] items; //To-Do: Inventory schreiben
     public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
