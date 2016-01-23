@@ -9,9 +9,9 @@ public class ManagerSystem : MonoBehaviour {
     GameObject player1;
     GameObject player2;
     GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
-
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
+    
 
 	// Use this for initialization
 	void Start () {

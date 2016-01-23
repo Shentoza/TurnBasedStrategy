@@ -1,25 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+    Schießen:
+    -          Schießen kostet 1AP
+    -          Es kann pro Figur je Zug nur 1AP für das Schießen ausgegeben werden
+    -          Schießen kostet Munition
+    -          Waffe muss nachgeladen werden, falls Munition leer (kostet an AP)
+    -          Grundtrefferwahrscheinlichkeit 75% 
+    -          Boni auf Trefferwahrscheinlichkeit durch Waffe
+    -          Malus auf Trefferwahrscheinlichkeit durch Rauch
+    -          Malus auf Trefferwahrscheinlichkeit durch Deckung hoch
+    -          Malus auf Trefferwahrscheinlichkeit durch Deckung niedrig
+    -          Boni/Malus auf Trefferwahrscheinlichkeit durch Reichweite (niedrig, mittel, hoch)
+    -          Grundangriffsreichweite + Waffenreichweite = actualReichweite
+    -          Schadensmalus durch Rüstungswert des Verteidigers
+    
+    Attributecomponent hat (hat neu = *)
+
+    -          public int hp; //Lebenspunkte
+    -          public int ap; //Ausgegebene AP
+    -          public int maxMovRange; //Maximale Bewegungsreichweite
+    -          public int actMovRange; //Aktuelle Bewegungsreichweite
+    -          public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
+    -          public int attackRange; //Auslagern in Weapon-Component
+    -          *public bool canShoot; // Spieler kann nur 1 mal pro Runde schießen
+    -          public GameObject weapon;
+    -          public GameObject[] items; //To-Do: Inventory schreiben
+    -          public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
+    -          public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
+    -          Cell cell;
+*/
+
 public class ShootingSystem : MonoBehaviour
 {
-    // Calculating accuracy with values between 0,1s
-    public const float DEFAULT_ACCURACY = 0.75f;
-    public const float NO_BONUS = 0.0f;
+    /*
+    * Just dummy values
+    * TO-DO: Make sure values are chosen so currentShootingAccuracy ends up between [0,1] when hitchance is calculated
+    */
+
+    // Defaults
+    private const float DEFAULT_ACCURACY = 0.75f;
+    private const float NO_BONUS = 0.0f;
 
     // Bonuses
-    public const float SHORT_RANGE_SHOT_BONUS = 0.15f;
+    private const float SHORT_RANGE_SHOT_BONUS = 0.15f;
 
     // Maluses
-    public const float LONG_RANGE_SHOT_MALUS = -0.15f;
-    public const float SMOKE_MALUS = -0.25f;
-    public const float LOW_COVER_MALUS = -0.2f;
-    public const float HIGH_COVER_MALUS = -0.4f;
+    private const float LONG_RANGE_SHOT_MALUS = -0.15f;
+    private const float SMOKE_MALUS = -0.25f;
+    private const float LOW_COVER_MALUS = -0.2f;
+    private const float HIGH_COVER_MALUS = -0.4f;
 
     // Ranges
-    // Dummy Werte
-    public const int SHORT_RANGE = 5;
-    public const int MID_RANGE = 10;
+    private const int SHORT_RANGE = 5;
+    private const int MID_RANGE = 10;
     
     private float currentShootingAccuracy;
 
@@ -43,45 +78,28 @@ public class ShootingSystem : MonoBehaviour
 	
 	}
    
-    /*
-        public int hp; //Lebenspunkte
-        public int ap; //Ausgegebene AP
-        public int maxMovRange; //Maximale Bewegungsreichweite
-        public int actMovRange; //Aktuelle Bewegungsreichweite
-        public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
-        public int attackRange; //Auslagern in Weapon-Component
-        public bool canShoot; // Spieler kann nur 1 mal pro Runde schießen
-        public GameObject weapon;
-        public GameObject[] items; //To-Do: Inventory schreiben
-        public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
-        public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
-        Cell cell;
-    */
     public bool shoot(Cell target)
-    {
-        if (target.dij_GesamtKosten <= playerAttr.attackRange)
+    {        
+        if(playerCanShoot(target))
         {
-            if(playerCanShoot(target))
+            float hitChance = chanceOfHittingTarget(target);
+            if(hitChance >= Random.value)
             {
-                float hitChance = chanceOfHittingTarget(target);
-                if(hitChance >= Random.value)
-                {
-                    //TO-DO: Erfolgreicher Treffer
-                    playerAttr.ap--;
-                    return true;
-                }
-                else
-                {
-                    //TO-DO: Nicht erfolgreicher Treffer Treffer
-                    return false;
-                }
+                //TO-DO: Erfolgreicher Treffer
+                playerAttr.ap--;
+                return true;
             }
-        }
+            else
+            {
+                //TO-DO: Nicht erfolgreicher Treffer 
+                return false;
+            }
+        }        
 
         return false;
     }
 
-    // Can Player shoot target
+    // Can player shoot target
     private bool playerCanShoot(Cell target)
     {
         if (target.dij_GesamtKosten <= playerAttr.attackRange // + weaponAttr.weaponRange
@@ -94,7 +112,7 @@ public class ShootingSystem : MonoBehaviour
             }
             else
             {
-                //TO-DO: Hinweis zum Nachladen anzeigen (Nachlade Button highlighten etc.)
+                // TO-DO: Hinweis zum Nachladen anzeigen (?) (Nachlade Button highlighten etc.)
                 return false;
             }
         }
@@ -102,7 +120,7 @@ public class ShootingSystem : MonoBehaviour
         return false;
     }
 
-    // Calculate chance of hitting enemy, clamp to [0,1]
+    // Calculate chance of hitting enemy, clamped to [0,1]
     private float chanceOfHittingTarget(Cell target)
     {
         //currentShootingAccuracy += weaponAttr.weaponAccuracy;
@@ -118,7 +136,7 @@ public class ShootingSystem : MonoBehaviour
             currentShootingAccuracy += coverMalus;
         }
 
-        float distanceBonusOrMalus = generateDistanceMalus(target);
+        float distanceBonusOrMalus = generateDistanceBonusOrMalus(target);
         currentShootingAccuracy += distanceBonusOrMalus;
 
         if(targetHasArmor(target))
@@ -130,12 +148,14 @@ public class ShootingSystem : MonoBehaviour
         return currentShootingAccuracy;
     }
 
+    /* SMOKE related */
     private bool smokeIsObstructingVision()
     {
         // TO-DO: Check if smoke is obstructing view
         return false;
     }
 
+    /* COVER related */
     private bool targetIsCovered(Cell target)
     {
         // TO-DO: Check if target is covered
@@ -154,7 +174,8 @@ public class ShootingSystem : MonoBehaviour
         
     }
 
-    private float generateDistanceMalus(Cell target)
+    /* DISTANCE related */
+    private float generateDistanceBonusOrMalus(Cell target)
     {
         /*
         int distance = distanceTo(target);
@@ -181,6 +202,7 @@ public class ShootingSystem : MonoBehaviour
         return 0;
     }
 
+    /* ARMOR related */
     private bool targetHasArmor(Cell target)
     {
         /*
@@ -198,20 +220,4 @@ public class ShootingSystem : MonoBehaviour
         //TO-DO generate armor malus
         return NO_BONUS;
     }
-    /*
-    Schießen:
-    -          Schießen kostet 1AP
-    -          Es kann pro Figur je Zug nur 1AP für das Schießen ausgegeben werden
-    -          Schießen kostet Munition
-    -          Waffe muss nachgeladen werden, falls Munition leer (kostet an AP)
-    -          Grundtrefferwahrscheinlichkeit 75% 
-    -          Boni auf Trefferwahrscheinlichkeit durch Waffe
-    -          Malus auf Trefferwahrscheinlichkeit durch Rauch
-    -          Malus auf Trefferwahrscheinlichkeit durch Deckung hoch
-    -          Malus auf Trefferwahrscheinlichkeit durch Deckung niedrig
-    -          Boni/Malus auf Trefferwahrscheinlichkeit durch Reichweite (niedrig, mittel, hoch)
-    -          Grundangriffsreichweite + Waffenreichweite = actualReichweite
-    -          Schadensmalus durch Rüstungswert des Verteidigers
-    */
-
 }
