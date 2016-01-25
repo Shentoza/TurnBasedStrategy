@@ -13,6 +13,7 @@ public class AttributeComponent : MonoBehaviour {
     public bool highCover; // Spieler ist hinter hoher Deckung
     public bool lowCover; // Spieler ist niedriger hoher Deckung
     public bool armored; // Spieler hat Rüstung
+    public GameObject armor;
     public GameObject weapon;
     public GameObject[] items; //To-Do: Inventory schreiben
     public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
@@ -20,8 +21,11 @@ public class AttributeComponent : MonoBehaviour {
     Cell cell;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+    {
+        hp = 10;
+        ap = 2;
+        canShoot = true;
 	}
 	
 	// Update is called once per frame

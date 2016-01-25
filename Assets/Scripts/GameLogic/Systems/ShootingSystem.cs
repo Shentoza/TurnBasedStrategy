@@ -1,40 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/*
-    Schießen:
-    -          Schießen kostet 1AP
-    -          Es kann pro Figur je Zug nur 1AP für das Schießen ausgegeben werden
-    -          Schießen kostet Munition
-    -          Waffe muss nachgeladen werden, falls Munition leer (kostet an AP)
-    -          Grundtrefferwahrscheinlichkeit 75% 
-    -          Boni auf Trefferwahrscheinlichkeit durch Waffe
-    -          Malus auf Trefferwahrscheinlichkeit durch Rauch
-    -          Malus auf Trefferwahrscheinlichkeit durch Deckung hoch
-    -          Malus auf Trefferwahrscheinlichkeit durch Deckung niedrig
-    -          Boni/Malus auf Trefferwahrscheinlichkeit durch Reichweite (niedrig, mittel, hoch)
-    -          Grundangriffsreichweite + Waffenreichweite = actualReichweite
-    -          Schadensmalus durch Rüstungswert des Verteidigers
-    
-    Attributecomponent hat (hat neu = *)
-
-    -          public int hp; //Lebenspunkte
-    -          public int ap; //Ausgegebene AP
-    -          public int maxMovRange; //Maximale Bewegungsreichweite
-    -          public int actMovRange; //Aktuelle Bewegungsreichweite
-    -          public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
-    -          public int attackRange; //Auslagern in Weapon-Component
-    -          *public bool canShoot; // Spieler kann nur 1 mal pro Runde schießen
-    -          *public bool highCover; // Spieler ist hinter hoher Deckung    
-    -          *public bool lowCover; // // Spieler ist niedriger hoher Deckung
-    -          *public bool armored; // Spieler hat Rüstung
-    -          public GameObject weapon;
-    -          public GameObject[] items; //To-Do: Inventory schreiben
-    -          public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
-    -          public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
-    -          Cell cell;
-*/
-
 public class ShootingSystem : MonoBehaviour
 {
     /*
@@ -49,41 +15,31 @@ public class ShootingSystem : MonoBehaviour
     private const float NO_BONUS = 0.0f;
 
     // Bonuses
-    private const float SHORT_RANGE_SHOT_BONUS = 0.15f;
+    private const float SHORT_RANGE_SHOT_BONUS = 0.2f;
 
     // Maluses
     private const float LONG_RANGE_SHOT_MALUS = -0.15f;
-    private const float SMOKE_MALUS = -0.25f;
-    private const float LOW_COVER_MALUS = -0.2f;
-    private const float HIGH_COVER_MALUS = -0.4f;
+    private const float SMOKE_MALUS = -0.3f;
+    private const float LOW_COVER_MALUS = -0.1f;
+    private const float HIGH_COVER_MALUS = -0.2f;
 
-    // Ranges
-    private const int SHORT_RANGE = 5;
-    private const int MID_RANGE = 10;
-    
-    private float currentShootingAccuracy;
+    // Range
+    private const int MID_RANGE = 15;
 
-    private AttributeComponent playerAttr;
-    private GameObject currentPlayer;
+    private AttributeComponent currentplayerAttr;
+    private WeaponComponent currentPlayerWeapon;
     private Cell currentPlayerCell;
 
     private AttributeComponent currentTargetAttr;
-    private GameObject currentTarget;
+    private ArmorComponent currentTargetArmor;
     private Cell currentTargetCell;
 
+    private float distanceBetweenPlayers;
     
-
-    
-    //Muss noch gepusht werden
-    //private WeaponComponent weaponAttr;
-
     // Use this for initialization
     void Start ()
-    {
-        currentShootingAccuracy = DEFAULT_ACCURACY;
-
-        playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
-        //weaponAttr = (WeaponComponent)this.gameObject.GetComponent(typeof(WeaponComponent));
+    {              
+        
     }
 	
 	// Update is called once per frame
@@ -92,60 +48,67 @@ public class ShootingSystem : MonoBehaviour
 	
 	}
    
-    public bool shoot(GameObject target)
-    {
-        currentPlayer = this.gameObject;
-        currentPlayerCell = this.gameObject.GetComponent<AttributeComponent>().getCurrentCell();
+    public bool shoot(GameObject attacker, GameObject target)
+    {    
+        currentplayerAttr = (AttributeComponent)attacker.GetComponent(typeof(AttributeComponent));
+        currentPlayerCell = currentplayerAttr.getCurrentCell();
+        currentPlayerWeapon = (WeaponComponent)currentplayerAttr.weapon.GetComponent(typeof(WeaponComponent));
 
-        currentTargetAttr = (AttributeComponent)target.GetComponent(typeof(AttributeComponent));
-        currentTarget = target;
-        currentTargetCell = target.GetComponent<AttributeComponent>().getCurrentCell();
+        currentTargetAttr = (AttributeComponent)target.GetComponent(typeof(AttributeComponent));        
+        currentTargetCell = currentTargetAttr.getCurrentCell();
+        currentTargetArmor = (ArmorComponent)currentplayerAttr.armor.GetComponent(typeof(ArmorComponent));
+        
+        distanceBetweenPlayers = Vector3.Magnitude(currentTargetCell.transform.position - currentPlayerCell.transform.position);
 
         if (playerCanShoot())
         {
             float hitChance = chanceOfHittingTarget();
+            Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
-                //TO-DO: Erfolgreicher Treffer
-                playerAttr.ap--;
+                int damage = generateDamage();
+                currentTargetAttr.hp -= damage;
+
+                currentplayerAttr.ap--;
+                currentplayerAttr.canShoot = false;
                 return true;
             }
             else
             {
-                //TO-DO: Nicht erfolgreicher Treffer 
                 return false;
             }
-        }        
-
+        }
         return false;
     }
 
     // Can player shoot target
     private bool playerCanShoot()
     {
-        if (currentTargetCell.dij_GesamtKosten <= playerAttr.attackRange // + weaponAttr.weaponRange
-            && playerAttr.canShoot
-            && playerAttr.ap > 0)
+        if (distanceBetweenPlayers <= currentplayerAttr.attackRange + currentPlayerWeapon.weaponRange            
+            && currentplayerAttr.canShoot
+            && currentplayerAttr.ap > 0)
         {
-            if(true) // In if einsetzen : weaponAttr.currentBulletsInMagazine > 0
-            {
-                Debug.Log("Keine Kugeln im Magazin vorhanden. Bitte nachladen.");
+            if(currentPlayerWeapon.currentBulletsInMagazine > 0)
+            { 
+                currentPlayerWeapon.currentBulletsInMagazine--;
                 return true;
             }
             else
             {
-                // TO-DO: Hinweis zum Nachladen anzeigen (?) (Nachlade Button highlighten etc.)
+                Debug.Log("Keine Kugeln im Magazin vorhanden. Bitte nachladen.");
                 return false;
             }
         }
-
+        
         return false;
     }
 
     // Calculate chance of hitting enemy, clamped to [0,1]
     private float chanceOfHittingTarget()
     {
-        //currentShootingAccuracy += weaponAttr.weaponAccuracy;
+        float currentShootingAccuracy = DEFAULT_ACCURACY;
+
+        currentShootingAccuracy += currentPlayerWeapon.weaponAccuracy;
 
         if(smokeIsObstructingVision())
         {
@@ -160,12 +123,6 @@ public class ShootingSystem : MonoBehaviour
 
         float distanceBonusOrMalus = generateDistanceBonusOrMalus();
         currentShootingAccuracy += distanceBonusOrMalus;
-
-        if(targetHasArmor())
-        {
-            float armorMalus = generateArmorMalus();
-            currentShootingAccuracy += armorMalus;
-        }
 
         return currentShootingAccuracy;
     }
@@ -184,13 +141,15 @@ public class ShootingSystem : MonoBehaviour
 
             //Mask ist die Maske, die nur Objekte des Layers Cell betrachet
             RaycastHit[] hits = Physics.RaycastAll(raycast, length, mask);
-            if (hits.Length > 0)
+           
+            // Debug
+            foreach (RaycastHit hit in hits)
             {
-                // Debug
-                foreach (RaycastHit hit in hits)
+                if(hit.collider.gameObject.GetComponent<Cell>().smoked)
+                {
                     Debug.Log(hit.collider.name + " is smoked");
-
-                return true;
+                    return true;
+                }
             }
         }
 
@@ -208,32 +167,43 @@ public class ShootingSystem : MonoBehaviour
 
     private float generateCoverMalus()
     {        
-        if (currentTargetAttr.highCover)
-        {
-            return ShootingSystem.HIGH_COVER_MALUS;
-        }
+        if (currentTargetAttr.highCover)        
+            return ShootingSystem.HIGH_COVER_MALUS;        
         
         return ShootingSystem.LOW_COVER_MALUS;        
     }
 
     /* DISTANCE related */
+    // Short Range [0,10]
+    // Mid Range [11,20]
+    // Long Range [21, attackRange + weaponRange]
     private float generateDistanceBonusOrMalus()
-    {        
-        float distance = Vector3.Magnitude(currentTargetCell.transform.position - currentPlayerCell.transform.position);
-
+    {    
         // Short Range Bonus
-        if (distance <= ShootingSystem.SHORT_RANGE)
+        if (distanceBetweenPlayers <= ShootingSystem.MID_RANGE - 5)
         {
             return ShootingSystem.SHORT_RANGE_SHOT_BONUS;
         }
         // Long Range Malus
-        else if (distance > ShootingSystem.MID_RANGE)
+        else if (distanceBetweenPlayers > ShootingSystem.MID_RANGE + 5)
         {
             return ShootingSystem.LONG_RANGE_SHOT_MALUS;
         }        
 
         // Default 
         return NO_BONUS;
+    }
+
+    private int generateDamage()
+    {
+        int damage = currentPlayerWeapon.damage;
+
+        if(targetHasArmor())
+        {
+            return damage - currentTargetArmor.armorValue;
+        }
+
+        return damage;
     }
 
     /* ARMOR related */
@@ -243,12 +213,5 @@ public class ShootingSystem : MonoBehaviour
             return true;          
 
         return false;
-    }
-
-    private float generateArmorMalus()
-    {
-        //TO-DO generate armor malus
-        //NEED: Armorclass, Armorvalues etc.
-        return NO_BONUS;
     }
 }

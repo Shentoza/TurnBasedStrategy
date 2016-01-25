@@ -36,7 +36,9 @@ public class inputSystem : MonoBehaviour {
             Physics.Raycast(clicked, out hit, Mathf.Infinity);
 			if(hit.collider != null)
 			{                
-				if ((hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug) || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
+				if (((hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug) 
+                    || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
+                    && !angriffAusgewaehlt) 
 				{
 					if(player != hit.collider.gameObject)
 					{
@@ -51,11 +53,16 @@ public class inputSystem : MonoBehaviour {
 				}
 				if (angriffAusgewaehlt)
 				{
-					if(hit.collider.gameObject.tag == "FigurSpieler1" && spielerAmZug || hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)
+					if((hit.collider.gameObject.tag == "FigurSpieler2" && spielerAmZug)
+                        || hit.collider.gameObject.tag == "FigurSpieler1" && !spielerAmZug)
 					{
-						//FühreAngriffAus
+                        manager.shoot(player, hit.collider.gameObject);
 					}
-					}
+                    else
+                    {
+                        Debug.Log("Kann nicht angegriffen werden");
+                    }
+                }
 				if (smokeAusgewaehlt)
 				{
 					if(hit.collider.gameObject.tag == "Cell")
@@ -100,6 +107,14 @@ public class inputSystem : MonoBehaviour {
 				figurGewaehlt = false;
 			}
 		}
+        if(Input.GetKeyDown("a") && player != null)
+        {
+            angriffAusgewaehlt = !angriffAusgewaehlt;
+            if (angriffAusgewaehlt)
+                Debug.Log("Angriff ausgewählt");
+            else
+                Debug.Log("Kein Angriff");
+        }
 		if (Input.GetKey ("r")) {
 			rotationScript.setStartRotation ();
 		}
