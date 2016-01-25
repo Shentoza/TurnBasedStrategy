@@ -24,7 +24,7 @@ public class ShootingSystem : MonoBehaviour
     private const float HIGH_COVER_MALUS = -0.2f;
 
     // Range
-    private const int MID_RANGE = 15;
+    private const float MID_RANGE = 11.25f;
 
     private AttributeComponent currentplayerAttr;
     private WeaponComponent currentPlayerWeapon;
@@ -59,6 +59,7 @@ public class ShootingSystem : MonoBehaviour
         currentTargetArmor = (ArmorComponent)currentplayerAttr.armor.GetComponent(typeof(ArmorComponent));
         
         distanceBetweenPlayers = Vector3.Magnitude(currentTargetCell.transform.position - currentPlayerCell.transform.position);
+        Debug.Log("Distance between players is " + distanceBetweenPlayers);
 
         if (playerCanShoot())
         {
@@ -136,11 +137,10 @@ public class ShootingSystem : MonoBehaviour
         }
         else
         {
-            float length = Vector3.Magnitude(currentTargetCell.transform.position - currentPlayerCell.transform.position);
             Ray raycast = new Ray(currentPlayerCell.transform.position - Vector3.up / 8, currentTargetCell.transform.position - currentPlayerCell.transform.position);
 
             //Mask ist die Maske, die nur Objekte des Layers Cell betrachet
-            RaycastHit[] hits = Physics.RaycastAll(raycast, length, mask);
+            RaycastHit[] hits = Physics.RaycastAll(raycast, distanceBetweenPlayers, mask);
            
             // Debug
             foreach (RaycastHit hit in hits)
@@ -180,12 +180,12 @@ public class ShootingSystem : MonoBehaviour
     private float generateDistanceBonusOrMalus()
     {    
         // Short Range Bonus
-        if (distanceBetweenPlayers <= ShootingSystem.MID_RANGE - 5)
+        if (distanceBetweenPlayers <= ShootingSystem.MID_RANGE - 3.75)
         {
             return ShootingSystem.SHORT_RANGE_SHOT_BONUS;
         }
         // Long Range Malus
-        else if (distanceBetweenPlayers > ShootingSystem.MID_RANGE + 5)
+        else if (distanceBetweenPlayers > ShootingSystem.MID_RANGE + 3.75)
         {
             return ShootingSystem.LONG_RANGE_SHOT_MALUS;
         }        

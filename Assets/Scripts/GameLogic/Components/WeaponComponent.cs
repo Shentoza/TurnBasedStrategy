@@ -17,7 +17,7 @@ public class WeaponComponent : MonoBehaviour {
     {
         /* Testing */
         damage = 8;
-        weaponRange = 2;
+        weaponRange = 8;
         currentBulletsInMagazine = 3;
         magazineSize = 5;
 	}
