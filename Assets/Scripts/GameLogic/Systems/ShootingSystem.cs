@@ -8,7 +8,8 @@ public class ShootingSystem : MonoBehaviour
     * TO-DO: Make sure values are chosen so currentShootingAccuracy ends up between [0,1] when hitchance is calculated
     */
     // Layermask is observing Cells (Change in Inspector)
-    public LayerMask mask;
+    [SerializeField]
+    private LayerMask mask;
 
     // Defaults
     private const float DEFAULT_ACCURACY = 0.75f;
@@ -194,6 +195,7 @@ public class ShootingSystem : MonoBehaviour
         return NO_BONUS;
     }
 
+    /* DAMAGE reated */
     private int generateDamage()
     {
         int damage = currentPlayerWeapon.damage;
