@@ -57,6 +57,7 @@ public class inputSystem : MonoBehaviour {
                         || hit.collider.gameObject.tag == "FigurSpieler1" && !spielerAmZug)
 					{
                         manager.shoot(player, hit.collider.gameObject);
+                        angriffAusgewaehlt = false;
 					}
                     else
                     {
