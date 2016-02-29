@@ -50,7 +50,7 @@ public class CameraRotationScript : MonoBehaviour {
 	//Zum scrollen über den bildschirm
 	float mousePosX;
 	float mousePosY;
-	float scrollDistance = 0.9f;
+	float scrollDistance = 0.99f;
 	float scrollSpeed = 15.0f;
 
 	// Use this for initialization
@@ -86,20 +86,23 @@ public class CameraRotationScript : MonoBehaviour {
 				startLerp = false;
 			}
 		}
-
-		if (mousePosX / Screen.width < 1 - scrollDistance) {
+		//Links scrollen
+		if (mousePosX / Screen.width < 1 - scrollDistance && !startRotation) {
 			followCameraEnabled = false;
 			transform.Translate(transform.right * -scrollSpeed * Time.deltaTime, Space.World);
 		}
-		if (mousePosX / Screen.width >= scrollDistance) {
+		//rechts scrollen
+		if (mousePosX / Screen.width >= scrollDistance && !startRotation) {
 			followCameraEnabled = false;
 			transform.Translate (transform.right * scrollSpeed * Time.deltaTime, Space.World);
 		}
-		if (mousePosY / Screen.height < 1 - scrollDistance) {
+		//unten scrollen
+		if (mousePosY / Screen.height < 1 - scrollDistance && !startRotation) {
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * -scrollSpeed * Time.deltaTime, Space.World);
 		}
-		if (mousePosY / Screen.height >= scrollDistance) {
+		//oben scrollen
+		if (mousePosY / Screen.height >= scrollDistance && !startRotation) {
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * scrollSpeed * Time.deltaTime, Space.World);
 		}
@@ -148,8 +151,8 @@ public class CameraRotationScript : MonoBehaviour {
 		}
 
 		if (!followCameraEnabled && startRotation) {
-			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.02f;
-			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.02f;
+			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.01f;
+			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.01f;
 			
 			y = ClampAngle (y, yMinLimit, yMaxLimit);
 			
