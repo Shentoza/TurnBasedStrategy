@@ -9,7 +9,8 @@ public class CameraRotationScript : MonoBehaviour {
 	public Transform target;
 	public Transform oldTarget;
 
-	public GameObject cameraPointer;
+	Transform mapCamera;
+	Transform switchTarget;
 
 	public Vector3 startPosition = new Vector3 (5.5f, 5.0f, -9.0f);
 
@@ -44,7 +45,7 @@ public class CameraRotationScript : MonoBehaviour {
 	//Aktiviert den Lerp zwischen Figuren
 	bool startSwitch = false;
 	//aktiviert/deaktiviert target verfolgung
-	bool followCameraEnabled = true;
+	bool mapCameraEnabled = true;
 
 
 	//Zum scrollen über den bildschirm
@@ -61,8 +62,11 @@ public class CameraRotationScript : MonoBehaviour {
 		x = angles.y;
 		y = angles.x;
 
-		cameraPointer = GameObject.Find ("CameraPointer");
-		
+		GameObject plane = (GameObject)GameObject.Find ("Plane");
+
+		mapCamera = (Transform)GameObject.Find ("centerCameraTarget").GetComponent (typeof(Transform));
+		mapCamera.position = new Vector3 (plane.transform.position.x, 0.0f, plane.transform.position.z);
+
 		rigidbody = GetComponent<Rigidbody>();
 		
 		// Make the rigid body not change rotation
@@ -74,18 +78,17 @@ public class CameraRotationScript : MonoBehaviour {
 	
 	void LateUpdate () 
 	{
-
 		mousePosX = Input.mousePosition.x;
 		mousePosY = Input.mousePosition.y;
 
 		//Führt die Kamerafahrt am Anfang durch
 		if (startLerp) {
-			lerpTime += Time.deltaTime;
-			transform.position = Vector3.Lerp(transform.position, new Vector3(5, 10, -15), lerpTime * 0.03f);
+			transform.position = Vector3.Lerp(transform.position, new Vector3(5, 10, -15), 5.0f * 0.03f);
 			if (transform.position == new Vector3 (5, 10, -15)) {
 				startLerp = false;
 			}
 		}
+		/*
 		//Links scrollen
 		if (mousePosX / Screen.width < 1 - scrollDistance && !startRotation) {
 			followCameraEnabled = false;
@@ -105,10 +108,10 @@ public class CameraRotationScript : MonoBehaviour {
 		if (mousePosY / Screen.height >= scrollDistance && !startRotation) {
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * scrollSpeed * Time.deltaTime, Space.World);
-		}
+		}*/
 
 		//Die Rotation um ein Objekt
-		if (startRotation && !startLerp && target && followCameraEnabled) {
+		if (startRotation && !startLerp && target) {
 			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.02f;
 			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.02f;
 
@@ -130,8 +133,7 @@ public class CameraRotationScript : MonoBehaviour {
 			distanceToObject = transform.position - target.position;
 		}
 
-		if (!startLerp && target && followCameraEnabled) {
-			lerpTime += Time.deltaTime;
+		if (!startLerp && target) {
 			y = ClampAngle (y, yMinLimit, yMaxLimit);
 			
 			Quaternion rotation = Quaternion.Euler (y, x, 0);
@@ -146,11 +148,12 @@ public class CameraRotationScript : MonoBehaviour {
 			Vector3 position = rotation * negDistance + target.position;
 			
 			transform.rotation = rotation;
-			transform.position = Vector3.Lerp(transform.position, position, lerpTime * 0.03f);
+			transform.position = Vector3.Lerp(transform.position, position, 5.0f * 0.03f);
 			distanceToObject = transform.position - target.position;
 		}
 
-		if (!followCameraEnabled && startRotation) {
+		/*
+		if (!mapCamera && startRotation) {
 			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.01f;
 			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.01f;
 			
@@ -163,7 +166,7 @@ public class CameraRotationScript : MonoBehaviour {
 			transform.rotation = rotation;
 			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
 			Vector3 position = rotation * negDistance;
-		}
+		}*/
 	}
 	
 	//Clampangle für die Rotation um ein Objekt (Damit keiner Werte über/unter 360 entstehen bzw min und max nicht überschritten werden)
@@ -191,6 +194,7 @@ public class CameraRotationScript : MonoBehaviour {
 	//Ändert das Ziel der Kamera
 	public void setNewTarget(GameObject newTarget)
 	{
+		mapCameraEnabled = false;
 		if (oldTarget != target) {
 			oldTarget = target;
 		}
@@ -203,8 +207,19 @@ public class CameraRotationScript : MonoBehaviour {
 		startSwitch = true;
 	}
 
-	public void backToTarget()
+	public void switchCamera()
 	{
-		followCameraEnabled = true;
+		Debug.Log (switchTarget);
+		Debug.Log (target);
+		if (mapCameraEnabled) {
+			target = switchTarget;
+			mapCameraEnabled = false;
+		}
+		else {
+			switchTarget = target;
+			target = mapCamera;
+			mapCameraEnabled = true;
+		}
+		
 	}
 }

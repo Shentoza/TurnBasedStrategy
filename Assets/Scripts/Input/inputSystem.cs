@@ -130,7 +130,7 @@ public class inputSystem : MonoBehaviour {
 		}
         if(Input.GetKeyDown("space"))
         {
-			rotationScript.backToTarget();
+			rotationScript.switchCamera();
         }
 	}
 }
