@@ -7,9 +7,15 @@ public class UiManager : MonoBehaviour {
 
 
     //dummys
-    public bool player1IsActive;
-    public int player1AP;
-    public int player2AP;
+    public bool isPlayer1;
+   public int player1AP;
+   public int player2AP;
+
+    GameObject player1;
+    GameObject player2;
+
+    ManagerSystem managerSys;
+
     public int maxAP;
 
     GUIStyle style;
@@ -21,12 +27,16 @@ public class UiManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        player1 = GameObject.Find("Player1");
+        player2 = GameObject.Find("Player2");
+        managerSys = GameObject.Find("Manager").GetComponent<ManagerSystem>();
 
+        player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
+        player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
 
         //test angaben
-        player1IsActive = true;
-        player1AP = 3;
-        player2AP = 3;
+        isPlayer1 = managerSys.getPlayerTurn();
+
 
         //getActiveUnitSkills
 
@@ -40,27 +50,15 @@ public class UiManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
+        isPlayer1 = managerSys.getPlayerTurn();
+        player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
+        player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
     }
 
 
     public void endTurn()
     {
-        player1IsActive = !player1IsActive;
-        Debug.Log("turn ended");
-
-
-        if (player1IsActive)
-        {
-            player1AP += 2;
-
-        }
-        else
-        {
-            player2AP += 2;
-        }
-
-
+        managerSys.setPlayerTurn();
     }
 
     public int[] getActiveUnitSkills()

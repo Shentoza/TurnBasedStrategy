@@ -34,6 +34,7 @@ public class ManagerSystem : MonoBehaviour {
         player1.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler1 wieder auf
         player2.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler2 wieder auf
         rounds++;
+        Debug.Log("Runde: " + rounds);
     }
 
     //Liefer true, wenn Spieler1 am Zug

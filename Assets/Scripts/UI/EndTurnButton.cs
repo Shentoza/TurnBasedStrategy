@@ -34,7 +34,7 @@ public class EndTurnButton : MonoBehaviour {
     void OnGUI()
     {
 
-        if (uiM.player1IsActive)
+        if (uiM.isPlayer1)
         {
             if (GUI.Button(new Rect(Screen.width-width, Screen.height-height, width, height), iconPlayer1EndTurn, uiM.getStyle()))
             {

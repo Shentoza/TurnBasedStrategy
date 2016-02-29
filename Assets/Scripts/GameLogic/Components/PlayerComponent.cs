@@ -2,16 +2,17 @@
 using System.Collections;
 
 public class PlayerComponent : MonoBehaviour {
+    //To Do: Array mit Spielfiguren füllen
 
-    GameObject[] figurines; //Alle Figuren über die ein Spieler verfügt
-    int actionPoints; //Anzahl an verfügbaren Aktionspunkten
+    GameObject[] figurines = new GameObject[3]; //Alle Figuren über die ein Spieler verfügt
+    public int actionPoints = 0; //Anzahl an verfügbaren Aktionspunkten
     int maxAP; //Maxcap für AP
 
 	// Use this for initialization
 	void Start () {
-        if (this.gameObject.name == "player1")
+        if (this.gameObject.name == "Player1")
             maxAP = (figurines.Length + 2) * 2;
-        else if (this.gameObject.name == "player2")
+        else if (this.gameObject.name == "Player2")
             maxAP = (figurines.Length + 4) * 2;
 
         regenerateAP();
@@ -38,15 +39,18 @@ public class PlayerComponent : MonoBehaviour {
     //Füllt die AP für den Spieler wieder auf
     public void regenerateAP()
     {
-        if(this.gameObject.name == "player1")
+        if (this.gameObject.name == "Player1")
         {
             if (actionPoints + figurines.Length + 2 > maxAP)
                 actionPoints = maxAP;
             else
+            {
                 actionPoints = actionPoints + figurines.Length + 2;
+            }
+            
 
         }
-        if(this.gameObject.name == "player2")
+        if(this.gameObject.name == "Player2")
         {
             if (actionPoints + figurines.Length + 4 > maxAP)
                 actionPoints = maxAP;
