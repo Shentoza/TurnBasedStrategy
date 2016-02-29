@@ -12,7 +12,7 @@ public class inputSystem : MonoBehaviour {
 	bool figurGewaehlt;
     bool spielerAmZug;
 
-	bool angriffAusgewaehlt;
+	public bool angriffAusgewaehlt;
 	MovementSystem moveSys;
 	bool smokeAusgewaehlt;
 	bool molotovAusgewaehlt;

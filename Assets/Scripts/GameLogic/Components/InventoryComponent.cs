@@ -7,6 +7,7 @@ public class InventoryComponent : MonoBehaviour {
     public WeaponComponent secondary;
     public GameObject equipment;
     public int amountSmokes;
+    public int amountGrenades;
     public int amountMolotovs;
     public int amountMediKits;
     public int amountMines;
