@@ -9,9 +9,9 @@ public class ManagerSystem : MonoBehaviour {
     GameObject player1;
     GameObject player2;
     GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
-
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
+    private ShootingSystem shootingSys;    
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +21,7 @@ public class ManagerSystem : MonoBehaviour {
         player2 = GameObject.Find("Player2");
         player2.GetComponent<inputSystem>().enabled = false;
         cam = GameObject.Find("Main Camera").GetComponent<CameraRotationScript>();
+        shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
     }
 	
 	// Update is called once per frame
@@ -28,6 +29,17 @@ public class ManagerSystem : MonoBehaviour {
 	
 	}
 
+    public void shoot(GameObject attacker, GameObject target)
+    {
+        if(shootingSys.shoot(attacker, target))
+        {
+            Debug.Log("Getroffen");
+        }
+        else
+        {
+            Debug.Log("Nicht getroffen");
+        }
+    }
     //Runde wird inkrementiert && AP werden wieder aufgefüllt
     void nextRound()
     {
