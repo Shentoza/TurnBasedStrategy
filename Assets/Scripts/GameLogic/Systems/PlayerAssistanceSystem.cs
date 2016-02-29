@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerAssistanceSystem : MonoBehaviour {
 
-    public 
+    bool drawingWalkPath;
+    bool drawingThrowPath;
 
 	// Use this for initialization
 	void Start () {
@@ -14,4 +15,13 @@ public class PlayerAssistanceSystem : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void PaintWalkPath(ArrayList path)
+    {
+
+    }
+
+    void ClearDraws()
+    {
+    }
 }
