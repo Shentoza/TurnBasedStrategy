@@ -68,9 +68,10 @@ public class ShootingSystem : MonoBehaviour
             Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
+                Debug.Log("Ziel HP: " + currentTargetAttr.hp);
                 int damage = generateDamage();
                 currentTargetAttr.hp -= damage;
-
+                Debug.Log("Ziel HP: " + currentTargetAttr.hp);
                 currentplayerAttr.ap--;
                 currentplayerAttr.canShoot = false;
                 return true;
