@@ -12,6 +12,10 @@ public class CameraRotationScript : MonoBehaviour {
 	Transform mapCamera;
 	Transform switchTarget;
 
+	GameObject cameraTarget;
+
+	GameObject plane;
+
 	public Vector3 startPosition = new Vector3 (5.5f, 5.0f, -9.0f);
 
 	//Für Zoom
@@ -62,10 +66,13 @@ public class CameraRotationScript : MonoBehaviour {
 		x = angles.y;
 		y = angles.x;
 
-		GameObject plane = (GameObject)GameObject.Find ("Plane");
+		plane = (GameObject)GameObject.Find ("Plane");
 
 		mapCamera = (Transform)GameObject.Find ("centerCameraTarget").GetComponent (typeof(Transform));
 		mapCamera.position = new Vector3 (plane.transform.position.x, 0.0f, plane.transform.position.z);
+
+		cameraTarget = (GameObject)GameObject.Find ("centerCameraTarget");
+		target = cameraTarget.transform;
 
 		rigidbody = GetComponent<Rigidbody>();
 		
@@ -88,27 +95,68 @@ public class CameraRotationScript : MonoBehaviour {
 				startLerp = false;
 			}
 		}
-		/*
+
 		//Links scrollen
 		if (mousePosX / Screen.width < 1 - scrollDistance && !startRotation) {
+			/*
 			followCameraEnabled = false;
 			transform.Translate(transform.right * -scrollSpeed * Time.deltaTime, Space.World);
+			*/
+			if (inBattlefield()) {
+				cameraTarget.transform.Translate (transform.right * -scrollSpeed * Time.deltaTime, Space.World);
+			}
 		}
 		//rechts scrollen
 		if (mousePosX / Screen.width >= scrollDistance && !startRotation) {
+			/*
 			followCameraEnabled = false;
 			transform.Translate (transform.right * scrollSpeed * Time.deltaTime, Space.World);
+			*/
+			if (inBattlefield ()) {
+				cameraTarget.transform.Translate (transform.right * scrollSpeed * Time.deltaTime, Space.World);
+			}
 		}
 		//unten scrollen
 		if (mousePosY / Screen.height < 1 - scrollDistance && !startRotation) {
+			/*
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * -scrollSpeed * Time.deltaTime, Space.World);
+			*/
+			if (inBattlefield ()) {
+				cameraTarget.transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * -scrollSpeed * Time.deltaTime, Space.World);
+			}
 		}
 		//oben scrollen
 		if (mousePosY / Screen.height >= scrollDistance && !startRotation) {
+			/*
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * scrollSpeed * Time.deltaTime, Space.World);
-		}*/
+			*/
+			if (inBattlefield ()) {
+				cameraTarget.transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * scrollSpeed * Time.deltaTime, Space.World);
+			}
+		}
+
+		if (!startLerp && target) {
+			y = ClampAngle (y, yMinLimit, yMaxLimit);
+
+			Quaternion rotation = Quaternion.Euler (y, x, 0);
+
+			distance = Mathf.Clamp (distance - Input.GetAxis ("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+
+			/*
+			RaycastHit hit;
+			if (Physics.Linecast (target.position, transform.position, out hit)) {
+				distance -= hit.distance;
+			}*/
+
+			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
+			Vector3 position = rotation * negDistance + target.position;
+
+			transform.rotation = rotation;
+			transform.position = Vector3.Lerp(transform.position, position, 5.0f * 0.03f);
+			distanceToObject = transform.position - target.position;
+		}
 
 		//Die Rotation um ein Objekt
 		if (startRotation && !startLerp && target) {
@@ -131,28 +179,8 @@ public class CameraRotationScript : MonoBehaviour {
 			transform.rotation = rotation;
 			transform.position = position;
 			distanceToObject = transform.position - target.position;
-		}
-
-		if (!startLerp && target) {
-			y = ClampAngle (y, yMinLimit, yMaxLimit);
+		}/*
 			
-			Quaternion rotation = Quaternion.Euler (y, x, 0);
-			
-			distance = Mathf.Clamp (distance - Input.GetAxis ("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
-			/*
-			RaycastHit hit;
-			if (Physics.Linecast (target.position, transform.position, out hit)) {
-				distance -= hit.distance;
-			}*/
-			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
-			Vector3 position = rotation * negDistance + target.position;
-			
-			transform.rotation = rotation;
-			transform.position = Vector3.Lerp(transform.position, position, 5.0f * 0.03f);
-			distanceToObject = transform.position - target.position;
-		}
-
-		/*
 		if (!mapCamera && startRotation) {
 			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.01f;
 			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.01f;
@@ -167,6 +195,8 @@ public class CameraRotationScript : MonoBehaviour {
 			Vector3 negDistance = new Vector3 (0.0f, 0.0f, -distance);
 			Vector3 position = rotation * negDistance;
 		}*/
+
+
 	}
 	
 	//Clampangle für die Rotation um ein Objekt (Damit keiner Werte über/unter 360 entstehen bzw min und max nicht überschritten werden)
@@ -207,6 +237,28 @@ public class CameraRotationScript : MonoBehaviour {
 		startSwitch = true;
 	}
 
+	public bool inBattlefield()
+	{
+		bool inField = true;
+		if (target.transform.position.x < 0) {
+			inField = false;
+			target.transform.position = new Vector3(0, target.transform.position.y, target.transform.position.z);
+		}
+		if (target.transform.position.z > 0) {
+			inField = false;
+			target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, 0);
+		}
+		if (target.transform.position.x > (plane.transform.position.x * 2)) {
+			inField = false;
+			target.transform.position = new Vector3((plane.transform.position.x * 2), target.transform.position.y, target.transform.position.z);
+		}
+		if (target.transform.position.z < (plane.transform.position.z * 2)) {
+			inField = false;
+			target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, (plane.transform.position.z * 2));
+		}
+		return inField;
+	}
+	/*
 	public void switchCamera()
 	{
 		Debug.Log (switchTarget);
@@ -221,5 +273,5 @@ public class CameraRotationScript : MonoBehaviour {
 			mapCameraEnabled = true;
 		}
 		
-	}
+	}*/
 }
