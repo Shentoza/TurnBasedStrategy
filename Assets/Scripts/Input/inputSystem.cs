@@ -48,7 +48,7 @@ public class inputSystem : MonoBehaviour {
 						AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
 						Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
 						dijSys.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
-						//rotationScript.setNewTarget(player);
+						rotationScript.setNewTarget(player);
 					}
 				}
 				if (angriffAusgewaehlt)
@@ -130,7 +130,7 @@ public class inputSystem : MonoBehaviour {
 		}
         if(Input.GetKeyDown("space"))
         {
-			//rotationScript.switchCamera();
+			rotationScript.switchCamera();
         }
 	}
 }

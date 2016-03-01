@@ -98,6 +98,8 @@ public class CameraRotationScript : MonoBehaviour {
 
 		//Links scrollen
 		if (mousePosX / Screen.width < 1 - scrollDistance && !startRotation) {
+			mapCameraEnabled = true;
+			target = cameraTarget.transform;
 			/*
 			followCameraEnabled = false;
 			transform.Translate(transform.right * -scrollSpeed * Time.deltaTime, Space.World);
@@ -108,6 +110,8 @@ public class CameraRotationScript : MonoBehaviour {
 		}
 		//rechts scrollen
 		if (mousePosX / Screen.width >= scrollDistance && !startRotation) {
+			mapCameraEnabled = true;
+			target = cameraTarget.transform;
 			/*
 			followCameraEnabled = false;
 			transform.Translate (transform.right * scrollSpeed * Time.deltaTime, Space.World);
@@ -118,6 +122,8 @@ public class CameraRotationScript : MonoBehaviour {
 		}
 		//unten scrollen
 		if (mousePosY / Screen.height < 1 - scrollDistance && !startRotation) {
+			mapCameraEnabled = true;
+			target = cameraTarget.transform;
 			/*
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * -scrollSpeed * Time.deltaTime, Space.World);
@@ -128,6 +134,8 @@ public class CameraRotationScript : MonoBehaviour {
 		}
 		//oben scrollen
 		if (mousePosY / Screen.height >= scrollDistance && !startRotation) {
+			mapCameraEnabled = true;
+			target = cameraTarget.transform;
 			/*
 			followCameraEnabled = false;
 			transform.Translate (new Vector3(transform.forward.x, 0.0f, transform.forward.z) * scrollSpeed * Time.deltaTime, Space.World);
@@ -234,6 +242,9 @@ public class CameraRotationScript : MonoBehaviour {
 		else {
 			distanceToObject = new Vector3 (5, 5, 0);
 		}
+		cameraTarget.transform.position = target.transform.position;
+		mapCameraEnabled = false;
+		switchTarget = target;
 		startSwitch = true;
 	}
 
@@ -258,20 +269,14 @@ public class CameraRotationScript : MonoBehaviour {
 		}
 		return inField;
 	}
-	/*
+
 	public void switchCamera()
 	{
-		Debug.Log (switchTarget);
-		Debug.Log (target);
+		Debug.Log (mapCameraEnabled);
 		if (mapCameraEnabled) {
 			target = switchTarget;
+			cameraTarget.transform.position = target.transform.position;
 			mapCameraEnabled = false;
 		}
-		else {
-			switchTarget = target;
-			target = mapCamera;
-			mapCameraEnabled = true;
-		}
-		
-	}*/
+	}
 }
