@@ -12,7 +12,7 @@ public class inputSystem : MonoBehaviour {
 	bool figurGewaehlt;
     bool spielerAmZug;
 
-	bool angriffAusgewaehlt;
+	public bool angriffAusgewaehlt;
 	MovementSystem moveSys;
 	bool smokeAusgewaehlt;
 	bool molotovAusgewaehlt;
@@ -57,6 +57,7 @@ public class inputSystem : MonoBehaviour {
                         || hit.collider.gameObject.tag == "FigurSpieler1" && !spielerAmZug)
 					{
                         manager.shoot(player, hit.collider.gameObject);
+                        angriffAusgewaehlt = false;
 					}
                     else
                     {

@@ -19,7 +19,9 @@ public class UiManager : MonoBehaviour {
     public int maxAP;
 
     GUIStyle style;
-    
+
+    inputSystem input;
+
     // aktionen enum
     int[] activeUnitSkills = {0,3,2,1,3};
 
@@ -37,6 +39,8 @@ public class UiManager : MonoBehaviour {
         //test angaben
         isPlayer1 = managerSys.getPlayerTurn();
 
+        
+
 
         //getActiveUnitSkills
 
@@ -53,12 +57,21 @@ public class UiManager : MonoBehaviour {
         isPlayer1 = managerSys.getPlayerTurn();
         player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
+        if (isPlayer1)
+            input = player1.GetComponent<inputSystem>();
+        else
+            input = player2.GetComponent<inputSystem>();
     }
 
 
     public void endTurn()
     {
         managerSys.setPlayerTurn();
+    }
+
+    public void shoot()
+    {
+        input.angriffAusgewaehlt = true;
     }
 
     public int[] getActiveUnitSkills()

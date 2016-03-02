@@ -78,7 +78,7 @@ public class ActionButtons : MonoBehaviour {
         {
             if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur1, uiM.getStyle()))
             {
-                // uiM.getActiveUnit().shoot();
+                uiM.shoot();
                 Debug.Log("action1");
             }
         }else if (skills[i] == 2)
