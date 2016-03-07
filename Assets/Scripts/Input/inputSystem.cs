@@ -4,12 +4,12 @@ using System.Collections;
 public class inputSystem : MonoBehaviour {
 
     ManagerSystem manager;
+    PlayerAssistanceSystem assist;
 	GameObject player;
 	Cell zelle;
 	DijkstraSystem dijSys;
+    AttributeComponent attr;
 	CameraRotationScript rotationScript;
-    PlayerAssistanceSystem assistance;
-    AttributeComponent attribute;
 
 	bool figurGewaehlt;
     bool spielerAmZug;
@@ -24,7 +24,7 @@ public class inputSystem : MonoBehaviour {
         dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
         manager = GameObject.Find("Manager").GetComponent<ManagerSystem>();
 		rotationScript = (CameraRotationScript)FindObjectOfType (typeof(CameraRotationScript));
-        assistance = (PlayerAssistanceSystem)manager.GetComponent(typeof(PlayerAssistanceSystem));
+        assist = (PlayerAssistanceSystem)GameObject.Find("Manager").GetComponent(typeof(PlayerAssistanceSystem));
 	}
 	
 
@@ -47,11 +47,10 @@ public class inputSystem : MonoBehaviour {
 					{
                         manager.setSelectedFigurine(hit.collider.gameObject);
 						player = hit.collider.gameObject;
-                        attribute = (AttributeComponent)player.GetComponent(typeof(AttributeComponent));
 						figurGewaehlt = true;
-						AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
-						Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
-						dijSys.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
+						attr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
+						Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
+						dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.attackRange);
 						rotationScript.setNewTarget(player);
 					}
 				}
@@ -93,12 +92,39 @@ public class inputSystem : MonoBehaviour {
 				figurGewaehlt = false;
 			}
 		}
-		if (Input.GetMouseButtonDown (1)) {
-				if(figurGewaehlt)
+        if (Input.GetMouseButton(1))
+        {
+            Ray clicked = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Physics.Raycast(clicked, out hit);
+            if (hit.collider != null)
+            {
+                if (figurGewaehlt && hit.collider.gameObject.tag == "Cell")
+                {
+                    zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
+                    ArrayList path = dijSys.getPath(attr.getCurrentCell(), zelle);
+                    assist.PaintWalkPath(path);
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonUp (1)) {
+			Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			Physics.Raycast (clicked, out hit);
+			if(hit.collider != null)
+			{
+				if(figurGewaehlt && hit.collider.gameObject.tag == "Cell")
 				{
+					zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
 					MovementSystem moveSys = (MovementSystem) player.GetComponent(typeof(MovementSystem));
 					moveSys.MoveTo(zelle);
 				}
+			}
+			else
+			{
+				figurGewaehlt = false;
+			}
 		}
         if(Input.GetKeyDown("a") && player != null)
         {
@@ -124,27 +150,6 @@ public class inputSystem : MonoBehaviour {
         if(Input.GetKeyDown("space"))
         {
 			rotationScript.backToTarget();
-        }
-
-        //Aktuelle Zielzelle wählen
-        if (figurGewaehlt)
-        {
-            Ray over = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Physics.Raycast(over, out hit);
-            if (hit.collider != null)
-            {
-                if (figurGewaehlt && hit.collider.gameObject.tag == "Cell")
-                {
-                    zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-                }
-            }
-            //Laufpfad einzeichnen
-            if (!(smokeAusgewaehlt || molotovAusgewaehlt))
-            {
-                dijSys.getPath(attribute.getCurrentCell(), zelle);
-
-            }
         }
 	}
 }
