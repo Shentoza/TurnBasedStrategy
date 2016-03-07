@@ -7,13 +7,14 @@ public class UiManager : MonoBehaviour {
 
 
     //dummys
-    public bool isPlayer1;
+   public bool isPlayer1;
    public int player1AP;
    public int player2AP;
 
     GameObject player1;
     GameObject player2;
 
+    InventorySystem inventSys;
     ManagerSystem managerSys;
 
     public int maxAP;
@@ -23,7 +24,7 @@ public class UiManager : MonoBehaviour {
     inputSystem input;
 
     // aktionen enum
-    int[] activeUnitSkills = {0,3,2,1,3};
+    int[] activeUnitSkills = {0,1,2,3,4};
 
 
 	// Use this for initialization
@@ -32,6 +33,7 @@ public class UiManager : MonoBehaviour {
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
         managerSys = GameObject.Find("Manager").GetComponent<ManagerSystem>();
+        inventSys = GameObject.Find("Manager").GetComponent<InventorySystem>();
 
         player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
@@ -72,6 +74,17 @@ public class UiManager : MonoBehaviour {
     public void shoot()
     {
         input.angriffAusgewaehlt = true;
+    }
+
+    public void heal()
+    {
+
+    }
+
+    //Weitergabe an InventorySystem
+    public void reload()
+    {
+        inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
     }
 
     public int[] getActiveUnitSkills()

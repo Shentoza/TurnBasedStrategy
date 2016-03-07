@@ -92,6 +92,11 @@ public class ManagerSystem : MonoBehaviour {
         selectedFigurine = selected;
     }
 
+    public GameObject getSelectedFigurine()
+    {
+        return selectedFigurine;
+    }
+
 
    
 }

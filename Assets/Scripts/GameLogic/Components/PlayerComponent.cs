@@ -58,4 +58,9 @@ public class PlayerComponent : MonoBehaviour {
                 actionPoints = actionPoints + figurines.Length + 4;
         }
     }
+
+    public void useAP()
+    {
+        actionPoints--;
+    }
 }

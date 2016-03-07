@@ -29,11 +29,6 @@ public class InventoryComponent : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isPrimary = true;
-        amountSmokes = 0;
-        amountMolotovs = 0;
-        amountMediKits = 0;
-        amountMines = 0;
-        amountMagazines = 0;
 	}
 	
 	// Update is called once per frame
