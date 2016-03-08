@@ -27,38 +27,28 @@ public class ShootingSystem : MonoBehaviour
     // Range
     private const float MID_RANGE = 11.25f;
 
+    private HealthSystem healthSystem;
+
     private AttributeComponent currentplayerAttr;
     private WeaponComponent currentPlayerWeapon;
     private Cell currentPlayerCell;
 
     private AttributeComponent currentTargetAttr;
-    private ArmorComponent currentTargetArmor;
     private Cell currentTargetCell;
 
     private float distanceBetweenPlayers;
-    
-    // Use this for initialization
-    void Start ()
-    {              
-        
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	
-	}
    
     public bool shoot(GameObject attacker, GameObject target)
-    {    
+    {
+        healthSystem = GameObject.Find("Manager").GetComponent<HealthSystem>();
+
         currentplayerAttr = (AttributeComponent)attacker.GetComponent(typeof(AttributeComponent));
         currentPlayerCell = currentplayerAttr.getCurrentCell();
         currentPlayerWeapon = (WeaponComponent)currentplayerAttr.weapon.GetComponent(typeof(WeaponComponent));
 
         currentTargetAttr = (AttributeComponent)target.GetComponent(typeof(AttributeComponent));        
         currentTargetCell = currentTargetAttr.getCurrentCell();
-        currentTargetArmor = (ArmorComponent)currentplayerAttr.armor.GetComponent(typeof(ArmorComponent));
-        
+               
         distanceBetweenPlayers = Vector3.Magnitude(currentTargetCell.transform.position - currentPlayerCell.transform.position);
         Debug.Log("Distance between players is " + distanceBetweenPlayers);
 
@@ -68,11 +58,7 @@ public class ShootingSystem : MonoBehaviour
             Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
-                int damage = generateDamage();
-                currentTargetAttr.hp -= damage;
-
-                currentplayerAttr.ap--;
-                currentplayerAttr.canShoot = false;
+                healthSystem.doDamage(currentplayerAttr, currentTargetAttr, HealthSystem.SHOOT);                
                 return true;
             }
             else
@@ -175,9 +161,9 @@ public class ShootingSystem : MonoBehaviour
     }
 
     /* DISTANCE related */
-    // Short Range [0,10]
-    // Mid Range [11,20]
-    // Long Range [21, attackRange + weaponRange]
+    // Short Range [0, 7.5]
+    // Mid Range [7.6, 15]
+    // Long Range [16, attackRange + weaponRange]
     private float generateDistanceBonusOrMalus()
     {    
         // Short Range Bonus
@@ -193,27 +179,5 @@ public class ShootingSystem : MonoBehaviour
 
         // Default 
         return NO_BONUS;
-    }
-
-    /* DAMAGE reated */
-    private int generateDamage()
-    {
-        int damage = currentPlayerWeapon.damage;
-
-        if(targetHasArmor())
-        {
-            return damage - currentTargetArmor.armorValue;
-        }
-
-        return damage;
-    }
-
-    /* ARMOR related */
-    private bool targetHasArmor()
-    {
-        if(currentTargetAttr.armored)        
-            return true;          
-
-        return false;
-    }
+    }    
 }

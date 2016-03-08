@@ -1,20 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ManagerSystem : MonoBehaviour {
+
+    public GameObject unit;
+
+    public List<GameObject> unitListP1;
+    public List<GameObject> unitListP2;
+
+    
+    public GameObject activeUnitMarker;
 
     CameraRotationScript cam;
     private int rounds;             //Spiegelt Rundenzahl wieder
     private bool isPlayer1;         //Spieler1 an der Reihe
     GameObject player1;
     GameObject player2;
-    GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
+   public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
     private ShootingSystem shootingSys;    
 
 	// Use this for initialization
 	void Start () {
+
         rounds = 0;
         isPlayer1 = true;
         player1 = GameObject.Find("Player1");
@@ -26,7 +36,9 @@ public class ManagerSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        activeUnitMark();
+
 	}
 
     public void shoot(GameObject attacker, GameObject target)
@@ -93,5 +105,27 @@ public class ManagerSystem : MonoBehaviour {
     }
 
 
-   
+    public void addUnit(int team)
+    {
+        if (team == 1)
+        {
+            unitListP1.Add( Instantiate(unit) );
+        }
+        else if (team == 2)
+        {
+            unitListP2.Add(Instantiate(unit) );
+        }
+    }
+
+
+    public void activeUnitMark()
+    {
+        if (selectedFigurine)
+        {
+            activeUnitMarker.transform.position = selectedFigurine.transform.position;
+            activeUnitMarker.transform.rotation = selectedFigurine.transform.rotation;
+        }
+        
+
+    }
 }
