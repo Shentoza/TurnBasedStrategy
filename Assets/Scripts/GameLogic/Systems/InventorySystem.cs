@@ -17,8 +17,29 @@ public class InventorySystem : MonoBehaviour {
     //Wird durch reloadAktion aufgerufen
     public void reloadAmmo(GameObject figurine)
     {
+        Debug.Log("Herll");
         InventoryComponent inventory = figurine.GetComponent<InventoryComponent>();
-        inventory.amountMagazines--;
+        if(inventory.amountMagazines > 0)
+        {
+            if (GameObject.Find("Manager").GetComponent<ManagerSystem>().getPlayerTurn())
+            {
+                if (GameObject.Find("Player1").GetComponent<PlayerComponent>().actionPoints > 0)
+                {
+                    GameObject.Find("Player1").GetComponent<PlayerComponent>().useAP();
+                }
+            }
+            else
+            {
+                if (GameObject.Find("Player2").GetComponent<PlayerComponent>().actionPoints > 0)
+                {
+                    GameObject.Find("Player2").GetComponent<PlayerComponent>().useAP();
+                }
+            }
+
+            inventory.amountMagazines--;
+            WeaponComponent weapon = inventory.primary;
+            weapon.currentBulletsInMagazine = weapon.magazineSize;
+        }
     }
 
     //Wird durch GranatAktion aufgerufen

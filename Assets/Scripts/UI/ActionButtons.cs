@@ -17,6 +17,7 @@ public class ActionButtons : MonoBehaviour {
     public Texture2D buttonTextur2;
     public Texture2D buttonTextur3;
     public Texture2D buttonTextur4;
+    public Texture2D buttonTextur5;
 
     int buttonsToDraw;
     int[] skills;
@@ -72,21 +73,21 @@ public class ActionButtons : MonoBehaviour {
             if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur0, uiM.getStyle()))
             {
                 // uiM.getActiveUnit().move();
+                uiM.shoot();
                 Debug.Log("action0");
             }
         }else if (skills[i] == 1)
         {
             if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur1, uiM.getStyle()))
             {
-                uiM.shoot();
-                Debug.Log("action1");
+                uiM.heal();
             }
         }else if (skills[i] == 2)
         {
             if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur2, uiM.getStyle()))
             {
                 // uiM.getActiveUnit().action2();
-                Debug.Log("action2");
+                uiM.reload();
             }
         }else if (skills[i] == 3)
         {
