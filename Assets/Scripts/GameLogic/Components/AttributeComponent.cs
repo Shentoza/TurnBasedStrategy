@@ -88,6 +88,10 @@ public class AttributeComponent : MonoBehaviour {
             items.secondary = Instantiate(armory.Pistol).GetComponent<WeaponComponent>();
             items.amountGrenades = 1;
         }
+        if(items.primary != null)
+            items.primary.gameObject.transform.SetParent(this.transform);
+        if (items.secondary != null)
+            items.secondary.gameObject.transform.SetParent(this.transform);
     }
 
     public void setEquip(Vector4 v)
@@ -103,12 +107,14 @@ public class AttributeComponent : MonoBehaviour {
         {
 
            items.primary = Instantiate(armory.Pipe).GetComponent<WeaponComponent>();
+            // items.primary.gameObject.
             
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.Shotgun)
         {
 
             items.primary = Instantiate(armory.Shotgun).GetComponent<WeaponComponent>();
+
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.HuntingRifle)
         {
@@ -130,7 +136,8 @@ public class AttributeComponent : MonoBehaviour {
 
             items.primary = Instantiate(armory.Sniper).GetComponent<WeaponComponent>();
         }
-
+        if (items.primary != null)
+            items.primary.gameObject.transform.SetParent(this.transform);
 
         //sekundärwaffe
         items.secondaryWeaponType = (Enums.SecondaryWeapons)v.y;
@@ -149,7 +156,8 @@ public class AttributeComponent : MonoBehaviour {
 
             items.secondary = Instantiate(armory.RPG).GetComponent<WeaponComponent>();
         }
-
+        if(items.secondary != null)
+            items.secondary.gameObject.transform.SetParent(this.transform);
 
 
         //utility1

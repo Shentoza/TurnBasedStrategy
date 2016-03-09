@@ -112,13 +112,16 @@ public class ManagerSystem : MonoBehaviour {
 
     public void addUnit(int team)
     {
+        GameObject tmp = Instantiate(unit);
         if (team == 1)
         {
-            unitListP1.Add( Instantiate(unit) );
+            unitListP1.Add( tmp );
+            tmp.transform.SetParent(player1.transform);
         }
         else if (team == 2)
         {
-            unitListP2.Add(Instantiate(unit) );
+            unitListP2.Add(tmp );
+            tmp.transform.SetParent(player2.transform);
         }
     }
 
