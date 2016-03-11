@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ManagerSystem : MonoBehaviour {
 
     public GameObject unit;
+    public GameObject uiManager;
 
     public List<GameObject> unitListP1;
     public List<GameObject> unitListP2;
@@ -17,7 +18,7 @@ public class ManagerSystem : MonoBehaviour {
     private bool isPlayer1;         //Spieler1 an der Reihe
     GameObject player1;
     GameObject player2;
-   public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
+    public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
     private ShootingSystem shootingSys;    
@@ -40,6 +41,12 @@ public class ManagerSystem : MonoBehaviour {
         activeUnitMark();
 
 	}
+
+    public void loadUI()
+    {
+        Instantiate(uiManager);
+    }
+
 
     public void shoot(GameObject attacker, GameObject target)
     {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class ActionButtons : MonoBehaviour {
@@ -12,18 +13,24 @@ public class ActionButtons : MonoBehaviour {
     public int spacing;
 
     //button icons
-    public Texture2D buttonTextur0;
-    public Texture2D buttonTextur1;
-    public Texture2D buttonTextur2;
-    public Texture2D buttonTextur3;
-    public Texture2D buttonTextur4;
-    public Texture2D buttonTextur5;
+    public Texture2D Cancel;
+    public Texture2D Move;
+    public Texture2D Hit;
+    public Texture2D Shoot;
+    public Texture2D Reload;
+    public Texture2D ChangeWeapon;
+    public Texture2D Heal;
+    public Texture2D Molotov;
+    public Texture2D Grenade;
+    public Texture2D Smoke;
+    public Texture2D Teargas;
 
     int buttonsToDraw;
-    int[] skills;
+
+    List<Enums.Actions> skills;
     int startPosX;
 
- 
+    
    
 
 	// Use this for initialization
@@ -41,9 +48,9 @@ public class ActionButtons : MonoBehaviour {
     void OnGUI(){
         
         skills = uiM.getActiveUnitSkills();
+
+        buttonsToDraw = skills.Count;
       
-  
-        buttonsToDraw = skills.GetLength(0);
         startPosX = Screen.width/2 - (buttonsToDraw * width + (buttonsToDraw - 1) * spacing) / 2;
 
         for (int i = 0; i < buttonsToDraw; i++)
@@ -68,33 +75,20 @@ public class ActionButtons : MonoBehaviour {
         }
         int posY = Screen.height - height - bottomSpacing;
 
-        if (skills[i] == 0)
+        if (skills[i] == Enums.Actions.Move)
         {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur0, uiM.getStyle()))
+            if (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Move, "Move"), uiM.getStyle()))
             {
-                // uiM.getActiveUnit().move();
-                uiM.shoot();
-                Debug.Log("action0");
+                uiM.move();
+                Debug.Log("move");
             }
-        }else if (skills[i] == 1)
+        }
+        else if (skills[i] == Enums.Actions.Hit)
         {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur1, uiM.getStyle()))
+            if (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Hit, "Hit"), uiM.getStyle()))
             {
-                uiM.heal();
-            }
-        }else if (skills[i] == 2)
-        {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur2, uiM.getStyle()))
-            {
-                // uiM.getActiveUnit().action2();
-                uiM.reload();
-            }
-        }else if (skills[i] == 3)
-        {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur3, uiM.getStyle()))
-            {
-                // uiM.getActiveUnit().action3();
-                Debug.Log("action3");
+                uiM.hit();
+                Debug.Log("hit");
             }
         }
 

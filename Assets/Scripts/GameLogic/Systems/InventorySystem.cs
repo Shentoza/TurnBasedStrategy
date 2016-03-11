@@ -70,11 +70,12 @@ public class InventorySystem : MonoBehaviour {
         inventory.amountMediKits--;
     }
 
-    //Wird durch MinenAktion aufgerufen
+   /* 
+    * //Wird durch MinenAktion aufgerufen
     public void decreaseMines(GameObject figurine)
     {
         InventoryComponent inventory = figurine.GetComponent<InventoryComponent>();
         inventory.amountMines--;
     }
-
+    */
 }

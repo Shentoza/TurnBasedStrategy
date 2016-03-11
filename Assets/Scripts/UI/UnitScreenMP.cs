@@ -81,7 +81,7 @@ public class UnitScreenMP : MonoBehaviour {
         {
             unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
 
-            if (unitCountP1 > unitCountP2)
+            if (unitCountP1 > unitCountP2 && unitCountP2 < p2UnitCap)
             {
                 player1Picking = false;
             }
@@ -99,6 +99,7 @@ public class UnitScreenMP : MonoBehaviour {
                 //pickingphase beenden 
                 //übergang zum gameplay
                 done = true;
+                manager.loadUI();
             }
         }
 	}
