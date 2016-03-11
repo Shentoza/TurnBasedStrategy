@@ -129,7 +129,7 @@ public class ManagerSystem : MonoBehaviour {
     public void addUnit(int team)
     {
         GameObject tmp = Instantiate(unit);
-<<<<<<< HEAD
+
         
         if (team == 1)
         {
@@ -140,17 +140,7 @@ public class ManagerSystem : MonoBehaviour {
         {
             tmp.transform.SetParent(player2.transform);
             unitListP2.Add(tmp );
-=======
-        if (team == 1)
-        {
-            unitListP1.Add( tmp );
-            tmp.transform.SetParent(player1.transform);
-        }
-        else if (team == 2)
-        {
-            unitListP2.Add(tmp );
-            tmp.transform.SetParent(player2.transform);
->>>>>>> origin/master
+
         }
     }
 
