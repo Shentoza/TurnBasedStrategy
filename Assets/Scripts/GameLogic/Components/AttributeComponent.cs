@@ -33,7 +33,7 @@ public class AttributeComponent : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        skills = new List<Enums.Actions>();
+      //  skills = new List<Enums.Actions>();
         hp = 10;
         ap = 2;
         canShoot = true;
@@ -66,8 +66,10 @@ public class AttributeComponent : MonoBehaviour {
 
         if (profession == Enums.Prof.Riot)
         {
-       
-            items.primary = Instantiate(armory.ShieldnStick).GetComponent<WeaponComponent>();
+
+            GameObject tmp = Instantiate(armory.ShieldnStick);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.ShieldnStick;
             items.amountTeargas = 4;
             hp += 20;
@@ -77,7 +79,9 @@ public class AttributeComponent : MonoBehaviour {
         }
         else if (profession == Enums.Prof.Soldier)
         {
-            items.primary = Instantiate(armory.AssaultRifle).GetComponent<WeaponComponent>();
+            GameObject tmp = Instantiate(armory.AssaultRifle);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.AssaultRifle;
             items.amountGrenades = 2;
             hp += 20;
@@ -87,7 +91,9 @@ public class AttributeComponent : MonoBehaviour {
         }
         else if (profession == Enums.Prof.HeavyGunner)
         {
-            items.primary = Instantiate(armory.MG).GetComponent<WeaponComponent>();
+            GameObject tmp = Instantiate(armory.MG);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.MG;
             hp += 20;
             skills.Add(Enums.Actions.Shoot);
@@ -95,9 +101,14 @@ public class AttributeComponent : MonoBehaviour {
         }
         else if (profession == Enums.Prof.Support)
         {
-            items.primary = Instantiate(armory.AssaultRifle).GetComponent<WeaponComponent>();
+            GameObject tmp = Instantiate(armory.AssaultRifle);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.AssaultRifle;
-            items.secondary = Instantiate(armory.Pistol).GetComponent<WeaponComponent>();
+
+            tmp = Instantiate(armory.Pistol);
+            tmp.transform.SetParent(transform);
+            items.secondary = tmp.GetComponent<WeaponComponent>();
             items.secondaryWeaponType = Enums.SecondaryWeapons.Pistol;
             items.amountMediKits = 2;
             hp += 20;
@@ -108,9 +119,14 @@ public class AttributeComponent : MonoBehaviour {
         }
         if (profession == Enums.Prof.Sniper)
         {
-            items.primary = Instantiate(armory.Sniper).GetComponent<WeaponComponent>();
+            GameObject tmp = Instantiate(armory.Sniper);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.Sniper;
-            items.secondary = Instantiate(armory.Pistol).GetComponent<WeaponComponent>();
+
+            tmp = Instantiate(armory.Pistol);
+            tmp.transform.SetParent(transform);
+            items.secondary = tmp.GetComponent<WeaponComponent>();
             items.secondaryWeaponType = Enums.SecondaryWeapons.Pistol;
             items.amountGrenades = 1;
             skills.Add(Enums.Actions.Shoot);
@@ -124,22 +140,25 @@ public class AttributeComponent : MonoBehaviour {
         armory = GameObject.Find("Armory").GetComponent<ArmoryComponent>();
 
         items = this.GetComponent<InventoryComponent>();
-        
+
+        GameObject tmp;
 
         //primärwaffe
         items.primaryWeaponType = (Enums.PrimaryWeapons)v.x;
         if (items.primaryWeaponType == Enums.PrimaryWeapons.Pipe)
         {
-
-           items.primary = Instantiate(armory.Pipe).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.Pipe);
+            tmp.transform.SetParent(transform);
+           items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.Pipe;
            skills.Add(Enums.Actions.Hit);
             
         }
         if (items.primaryWeaponType == Enums.PrimaryWeapons.ShieldnStick)
         {
-
-            items.primary = Instantiate(armory.ShieldnStick).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.ShieldnStick);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.ShieldnStick;
             hp += 20;
             skills.Add(Enums.Actions.Hit);
@@ -147,40 +166,45 @@ public class AttributeComponent : MonoBehaviour {
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.Shotgun)
         {
-
-            items.primary = Instantiate(armory.Shotgun).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.Shotgun);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.Shotgun;
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.HuntingRifle)
         {
-
-            items.primary = Instantiate(armory.HuntingRifle).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.HuntingRifle);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.HuntingRifle;
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.AssaultRifle)
         {
-
-            items.primary = Instantiate(armory.AssaultRifle).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.AssaultRifle);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.AssaultRifle;
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.MG)
         {
-
-            items.primary = Instantiate(armory.MG).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.MG);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.MG;
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.Sniper)
         {
-
-            items.primary = Instantiate(armory.Sniper).GetComponent<WeaponComponent>();
+            tmp = Instantiate(armory.Sniper);
+            tmp.transform.SetParent(transform);
+            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.Sniper;
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
@@ -191,19 +215,21 @@ public class AttributeComponent : MonoBehaviour {
         items.secondaryWeaponType = (Enums.SecondaryWeapons)v.y;
         if (items.secondaryWeaponType == Enums.SecondaryWeapons.Pistol)
         {
-
-            items.secondary = Instantiate(armory.Pistol).GetComponent<WeaponComponent>();
+             tmp = Instantiate(armory.Pistol);
+            tmp.transform.SetParent(transform);
+            items.secondary = tmp.GetComponent<WeaponComponent>();
             items.secondaryWeaponType = Enums.SecondaryWeapons.Pistol;
 
             if (items.primaryWeaponType != Enums.PrimaryWeapons.None)
             {
-                if (items.primaryWeaponType != Enums.PrimaryWeapons.Pipe || items.primaryWeaponType != Enums.PrimaryWeapons.ShieldnStick)
+                if (items.primaryWeaponType == Enums.PrimaryWeapons.Pipe || items.primaryWeaponType == Enums.PrimaryWeapons.ShieldnStick)
                 {
                     skills.Add(Enums.Actions.Shoot);
                     skills.Add(Enums.Actions.Reload);
                 }
                 skills.Add(Enums.Actions.ChangeWeapon);
             }
+                // keine primary weapon
             else
             {
                 items.isPrimary = false;

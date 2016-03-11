@@ -21,7 +21,9 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
-    private ShootingSystem shootingSys;    
+    private ShootingSystem shootingSys;
+
+    GameObject plane;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +35,8 @@ public class ManagerSystem : MonoBehaviour {
         player2.GetComponent<inputSystem>().enabled = false;
         cam = GameObject.Find("Main Camera").GetComponent<CameraRotationScript>();
         shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
+
+        plane = GameObject.Find("Plane");
     }
 	
 	// Update is called once per frame
@@ -45,6 +49,8 @@ public class ManagerSystem : MonoBehaviour {
     public void loadUI()
     {
         Instantiate(uiManager);
+        selectedFigurine = unitListP1[0];
+        isPlayer1 = true;
     }
 
 
@@ -62,6 +68,9 @@ public class ManagerSystem : MonoBehaviour {
     //Runde wird inkrementiert && AP werden wieder aufgefüllt
     void nextRound()
     {
+
+
+
         player1.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler1 wieder auf
         player2.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler2 wieder auf
         rounds++;
@@ -88,21 +97,21 @@ public class ManagerSystem : MonoBehaviour {
         {
             //To-Do: Mit UI verknüpfen 
             Debug.Log("Spieler1 ist am Zug");
-            setSelectedFigurine(player1.transform.GetChild(0).gameObject);               //Wählt das erste Child von Spieler2
-            cam.setNewTarget(player1.transform.GetChild(0).gameObject);                 //Gibt der Kamera ein neues Target
+            setSelectedFigurine(unitListP1[0]);               //Wählt das erste Child von Spieler2
+            cam.setNewTarget(selectedFigurine);                 //Gibt der Kamera ein neues Target
             player1.GetComponent<inputSystem>().enabled = true;                         //Aktiviere InputSys von Spieler1
             player2.GetComponent<inputSystem>().enabled = false;
         }
         else
         {
             //To-Do: Mit UI verknüpfen 
-            setSelectedFigurine(player2.transform.GetChild(0).gameObject);             //Wählt das erste Child von Spieler2
-            cam.setNewTarget(player2.transform.GetChild(0).gameObject);              //Gibt der Kamera ein neues Target
+            setSelectedFigurine(unitListP2[0]);             //Wählt das erste Child von Spieler2
+            cam.setNewTarget(selectedFigurine);              //Gibt der Kamera ein neues Target
             player1.GetComponent<inputSystem>().enabled = false;
             player2.GetComponent<inputSystem>().enabled = true;                      //Aktiviere InputSys von Spieler2
         }
 
-        GameObject.Find("Plane").GetComponent<DijkstraSystem>().resetDijkstra();
+        plane.GetComponent<DijkstraSystem>().resetDijkstra();
 
     }
 
@@ -119,13 +128,17 @@ public class ManagerSystem : MonoBehaviour {
 
     public void addUnit(int team)
     {
+        GameObject tmp = Instantiate(unit);
+        
         if (team == 1)
         {
-            unitListP1.Add( Instantiate(unit) );
+            tmp.transform.SetParent(player1.transform);
+            unitListP1.Add( tmp );
         }
         else if (team == 2)
         {
-            unitListP2.Add(Instantiate(unit) );
+            tmp.transform.SetParent(player2.transform);
+            unitListP2.Add(tmp );
         }
     }
 

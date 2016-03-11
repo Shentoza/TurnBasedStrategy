@@ -130,13 +130,17 @@ public class UnitScreenMP : MonoBehaviour {
         if (!done)
         {
             //erstelle hintergrund
-            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
+           // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
+
+            
+            
 
             //rebellen
             drawP1();
 
             //staat
             drawP2();
+
         }
     }
 
@@ -155,12 +159,14 @@ public class UnitScreenMP : MonoBehaviour {
         yAnkerP1 = unitListYAnker;
         drawUnitList();
 
+        //GUI.Label(new Rect(200,200, 150, 150), GUI.tooltip);
+        GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 150, 150), GUI.tooltip);
 
         //add unit button
         if (player1Picking)
         {
-            if (GUI.Button(new Rect(unitListXAnker, unitListYAnker + (int)(Screen.height * 0.8f) + 5, unitIconWidth, unitIconHeight), newUnitButton))
-            {
+            bool p1PickButton = GUI.Button(new Rect(unitListXAnker, unitListYAnker + (int)(Screen.height * 0.8f) + 5, unitIconWidth, unitIconHeight), new GUIContent(newUnitButton, "Order Now"));
+            if(p1PickButton){
                 p1Pick();
             }
         }
@@ -216,7 +222,7 @@ public class UnitScreenMP : MonoBehaviour {
             xBase -= (pWeapons.Count * dropdownOptionSize / 2);
             for (int i = 0; i < pWeapons.Count; i++)
             {
-                if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), pWeapons[i]))
+                if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(pWeapons[i], ((Enums.PrimaryWeapons)i).ToString())))
                 {                   
                         equip.x = i;
                         dp1 = false;             
@@ -229,7 +235,7 @@ public class UnitScreenMP : MonoBehaviour {
             xBase -= (sWeapons.Count * dropdownOptionSize / 2);
             for (int i = 0; i < sWeapons.Count; i++)
             {
-                if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), sWeapons[i]))
+                if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(sWeapons[i], ((Enums.SecondaryWeapons)i).ToString())))
                 {
                   
                         equip.y = i;
@@ -245,7 +251,7 @@ public class UnitScreenMP : MonoBehaviour {
             xBase -= (util.Count * dropdownOptionSize / 2);
             for (int i = 0; i < util.Count; i++)
             {
-                if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), util[i]))
+                if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize),new GUIContent( util[i], ((Enums.Equipment)i).ToString())))
                 {
                     if (dp3)
                     {
@@ -282,19 +288,25 @@ public class UnitScreenMP : MonoBehaviour {
     void drawEquipButtons()
     {
 
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker , 75, 75), pWeapons[(int)equip.x]))
+         
+
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker , 75, 75), new GUIContent( pWeapons[(int)equip.x], "test!!!!!!!!!!!!!!!!!!!!!!!!!!" )))
         {
+            Debug.Log("1:");
+            Debug.Log(Enum.GetName(typeof(Enums.PrimaryWeapons), ((Enums.PrimaryWeapons)equip.x)));
+            Debug.Log("2:");
+            Debug.Log(((Enums.PrimaryWeapons)equip.x).ToString());
             dp1 = true;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + buttonYOffset, 75, 75), sWeapons[(int)equip.y]))
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + buttonYOffset, 75, 75), new GUIContent( sWeapons[(int)equip.y], ((Enums.SecondaryWeapons)equip.x).ToString())))
         {
             dp2 = true;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 2*buttonYOffset, 75, 75), util[(int)equip.z]))
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 2 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.z], ((Enums.Equipment)equip.x).ToString())))
         {
             dp3 = true;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 3*buttonYOffset, 75, 75), util[(int)equip.w]))
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 3 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.w], ((Enums.Equipment)equip.x).ToString())))
         {
             dp4 = true;
         }
@@ -476,4 +488,13 @@ public class UnitScreenMP : MonoBehaviour {
         manager.addUnit(team);
         manager.unitListP2[unitCountP2].GetComponent<AttributeComponent>().setProf((int)i);
     }
+
+
+
+
+
 }
+
+
+
+   

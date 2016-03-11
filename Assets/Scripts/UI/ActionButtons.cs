@@ -25,9 +25,9 @@ public class ActionButtons : MonoBehaviour {
     public Texture2D Smoke;
     public Texture2D Teargas;
 
-    int buttonsToDraw;
+    public int buttonsToDraw;
 
-    List<Enums.Actions> skills;
+    public List<Enums.Actions> skills;
     int startPosX;
 
     
@@ -59,7 +59,8 @@ public class ActionButtons : MonoBehaviour {
         //    Debug.Log("button " + i + "erstellt");
         }
 
-
+       // GUI.Label(new Rect(Screen.width / 2, Screen.height - height - bottomSpacing + 5, 40, 40), GUI.tooltip);
+        GUI.Label(new Rect(Input.mousePosition.x+15, Screen.height- Input.mousePosition.y, 50, 50), GUI.tooltip);
     }
 
     void drawButton(int i){
@@ -75,25 +76,110 @@ public class ActionButtons : MonoBehaviour {
         }
         int posY = Screen.height - height - bottomSpacing;
 
+
+        
+
         if (skills[i] == Enums.Actions.Move)
         {
-            if (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Move, "Move"), uiM.getStyle()))
+            
+            bool clicked1 = GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Move, "Move"));           
+            if(clicked1)
             {
+                
                 uiM.move();
                 Debug.Log("move");
             }
         }
         else if (skills[i] == Enums.Actions.Hit)
         {
-            if (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Hit, "Hit"), uiM.getStyle()))
+            bool clicked2 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Hit, "Hit")));
+          
+            if(clicked2)
             {
                 uiM.hit();
                 Debug.Log("hit");
             }
         }
-
-
-
+        else if (skills[i] == Enums.Actions.Shoot)
+        {
+            bool clicked3 =(GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Shoot, "Shoot")));
+  
+            if(clicked3)
+            {
+                uiM.shoot();
+                Debug.Log("shoot");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Reload)
+        {
+            bool clicked4 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Reload, "Reload")));
+       
+            if(clicked4)
+            {
+                uiM.reload();
+                Debug.Log("Reload");
+            }
+        }
+        else if (skills[i] == Enums.Actions.ChangeWeapon)
+        {
+            bool clicked5 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(ChangeWeapon, "Change Weapon")));
+        
+            if(clicked5)
+            {
+                uiM.changeWeapon();
+                Debug.Log("change weapon");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Heal)
+        {
+            bool clicked6 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Heal, "Heal")));
+         
+            if(clicked6)
+            {
+                uiM.heal();
+                Debug.Log("heal");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Molotov)
+        {
+            bool clicked7 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Molotov, "Molotov")));
+        
+            if(clicked7)
+            {
+                uiM.molotov();
+                Debug.Log("Molotov");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Grenade)
+        {
+            bool clicked8 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Grenade, "Grenade")));
+    
+            if(clicked8)
+            {
+                uiM.grenade();
+                Debug.Log("Grenade");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Smoke)
+        {
+            bool clicked9 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Smoke, "Smoke")));
+   
+            if(clicked9)
+            {
+                uiM.smoke();
+                Debug.Log("Smoke");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Teargas)
+        {
+            bool clicked10 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Teargas, "Teargas")));
+          
+            if (clicked10)
+            {
+                uiM.teargas();
+                Debug.Log("Teargas");
+            }
+        }
 
 
 

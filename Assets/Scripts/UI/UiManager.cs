@@ -24,8 +24,8 @@ public class UiManager : MonoBehaviour {
     inputSystem input;
 
     // aktionen enum
-    AttributeComponent activeUnit;
-    List<Enums.Actions> activeUnitSkills;
+    public AttributeComponent activeUnit;
+    public List<Enums.Actions> activeUnitSkills;
 
 
 	// Use this for initialization
