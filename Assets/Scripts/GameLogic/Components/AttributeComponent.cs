@@ -133,6 +133,10 @@ public class AttributeComponent : MonoBehaviour {
             skills.Add(Enums.Actions.Reload);
             skills.Add(Enums.Actions.ChangeWeapon);
         }
+        if(items.primary != null)
+            items.primary.gameObject.transform.SetParent(this.transform);
+        if (items.secondary != null)
+            items.secondary.gameObject.transform.SetParent(this.transform);
     }
 
     public void setEquip(Vector4 v)
@@ -147,11 +151,17 @@ public class AttributeComponent : MonoBehaviour {
         items.primaryWeaponType = (Enums.PrimaryWeapons)v.x;
         if (items.primaryWeaponType == Enums.PrimaryWeapons.Pipe)
         {
+<<<<<<< HEAD
             tmp = Instantiate(armory.Pipe);
             tmp.transform.SetParent(transform);
            items.primary = tmp.GetComponent<WeaponComponent>();
             items.primaryWeaponType = Enums.PrimaryWeapons.Pipe;
            skills.Add(Enums.Actions.Hit);
+=======
+
+           items.primary = Instantiate(armory.Pipe).GetComponent<WeaponComponent>();
+            // items.primary.gameObject.
+>>>>>>> origin/master
             
         }
         if (items.primaryWeaponType == Enums.PrimaryWeapons.ShieldnStick)
@@ -163,6 +173,7 @@ public class AttributeComponent : MonoBehaviour {
             hp += 20;
             skills.Add(Enums.Actions.Hit);
 
+<<<<<<< HEAD
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.Shotgun)
         {
@@ -172,6 +183,10 @@ public class AttributeComponent : MonoBehaviour {
             items.primaryWeaponType = Enums.PrimaryWeapons.Shotgun;
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
+=======
+            items.primary = Instantiate(armory.Shotgun).GetComponent<WeaponComponent>();
+
+>>>>>>> origin/master
         }
         else if (items.primaryWeaponType == Enums.PrimaryWeapons.HuntingRifle)
         {
@@ -209,7 +224,8 @@ public class AttributeComponent : MonoBehaviour {
             skills.Add(Enums.Actions.Shoot);
             skills.Add(Enums.Actions.Reload);
         }
-
+        if (items.primary != null)
+            items.primary.gameObject.transform.SetParent(this.transform);
 
         //sekundärwaffe
         items.secondaryWeaponType = (Enums.SecondaryWeapons)v.y;
@@ -250,8 +266,14 @@ public class AttributeComponent : MonoBehaviour {
 
             items.secondary = Instantiate(armory.RPG).GetComponent<WeaponComponent>();
         }
+<<<<<<< HEAD
 
         */
+=======
+        if(items.secondary != null)
+            items.secondary.gameObject.transform.SetParent(this.transform);
+
+>>>>>>> origin/master
 
         //utility1
         items.utility1 = (Enums.Equipment)v.z;
