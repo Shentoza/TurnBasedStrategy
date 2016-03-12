@@ -141,6 +141,10 @@ public class UnitScreenMP : MonoBehaviour {
             //staat
             drawP2();
 
+
+            //Tooltip label
+            GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 150, 150), GUI.tooltip);
+
         }
     }
 
@@ -159,8 +163,6 @@ public class UnitScreenMP : MonoBehaviour {
         yAnkerP1 = unitListYAnker;
         drawUnitList();
 
-        //GUI.Label(new Rect(200,200, 150, 150), GUI.tooltip);
-        GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 150, 150), GUI.tooltip);
 
         //add unit button
         if (player1Picking)
@@ -288,25 +290,21 @@ public class UnitScreenMP : MonoBehaviour {
     void drawEquipButtons()
     {
 
-         
 
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker , 75, 75), new GUIContent( pWeapons[(int)equip.x], "test!!!!!!!!!!!!!!!!!!!!!!!!!!" )))
+
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker, 75, 75), new GUIContent(pWeapons[(int)equip.x], ((Enums.PrimaryWeapons)equip.x).ToString())))
         {
-            Debug.Log("1:");
-            Debug.Log(Enum.GetName(typeof(Enums.PrimaryWeapons), ((Enums.PrimaryWeapons)equip.x)));
-            Debug.Log("2:");
-            Debug.Log(((Enums.PrimaryWeapons)equip.x).ToString());
             dp1 = true;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + buttonYOffset, 75, 75), new GUIContent( sWeapons[(int)equip.y], ((Enums.SecondaryWeapons)equip.x).ToString())))
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + buttonYOffset, 75, 75), new GUIContent( sWeapons[(int)equip.y], ((Enums.SecondaryWeapons)equip.y).ToString())))
         {
             dp2 = true;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 2 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.z], ((Enums.Equipment)equip.x).ToString())))
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 2 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.z], ((Enums.Equipment)equip.z).ToString())))
         {
             dp3 = true;
         }
-        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 3 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.w], ((Enums.Equipment)equip.x).ToString())))
+        if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 3 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.w], ((Enums.Equipment)equip.w).ToString())))
         {
             dp4 = true;
         }
@@ -388,12 +386,12 @@ public class UnitScreenMP : MonoBehaviour {
 
         //einheiten auswahlbuttons
         //riot
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), riotTex))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), new GUIContent( riotTex, "Riot" ) ))
         {
             p2Pick(Enums.Prof.Riot);
         }
 
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), soldierTex))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
         {
             if (!player1Picking)
             {
@@ -401,7 +399,7 @@ public class UnitScreenMP : MonoBehaviour {
             }
   
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), hGTex))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner" )))
         {
             if (!player1Picking)
             {
@@ -409,14 +407,14 @@ public class UnitScreenMP : MonoBehaviour {
             }
    
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), supportTex))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support") ))
         {
             if (!player1Picking)
             {
                 p2Pick(Enums.Prof.Support);
             }
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.6), unitIconWidth, unitIconHeight), sniperTex))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.6), unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper" )))
         {
             if (!player1Picking)
             {

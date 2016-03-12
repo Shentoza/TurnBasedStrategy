@@ -46,6 +46,8 @@ public class ActionButtons : MonoBehaviour {
 
 
     void OnGUI(){
+
+      
         
         skills = uiM.getActiveUnitSkills();
 
@@ -59,8 +61,10 @@ public class ActionButtons : MonoBehaviour {
         //    Debug.Log("button " + i + "erstellt");
         }
 
-       // GUI.Label(new Rect(Screen.width / 2, Screen.height - height - bottomSpacing + 5, 40, 40), GUI.tooltip);
-        GUI.Label(new Rect(Input.mousePosition.x+15, Screen.height- Input.mousePosition.y, 50, 50), GUI.tooltip);
+
+        // tooltext label
+        // GUI.Label(new Rect(Screen.width / 2, Screen.height - height - bottomSpacing + 5, 40, 40), GUI.tooltip);
+        GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 50, 50), GUI.tooltip);
     }
 
     void drawButton(int i){
