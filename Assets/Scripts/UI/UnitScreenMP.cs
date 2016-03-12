@@ -7,8 +7,8 @@ using System.Collections;
 
 public class UnitScreenMP : MonoBehaviour {
 
-    public int p1UnitCap;
-    public int p2UnitCap;
+    public int p1UnitCap=0;
+    public int p2UnitCap=0;
 
 
     //ui positioning and size
@@ -70,7 +70,8 @@ public class UnitScreenMP : MonoBehaviour {
          
     unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
        
-       
+    p1UnitCap = manager.p1UnitCap;
+    p2UnitCap = manager.p2UnitCap;   
         
 	}
 	
@@ -100,6 +101,7 @@ public class UnitScreenMP : MonoBehaviour {
                 //übergang zum gameplay
                 done = true;
                 manager.loadUI();
+                Destroy(this);
             }
         }
 	}
