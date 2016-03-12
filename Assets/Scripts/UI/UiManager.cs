@@ -67,8 +67,11 @@ public class UiManager : MonoBehaviour {
             input = player2.GetComponent<inputSystem>();
 
         //beschaffe aktive einheit
-        activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
-        activeUnitSkills = activeUnit.skills;
+        if (activeUnit)
+        {
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+            activeUnitSkills = activeUnit.skills;
+        }
     }
 
 

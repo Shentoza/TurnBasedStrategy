@@ -140,13 +140,18 @@ public class ManagerSystem : MonoBehaviour {
         {
             tmp.transform.SetParent(player1.transform);
             unitListP1.Add( tmp );
+            tmp.tag = "FigurSpieler1";
+            tmp.GetComponent<AttributeComponent>().team = 1;
         }
         else if (team == 2)
         {
             tmp.transform.SetParent(player2.transform);
             unitListP2.Add(tmp );
+            tmp.tag = "FigurSpieler2";
+            tmp.GetComponent<AttributeComponent>().team = 2;
         }
 
+        
         placeUnit(team, tmp);
         
     }
@@ -184,21 +189,68 @@ public class ManagerSystem : MonoBehaviour {
         //setze map Coordinaten
         unit.GetComponent<ObjectSetter>().x = (int) posi.x;
         unit.GetComponent<ObjectSetter>().z = (int) posi.y;
-        
+        unit.GetComponent<AttributeComponent>().setCurrentCell((int)posi.x, (int)posi.y);
+
+
 
         //setze welt coordinaten
-
- 
         float xBase = map.transform.position.x -map.transform.localScale.x *10 /2;
         float yBase = map.transform.position.y;
-        float zBase = map.transform.position.z - map.transform.localScale.z *10 / 2;
+        float zBase = 0;
 
 
-        unit.transform.position = new Vector3(xBase + (int)posi.x, yBase + 0.52f, zBase + (int)posi.y);
+        unit.transform.position = new Vector3(xBase + (int)posi.x + 0.5f, yBase + 0.52f, zBase - (int)posi.y - 0.5f );
         // tmp.transform.position = new Vector3(x,1.0f,z)
 
 
 
+    }
+
+    public void removeUnit(GameObject unit, int team)
+    {
+
+        //spiel zuende
+        if(unitListP1.Count <= 1){
+            Debug.Log("Spieler 2 gewinnt");
+            ende();
+        }else if(unitListP2.Count <= 1){
+            Debug.Log("Spieler 1 gewinnt");
+            ende();
+        }
+
+
+
+        if (team == 1)
+        {
+            //sterbende Figur ist aktuelle figur
+            if (unit == selectedFigurine)
+            {
+                selectedFigurine = unitListP1[0];
+                activeUnitMark();
+            }
+
+            unitListP1.Remove(unit);
+        }
+        else if (team == 2)
+        {
+            //sterbende Figur ist aktuelle figur
+            if (unit == selectedFigurine)
+            {
+                selectedFigurine = unitListP2[0];
+                activeUnitMark();
+            }
+            unitListP2.Remove(unit);
+        }
+
+
+
+
+    }
+
+
+    public void ende()
+    {
+        Debug.Log("Ende");
     }
 
 }

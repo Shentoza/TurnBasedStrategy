@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class AttributeComponent : MonoBehaviour {
 
-    
 
+    public int team;
     public int hp; //Lebenspunkte
     public int ap; //Ausgegebene AP
     public int maxMovRange; //Maximale Bewegungsreichweite
@@ -30,6 +30,9 @@ public class AttributeComponent : MonoBehaviour {
     ArmoryComponent armory;
 
 
+    public int deathCount = 50;
+    bool isDead = false;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -42,7 +45,25 @@ public class AttributeComponent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        if (hp <= 0)
+        {
+            isDead = true;
+            this.gameObject.tag = "Untagged";
+            deathCount--;
+            Debug.Log("Tick");
+            if (deathCount <= 0)
+            {
+               
+                FindObjectOfType<ManagerSystem>().removeUnit(this.gameObject, team);
+                Debug.Log("death!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                Destroy(this.gameObject);
+
+            }
+        }
+        
+
+
 	}
 
     public void setCurrentCell(Cell cell)
@@ -54,6 +75,13 @@ public class AttributeComponent : MonoBehaviour {
     {
         return cell;
     }
+
+    public void setCurrentCell(int x, int z)
+    {
+        
+        this.cell = GameObject.Find(x.ToString() + "|" + z.ToString()).GetComponent<Cell>();
+    }
+
 
     public void setProf(int i)
     {
