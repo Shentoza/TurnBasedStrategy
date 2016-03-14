@@ -58,7 +58,7 @@ public class ShootingSystem : MonoBehaviour
             Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
-                healthSystem.doDamage(currentplayerAttr, currentTargetAttr, HealthSystem.SHOOT);                
+                healthSystem.doDamage(currentplayerAttr, currentTargetAttr, HealthSystem.SHOOT);
                 return true;
             }
             else

@@ -36,17 +36,17 @@ public class EndTurnButton : MonoBehaviour {
 
         if (uiM.isPlayer1)
         {
-            if (GUI.Button(new Rect(Screen.width-width, Screen.height-height, width, height), iconPlayer1EndTurn, uiM.getStyle()))
+            if (GUI.Button(new Rect(Screen.width - width, Screen.height - height, width, height), new GUIContent(iconPlayer1EndTurn, "End Turn"), uiM.getStyle()))
             {
                 endTurn();
             }
 
         }
-        else if (GUI.Button(new Rect(Screen.width - width, Screen.height - height, width, height), iconPlayer2EndTurn, uiM.getStyle()))
+        else if (GUI.Button(new Rect(Screen.width - width, Screen.height - height, width, height), new GUIContent(iconPlayer2EndTurn, "End Turn"), uiM.getStyle()))
         {
             endTurn();
         }
-       
+        GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 50, 50), GUI.tooltip);
     }
 
 
