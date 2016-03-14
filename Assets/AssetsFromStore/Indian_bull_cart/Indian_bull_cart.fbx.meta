@@ -3,7 +3,14 @@ guid: f679e8373319e1345b5a75511897c73f
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: indian_bull_cart
+    400000: //RootNode
+    400002: indian_bull_cart
+    2300000: indian_bull_cart
+    3300000: indian_bull_cart
     4300000: indian_bull_cart
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3

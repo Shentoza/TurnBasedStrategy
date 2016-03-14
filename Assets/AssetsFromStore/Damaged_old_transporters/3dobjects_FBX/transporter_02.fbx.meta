@@ -3,9 +3,26 @@ guid: ce95660cfc889024d84628229f7d5062
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Camera
+    100002: Mesh
+    100004: Mesh 1
+    100006: Mesh 2
+    100008: //RootNode
+    400000: Camera
+    400002: Mesh
+    400004: Mesh 1
+    400006: Mesh 2
+    400008: //RootNode
+    2300000: Mesh
+    2300002: Mesh 1
+    2300004: Mesh 2
+    3300000: Mesh
+    3300002: Mesh 1
+    3300004: Mesh 2
     4300000: Mesh
     4300002: Mesh
     4300004: Mesh
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 2
