@@ -17,10 +17,11 @@ public class InventorySystem : MonoBehaviour {
     //Wird durch reloadAktion aufgerufen
     public void reloadAmmo(GameObject figurine)
     {
-        Debug.Log("Herll");
         InventoryComponent inventory = figurine.GetComponent<InventoryComponent>();
+        //Prüfe ob überhaupt genug Munition im Magazin zum nachladen
         if(inventory.amountMagazines > 0)
         {
+            //Prüfe welcher Spieler dran ist und ziehe dann AP ab
             if (GameObject.Find("Manager").GetComponent<ManagerSystem>().getPlayerTurn())
             {
                 if (GameObject.Find("Player1").GetComponent<PlayerComponent>().actionPoints > 0)
@@ -36,8 +37,10 @@ public class InventorySystem : MonoBehaviour {
                 }
             }
 
+            //Verringert Anzahl der Magazine im Inventar
             inventory.amountMagazines--;
             WeaponComponent weapon = inventory.primary;
+            //Stellt Anzahl an Kugeln in der Waffe auf Maximum
             weapon.currentBulletsInMagazine = weapon.magazineSize;
         }
     }
