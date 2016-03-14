@@ -16,7 +16,6 @@ public class UiManager : MonoBehaviour {
 
     InventorySystem inventSys;
     ManagerSystem managerSys;
-
     public int maxAP;
 
     GUIStyle style;
@@ -170,37 +169,50 @@ public class UiManager : MonoBehaviour {
     {
         managerSys.setPlayerTurn();
     }
-    public void move(){
 
+    public void move() {
+        Debug.Log("Move Aktion");
+        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
+        input.cancelActions();
+        attr.regenerateMovepoints();
+        input.dijSys.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
     }
     public void hit(){
         shoot();
     }
     public void shoot()
     {
+        input.cancelActions();
         input.angriffAusgewaehlt = true;
     }
     public void reload(){
+        input.cancelActions();
         inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
     }
     public void changeWeapon(){
+        input.cancelActions();
+
+        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
+        InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
+        input.dijSys.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
+        inv.isPrimary = !inv.isPrimary;
     }
-    public void heal()
-    {
+    public void heal() {
+        input.cancelActions();
     }
     public void molotov() {
+        input.cancelActions();
     }
     public void grenade(){
+        input.cancelActions();
     }
     public void  smoke(){
+        input.cancelActions();
     }
     public void teargas()
     {
+        input.cancelActions();
     }
-
-
-
-
 
 
 

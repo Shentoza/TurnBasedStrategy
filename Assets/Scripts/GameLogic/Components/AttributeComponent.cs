@@ -10,6 +10,7 @@ public class AttributeComponent : MonoBehaviour {
     public int ap; //Ausgegebene AP
     public int maxMovRange; //Maximale Bewegungsreichweite
     public int actMovRange; //Aktuelle Bewegungsreichweite
+    public int regPerAP; //Regeneration pro Aufruf von Move
     public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
     public int attackRange; //Auslagern in Weapon-Component
     public bool canShoot; // Spieler kann nur 1 mal pro Runde schießen
@@ -61,10 +62,18 @@ public class AttributeComponent : MonoBehaviour {
 
             }
         }
-        
+
+        if (items.isPrimary)
+        {
+            weapon = items.primary.gameObject;
+        }
+        else if(items.secondary != null)
+        {
+            weapon = items.secondary.gameObject;
+        }
 
 
-	}
+    }
 
     public void setCurrentCell(Cell cell)
     {
@@ -411,6 +420,11 @@ public class AttributeComponent : MonoBehaviour {
             skills.Add(Enums.Actions.Teargas);
         }
         
+    }
+
+    public void regenerateMovepoints()
+    {
+        actMovRange = Mathf.Clamp(actMovRange + regPerAP, 0, maxMovRange);
     }
 
 }

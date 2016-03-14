@@ -6,16 +6,18 @@ public class inputSystem : MonoBehaviour {
     ManagerSystem manager;
 	GameObject player;
 	Cell zelle;
-	DijkstraSystem dijSys;
+	public DijkstraSystem dijSys;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
     bool spielerAmZug;
 
 	public bool angriffAusgewaehlt;
-	MovementSystem moveSys;
-	bool smokeAusgewaehlt;
-	bool molotovAusgewaehlt;
+    public bool smokeAusgewaehlt;
+    public bool molotovAusgewaehlt;
+
+    MovementSystem moveSys;
+
 	// Use this for initialization
 	void Start () {
 
@@ -133,6 +135,19 @@ public class inputSystem : MonoBehaviour {
         {
 			rotationScript.switchCamera();
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            cancelActions();
+        }
 	}
+
+    public void cancelActions()
+    {
+        Debug.Log("Cancel Actions");
+        angriffAusgewaehlt = false;
+        molotovAusgewaehlt = false;
+        smokeAusgewaehlt = false;
+    }
 }
 
