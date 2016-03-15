@@ -14,6 +14,7 @@ public class MovementSystem : MonoBehaviour {
     Cell targetCell;
     float yHeight;
     bool yHeightSet = false;
+    public bool moving;
 
     float deltaSum;
 
@@ -48,8 +49,8 @@ public class MovementSystem : MonoBehaviour {
             targetCell = target;
             startingCell = playerAttr.getCurrentCell();
             pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
+            moving = true;
             dijkstra.resetAllCellColors();
-            playerAttr.actMovRange -= target.dij_GesamtKosten;
         }
     }
 
@@ -108,14 +109,15 @@ public class MovementSystem : MonoBehaviour {
 
                 nextCell.setOccupied(this.gameObject);
                 playerAttr.setCurrentCell(nextCell);
+                playerAttr.actMovRange--;
                 deltaSum = 0.0f;
                 pfad.RemoveAt(pfad.Count - 1);
 
                 //Zielerreicht
                 if(currentCell == targetCell)
                 {
-                    //MovementRange abziehen(?)
-                    dijkstra.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
+                    moving = false;
+                    dijkstra.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.weapon.GetComponent<WeaponComponent>().weaponRange);
                 }
             }
             deltaSum += Time.deltaTime;

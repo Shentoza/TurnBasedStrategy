@@ -8,15 +8,19 @@ public class inputSystem : MonoBehaviour {
 	GameObject player;
 
 	Cell selectedCell;
+    Cell selectedMovementCell;
     bool changedSelectedCell;
+    bool changedSelectedMovementCell;
 
-	public DijkstraSystem dijSys;
+    public DijkstraSystem dijSys;
     AttributeComponent attr;
+    MovementSystem movement;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
     bool spielerAmZug;
 
+    public bool movementAusgewaehlt;
 	public bool angriffAusgewaehlt;
     public bool smokeAusgewaehlt;
     public bool molotovAusgewaehlt;
@@ -52,14 +56,22 @@ public class inputSystem : MonoBehaviour {
             {
                 if (selectedCell != null)
                 {
-                    if (figurGewaehlt)
+                    if (figurGewaehlt && !movement.moving)
                         dijSys.colorCell(selectedCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
                     else
                         dijSys.resetSingleCell(selectedCell);
                 }
+                    selectedCell = tmp;
+                    dijSys.highlightSingleCell(selectedCell);
 
-                selectedCell = tmp;
-                dijSys.highlightSingleCell(selectedCell);
+                if(movementAusgewaehlt)
+                {
+                    if(selectedCell.dij_GesamtKosten <= attr.actMovRange)
+                    {
+                        changedSelectedMovementCell = selectedMovementCell != selectedCell;
+                        selectedMovementCell = selectedCell;
+                    }
+                }
             }
         }
 
@@ -77,6 +89,7 @@ public class inputSystem : MonoBehaviour {
                     || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
                     && !angriffAusgewaehlt) 
 				{
+                    //Neuer Spieler angeklickt
 					if(player != hit.collider.gameObject)
 					{
                         manager.setSelectedFigurine(hit.collider.gameObject);
@@ -85,7 +98,8 @@ public class inputSystem : MonoBehaviour {
                         player = hit.collider.gameObject;
 						figurGewaehlt = true;
 						attr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
-						Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
+                        movement = (MovementSystem)player.GetComponent(typeof(MovementSystem));
+                        Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
 						dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
 						rotationScript.setNewTarget(player);
 					}
@@ -131,9 +145,11 @@ public class inputSystem : MonoBehaviour {
         //Wenn begonnen wird rechts zu klicken
         if(Input.GetMouseButtonDown(1))
         {
-            if (figurGewaehlt)
+            if (figurGewaehlt && selectedCell.dij_GesamtKosten <= attr.actMovRange)
             {
-                ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedCell);
+                movementAusgewaehlt = true;
+                selectedMovementCell = selectedCell;
+                ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedMovementCell);
                 assist.PaintWalkPath(path);
             }
         }
@@ -141,18 +157,18 @@ public class inputSystem : MonoBehaviour {
         
         if (Input.GetMouseButton(1))
         {
-            if(figurGewaehlt && changedSelectedCell)
+            if (figurGewaehlt && changedSelectedMovementCell)
             { 
-                ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedCell);
+                ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedMovementCell);
                 assist.PaintWalkPath(path);
             }
         }
 
         if (Input.GetMouseButtonUp (1)) {
-            if(selectedCell != null && figurGewaehlt)
+            if (selectedMovementCell != null && figurGewaehlt)
             { 
-		        MovementSystem moveSys = (MovementSystem) player.GetComponent(typeof(MovementSystem));
-			    moveSys.MoveTo(selectedCell);
+			    movement.MoveTo(selectedMovementCell);
+                movementAusgewaehlt = false;
                 assist.ClearWalkPath();
             }
         }
@@ -195,6 +211,7 @@ public class inputSystem : MonoBehaviour {
         angriffAusgewaehlt = false;
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
+        movementAusgewaehlt = false;
     }
 }
 
