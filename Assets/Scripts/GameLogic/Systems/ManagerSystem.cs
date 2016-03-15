@@ -18,7 +18,7 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject activeUnitMarker;
 
     CameraRotationScript cam;
-    private int rounds;             //Spiegelt Rundenzahl wieder
+    public int rounds;             //Spiegelt Rundenzahl wieder
     private bool isPlayer1;         //Spieler1 an der Reihe
     GameObject player1;
     GameObject player2;

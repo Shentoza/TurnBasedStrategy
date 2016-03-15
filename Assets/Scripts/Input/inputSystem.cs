@@ -7,6 +7,7 @@ public class inputSystem : MonoBehaviour {
 	GameObject player;
 	Cell zelle;
 	public DijkstraSystem dijSys;
+    public AbilitySystem abilSys;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
@@ -15,6 +16,8 @@ public class inputSystem : MonoBehaviour {
 	public bool angriffAusgewaehlt;
     public bool smokeAusgewaehlt;
     public bool molotovAusgewaehlt;
+    public bool gasAusgewaehlt;
+    public bool granateAusgewaehlt;
 
     MovementSystem moveSys;
 
@@ -70,9 +73,8 @@ public class inputSystem : MonoBehaviour {
 				{
 					if(hit.collider.gameObject.tag == "Cell")
 					{
-						AbilitySystem playerAbilSys = (AbilitySystem) player.GetComponent(typeof(AbilitySystem));
 						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-						playerAbilSys.throwSmoke(zelle);
+						abilSys.throwSmoke(zelle, player);
 						smokeAusgewaehlt = false;
 					}
 				}
@@ -80,13 +82,32 @@ public class inputSystem : MonoBehaviour {
 				{
 					if(hit.collider.gameObject.tag == "Cell")
 					{
-						AbilitySystem playerAbilSys = (AbilitySystem) player.GetComponent(typeof(AbilitySystem));
 						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-						playerAbilSys.throwMolotov(zelle);
+						abilSys.throwMolotov(zelle, player);
 						molotovAusgewaehlt = false;
 					}
 				}
-			}
+                if (gasAusgewaehlt)
+                {
+                    if (hit.collider.gameObject.tag == "Cell")
+                    {
+                        zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
+                        abilSys.throwGas(zelle, player);
+                        gasAusgewaehlt = false;
+                    }
+
+                }
+                if (granateAusgewaehlt)
+                {
+                    if (hit.collider.gameObject.tag == "Cell")
+                    {
+                        zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
+                        abilSys.throwGrenade(zelle, player);
+                        granateAusgewaehlt = false;
+                    }
+
+                }
+            }
 			else
 			{
 				figurGewaehlt = false;
@@ -131,6 +152,14 @@ public class inputSystem : MonoBehaviour {
 		if (Input.GetKeyDown ("f")) {
 			molotovAusgewaehlt = true;
 		}
+        if(Input.GetKeyDown("g"))
+        {
+            gasAusgewaehlt = true;
+        }
+        if (Input.GetKeyDown("d"))
+        {
+            granateAusgewaehlt = true;
+        }
         if(Input.GetKeyDown("space"))
         {
 			rotationScript.switchCamera();

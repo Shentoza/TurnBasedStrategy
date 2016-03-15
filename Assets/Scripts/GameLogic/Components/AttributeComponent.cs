@@ -71,13 +71,15 @@ public class AttributeComponent : MonoBehaviour {
         {
             weapon = items.secondary.gameObject;
         }
-
-
     }
 
     public void setCurrentCell(Cell cell)
     {
         this.cell = cell;
+        if(this.cell.setOnFire == true)
+        {
+            hp -= 1;
+        }
     }
 
     public Cell getCurrentCell()
