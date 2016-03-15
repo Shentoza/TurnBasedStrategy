@@ -3,42 +3,55 @@ using System.Collections;
 
 public class inputSystem : MonoBehaviour {
 
+    //Stuff vom Manager
     ManagerSystem manager;
+    DijkstraSystem dijSys;
     PlayerAssistanceSystem assist;
-	GameObject player;
+    AbilitySystem abilSys;
 
-	Cell selectedCell;
-    Cell selectedMovementCell;
-    bool changedSelectedCell;
-    bool changedSelectedMovementCell;
-
-    public DijkstraSystem dijSys;
+    //Ausgewählte Figur
+    GameObject player;
+    //Stuff von der Aktuell gewählten Figur
     AttributeComponent attr;
-    public AbilitySystem abilSys;
     MovementSystem movement;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
     bool spielerAmZug;
 
+    //Maske für Raycast
+    public LayerMask Cellmask;
+    //Aktuelle Zelle über die man hovert
+    Cell selectedCell;
+
+    //letzte angewählte Zelle zu der man moven kann
+    Cell selectedMovementCell;
+    bool changedSelectedCell;
+    bool changedSelectedMovementCell;
+
+
+    //Bools welche Aktion aktuell ausgewählt is
     public bool movementAusgewaehlt;
 	public bool angriffAusgewaehlt;
     public bool smokeAusgewaehlt;
     public bool molotovAusgewaehlt;
-    public LayerMask Cellmask;
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
 
-    MovementSystem moveSys;
-
 	// Use this for initialization
 	void Start () {
-        selectedCell = null;
-        dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
-        manager = GameObject.Find("Manager").GetComponent<ManagerSystem>();
-		rotationScript = (CameraRotationScript)FindObjectOfType (typeof(CameraRotationScript));
-        assist = (PlayerAssistanceSystem)GameObject.Find("Manager").GetComponent(typeof(PlayerAssistanceSystem));
-        changedSelectedCell = false;
+        GameObject managerObj = GameObject.Find("Manager");
+
+        manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
+        dijSys = (DijkstraSystem)managerObj.GetComponent(typeof(DijkstraSystem));
+        assist = (PlayerAssistanceSystem)managerObj.GetComponent(typeof(PlayerAssistanceSystem));
+        abilSys = (AbilitySystem)managerObj.GetComponent(typeof(AbilitySystem));
+
+
+        selectedCell = selectedMovementCell =  null;
+        changedSelectedCell = changedSelectedMovementCell = false;
+
+        rotationScript = (CameraRotationScript)FindObjectOfType (typeof(CameraRotationScript));
 	}
 	
 
