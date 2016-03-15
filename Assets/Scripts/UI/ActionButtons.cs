@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class ActionButtons : MonoBehaviour {
@@ -12,17 +13,24 @@ public class ActionButtons : MonoBehaviour {
     public int spacing;
 
     //button icons
-    public Texture2D buttonTextur0;
-    public Texture2D buttonTextur1;
-    public Texture2D buttonTextur2;
-    public Texture2D buttonTextur3;
-    public Texture2D buttonTextur4;
+    public Texture2D Cancel;
+    public Texture2D Move;
+    public Texture2D Hit;
+    public Texture2D Shoot;
+    public Texture2D Reload;
+    public Texture2D ChangeWeapon;
+    public Texture2D Heal;
+    public Texture2D Molotov;
+    public Texture2D Grenade;
+    public Texture2D Smoke;
+    public Texture2D Teargas;
 
-    int buttonsToDraw;
-    int[] skills;
+    public int buttonsToDraw;
+
+    public List<Enums.Actions> skills;
     int startPosX;
 
- 
+    
    
 
 	// Use this for initialization
@@ -38,11 +46,13 @@ public class ActionButtons : MonoBehaviour {
 
 
     void OnGUI(){
+
+      
         
         skills = uiM.getActiveUnitSkills();
+
+        buttonsToDraw = skills.Count;
       
-  
-        buttonsToDraw = skills.GetLength(0);
         startPosX = Screen.width/2 - (buttonsToDraw * width + (buttonsToDraw - 1) * spacing) / 2;
 
         for (int i = 0; i < buttonsToDraw; i++)
@@ -52,6 +62,9 @@ public class ActionButtons : MonoBehaviour {
         }
 
 
+        // tooltext label
+        // GUI.Label(new Rect(Screen.width / 2, Screen.height - height - bottomSpacing + 5, 40, 40), GUI.tooltip);
+        GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 50, 50), GUI.tooltip);
     }
 
     void drawButton(int i){
@@ -67,38 +80,110 @@ public class ActionButtons : MonoBehaviour {
         }
         int posY = Screen.height - height - bottomSpacing;
 
-        if (skills[i] == 0)
+
+        
+
+        if (skills[i] == Enums.Actions.Move)
         {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur0, uiM.getStyle()))
+            
+            bool clicked1 = GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Move, "Move"));           
+            if(clicked1)
             {
-                // uiM.getActiveUnit().move();
-                Debug.Log("action0");
-            }
-        }else if (skills[i] == 1)
-        {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur1, uiM.getStyle()))
-            {
-                // uiM.getActiveUnit().shoot();
-                Debug.Log("action1");
-            }
-        }else if (skills[i] == 2)
-        {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur2, uiM.getStyle()))
-            {
-                // uiM.getActiveUnit().action2();
-                Debug.Log("action2");
-            }
-        }else if (skills[i] == 3)
-        {
-            if (GUI.Button(new Rect(posX, posY, width, height), buttonTextur3, uiM.getStyle()))
-            {
-                // uiM.getActiveUnit().action3();
-                Debug.Log("action3");
+                
+                uiM.move();
+                Debug.Log("move");
             }
         }
-
-
-
+        else if (skills[i] == Enums.Actions.Hit)
+        {
+            bool clicked2 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Hit, "Hit")));
+          
+            if(clicked2)
+            {
+                uiM.hit();
+                Debug.Log("hit");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Shoot)
+        {
+            bool clicked3 =(GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Shoot, "Shoot")));
+  
+            if(clicked3)
+            {
+                uiM.shoot();
+                Debug.Log("shoot");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Reload)
+        {
+            bool clicked4 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Reload, "Reload")));
+       
+            if(clicked4)
+            {
+                uiM.reload();
+                Debug.Log("Reload");
+            }
+        }
+        else if (skills[i] == Enums.Actions.ChangeWeapon)
+        {
+            bool clicked5 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(ChangeWeapon, "Change Weapon")));
+        
+            if(clicked5)
+            {
+                uiM.changeWeapon();
+                Debug.Log("change weapon");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Heal)
+        {
+            bool clicked6 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Heal, "Heal")));
+         
+            if(clicked6)
+            {
+                uiM.heal();
+                Debug.Log("heal");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Molotov)
+        {
+            bool clicked7 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Molotov, "Molotov")));
+        
+            if(clicked7)
+            {
+                uiM.molotov();
+                Debug.Log("Molotov");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Grenade)
+        {
+            bool clicked8 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Grenade, "Grenade")));
+    
+            if(clicked8)
+            {
+                uiM.grenade();
+                Debug.Log("Grenade");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Smoke)
+        {
+            bool clicked9 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Smoke, "Smoke")));
+   
+            if(clicked9)
+            {
+                uiM.smoke();
+                Debug.Log("Smoke");
+            }
+        }
+        else if (skills[i] == Enums.Actions.Teargas)
+        {
+            bool clicked10 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Teargas, "Teargas")));
+          
+            if (clicked10)
+            {
+                uiM.teargas();
+                Debug.Log("Teargas");
+            }
+        }
 
 
 

@@ -1,35 +1,52 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 
 public class UiManager : MonoBehaviour {
 
 
     //dummys
-    public bool player1IsActive;
-    public int player1AP;
-    public int player2AP;
+   public bool isPlayer1;
+   public int player1AP;
+   public int player2AP;
+
+    GameObject player1;
+    GameObject player2;
+
+    InventorySystem inventSys;
+    ManagerSystem managerSys;
     public int maxAP;
 
     GUIStyle style;
-    
+
+    inputSystem input;
+
     // aktionen enum
-    int[] activeUnitSkills = {0,3,2,1,3};
+    public AttributeComponent activeUnit;
+    public List<Enums.Actions> activeUnitSkills;
 
 
 	// Use this for initialization
 	void Start () {
 
+        player1 = GameObject.Find("Player1");
+        player2 = GameObject.Find("Player2");
+        managerSys = GameObject.Find("Manager").GetComponent<ManagerSystem>();
+        inventSys = GameObject.Find("Manager").GetComponent<InventorySystem>();
 
+        player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
+        player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
 
         //test angaben
-        player1IsActive = true;
-        player1AP = 3;
-        player2AP = 3;
+        isPlayer1 = managerSys.getPlayerTurn();
+
+        
+
 
         //getActiveUnitSkills
-
+        activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        activeUnitSkills = activeUnit.skills;
 
         //setStyle
         style = new GUIStyle();
@@ -40,38 +57,163 @@ public class UiManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
+        isPlayer1 = managerSys.getPlayerTurn();
+        player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
+        player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
+        if (isPlayer1)
+            input = player1.GetComponent<inputSystem>();
+        else
+            input = player2.GetComponent<inputSystem>();
+
+        //beschaffe aktive einheit
+        if (activeUnit)
+        {
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+            activeUnitSkills = activeUnit.skills;
+        }
     }
 
 
-    public void endTurn()
+   
+
+    // verhindert das zu viele waffenoptionen angezeigt werden
+    public List<Enums.Actions> getActiveUnitSkills()
     {
-        player1IsActive = !player1IsActive;
-        Debug.Log("turn ended");
-
-
-        if (player1IsActive)
+        List<Enums.Actions> activeSkills = new List<Enums.Actions>();
+       
+       //kann gehen
+        if (activeUnitSkills.Contains(Enums.Actions.Move))
         {
-            player1AP += 2;
-
+            activeSkills.Add(Enums.Actions.Move);
         }
+
+       //hat Primärwaffe angelegt
+        if (activeUnit.items.isPrimary)
+        {
+            //Schlagwaffe
+            if (activeUnitSkills.Contains(Enums.Actions.Hit))
+            {
+                activeSkills.Add(Enums.Actions.Hit);
+            }
+            //Schusswaffe
+            else
+            {
+                if (activeUnitSkills.Contains(Enums.Actions.Shoot))
+                {
+                    activeSkills.Add(Enums.Actions.Shoot);
+                    activeSkills.Add(Enums.Actions.Reload);
+                }
+            }
+        }
+        //Sekundärwaffe Angelegt
         else
         {
-            player2AP += 2;
+            // schusswaffe
+            if (activeUnit.items.secondaryWeaponType != Enums.SecondaryWeapons.None)
+            {
+                if (activeUnitSkills.Contains(Enums.Actions.Shoot))
+                {
+                    activeSkills.Add(Enums.Actions.Shoot);
+                }
+            }
+        }
+
+       //können waffen gewechselt werden
+        if (activeUnitSkills.Contains(Enums.Actions.ChangeWeapon))
+        {
+            activeSkills.Add(Enums.Actions.ChangeWeapon);
+        }
+
+        //Heal
+        if (activeUnitSkills.Contains(Enums.Actions.Heal))
+        {
+            activeSkills.Add(Enums.Actions.Heal);
+        }
+
+        //Molotov
+        if (activeUnitSkills.Contains(Enums.Actions.Molotov))
+        {
+            activeSkills.Add(Enums.Actions.Molotov);
+        }
+
+        //Grenade
+        if (activeUnitSkills.Contains(Enums.Actions.Grenade))
+        {
+            activeSkills.Add(Enums.Actions.Grenade);
+        }
+
+        //Smoke
+        if (activeUnitSkills.Contains(Enums.Actions.Smoke))
+        {
+            activeSkills.Add(Enums.Actions.Smoke);
+        }
+
+        //Teargas
+        if (activeUnitSkills.Contains(Enums.Actions.Teargas))
+        {
+            activeSkills.Add(Enums.Actions.Teargas);
         }
 
 
-    }
-
-    public int[] getActiveUnitSkills()
-    {
-       
-        return activeUnitSkills;
+        return activeSkills;
     }
 
     public GUIStyle getStyle()
     {
         return style;
     }
-    
+
+
+
+    public void endTurn()
+    {
+        managerSys.setPlayerTurn();
+    }
+
+    public void move() {
+        Debug.Log("Move Aktion");
+        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
+        input.cancelActions();
+        attr.regenerateMovepoints();
+        input.dijSys.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
+    }
+    public void hit(){
+        shoot();
+    }
+    public void shoot()
+    {
+        input.cancelActions();
+        input.angriffAusgewaehlt = true;
+    }
+    public void reload(){
+        input.cancelActions();
+        inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
+    }
+    public void changeWeapon(){
+        input.cancelActions();
+
+        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
+        InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
+        input.dijSys.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
+        inv.isPrimary = !inv.isPrimary;
+    }
+    public void heal() {
+        input.cancelActions();
+    }
+    public void molotov() {
+        input.cancelActions();
+    }
+    public void grenade(){
+        input.cancelActions();
+    }
+    public void  smoke(){
+        input.cancelActions();
+    }
+    public void teargas()
+    {
+        input.cancelActions();
+    }
+
+
+
 }

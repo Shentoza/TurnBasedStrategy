@@ -7,17 +7,19 @@ public class inputSystem : MonoBehaviour {
     PlayerAssistanceSystem assist;
 	GameObject player;
 	Cell zelle;
-	DijkstraSystem dijSys;
+	public DijkstraSystem dijSys;
     AttributeComponent attr;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
     bool spielerAmZug;
 
-	bool angriffAusgewaehlt;
-	MovementSystem moveSys;
-	bool smokeAusgewaehlt;
-	bool molotovAusgewaehlt;
+	public bool angriffAusgewaehlt;
+    public bool smokeAusgewaehlt;
+    public bool molotovAusgewaehlt;
+
+    MovementSystem moveSys;
+
 	// Use this for initialization
 	void Start () {
 
@@ -60,6 +62,7 @@ public class inputSystem : MonoBehaviour {
                         || hit.collider.gameObject.tag == "FigurSpieler1" && !spielerAmZug)
 					{
                         manager.shoot(player, hit.collider.gameObject);
+                        angriffAusgewaehlt = false;
 					}
                     else
                     {
@@ -149,8 +152,21 @@ public class inputSystem : MonoBehaviour {
 		}
         if(Input.GetKeyDown("space"))
         {
-			rotationScript.backToTarget();
+			rotationScript.switchCamera();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            cancelActions();
         }
 	}
+
+    public void cancelActions()
+    {
+        Debug.Log("Cancel Actions");
+        angriffAusgewaehlt = false;
+        molotovAusgewaehlt = false;
+        smokeAusgewaehlt = false;
+    }
 }
 

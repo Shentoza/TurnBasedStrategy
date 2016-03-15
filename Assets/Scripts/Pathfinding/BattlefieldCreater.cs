@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BattlefieldCreater : MonoBehaviour {
 	
@@ -9,6 +10,12 @@ public class BattlefieldCreater : MonoBehaviour {
 	GameObject[,] Zellen;
 	public Material material;
     public float gridHeight;
+
+    public int mapSizeX;
+    public int mapSizeZ;
+
+    public List<Vector2> startPostionsP1;
+    public List<Vector2> startPostionsP2;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +50,9 @@ public class BattlefieldCreater : MonoBehaviour {
 
 		int sizeZint = (int)(sizeZ * 10);
 		int sizeXint = (int)(sizeX * 10);
+
+        mapSizeX = sizeXint;
+        mapSizeZ = sizeZint;
 
 		transformPlane.localScale = new Vector3 (sizeX, 1, sizeZ);
 
