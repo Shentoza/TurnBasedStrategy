@@ -8,15 +8,19 @@ public class PlayerAssistanceSystem : MonoBehaviour {
     bool drawingThrowPath;
     ArrayList throwPath = new ArrayList();
 
+    DijkstraSystem dij;
+
     public Material oneArrow;
     public Material startArrow;
     public Material endArrow;
     public Material middleArrow;
 
+    public Material pathMaterial;
+
 	// Use this for initialization
 	void Start () {
-	
-	}
+	    dij = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,37 +31,34 @@ public class PlayerAssistanceSystem : MonoBehaviour {
     */
     public void PaintWalkPath(ArrayList path)
     {
-        ClearDraws(false, true);
+        ClearWalkPath();
         MeshRenderer meshr;
+        Cell currentCell = null;
         for(int i = 0; i < path.Count;++i)
         {
-            Cell currentCell = (Cell)path[i];
-            GameObject currentArrow = Instantiate(currentCell.gameObject);
-            meshr = (MeshRenderer)currentArrow.GetComponent(typeof(MeshRenderer));
-            Destroy(currentArrow.GetComponent(typeof(Cell)));
-            Destroy(currentArrow.GetComponent(typeof(BoxCollider)));
+            currentCell = (Cell)path[i];
+            meshr = (MeshRenderer)currentCell.gameObject.GetComponent(typeof(MeshRenderer));
+            walkPath.Add(currentCell);
 
-            meshr.material = startArrow;
+            meshr.material = pathMaterial;
 
             
         }
     }
 
-    void ClearDraws(bool resetThrowPath, bool resetWalkPath)
+    public void ClearThrowPath()
     {
-        if (resetThrowPath)
-            for (int j = 0; j < throwPath.Count; ++j)
-            {
-                GameObject current = (GameObject)throwPath[j];
-                Destroy(current);
-            }
 
+    }
 
-        if(resetWalkPath)
-            for (int i = 0; i < walkPath.Count; ++i)
-            {
-                GameObject current = (GameObject)walkPath[i];
-                Destroy(current);
-            }
+    public void ClearWalkPath()
+    {
+        foreach (Cell current in walkPath)
+        {
+            MeshRenderer mr = (MeshRenderer)current.gameObject.GetComponent(typeof(MeshRenderer));
+            mr.material = dij.begebarMat;
+        }
+
+        walkPath.Clear();
     }
 }

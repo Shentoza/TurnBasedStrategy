@@ -8,6 +8,7 @@ public class DijkstraSystem : MonoBehaviour {
     public Material begebarMat;
     public Material attackableMat;
     public Material defaultMat;
+    public Material highlightedMat;
 
     CellComparer comp;
 
@@ -71,7 +72,7 @@ public class DijkstraSystem : MonoBehaviour {
 
     void updateDistance(Cell zielKnoten, Cell vorgaenger)
     {
-        if(zielKnoten.isOccupied || zielKnoten.setOnFire)
+        if(zielKnoten.isOccupied)
         {
             zielKnoten.dij_ZellZustand = Cell.dij_Zustand.DIJ_ABGESCHLOSSEN;
             zielKnoten.dij_Vorgaenger = null;
@@ -86,7 +87,7 @@ public class DijkstraSystem : MonoBehaviour {
         }
     }
 
-    void colorCell(Cell cell,int moveRange, int attackRange)
+    public void colorCell(Cell cell,int moveRange, int attackRange)
     {
         MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
         meshRend.enabled = true;
@@ -99,22 +100,39 @@ public class DijkstraSystem : MonoBehaviour {
 
     }
 
-    public void colorAllCells(bool reset, int moveRange, int attackRange)
+    public void highlightSingleCell(Cell cell)
+    {
+
+        MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
+        meshRend.material = highlightedMat;
+        meshRend.enabled = true;
+
+    }
+
+    public void resetSingleCell(Cell cell)
+    {
+        MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
+        meshRend.material = defaultMat;
+        meshRend.enabled = false;
+    }
+
+    public void colorAllCells(int moveRange, int attackRange)
     {
         for (int i = 0; i < (battleField.sizeX * 10); ++i)
             for (int j = 0; j < (battleField.sizeZ * 10); ++j)
             {
                 Cell currentCell = battleField.getCell(i, j);
-                if (reset)
-                {
-                    MeshRenderer meshRend = (MeshRenderer)currentCell.gameObject.GetComponent(typeof(MeshRenderer));
-                    meshRend.material = defaultMat;
-                    meshRend.enabled = false;
-                }
-                else
-                {
-                    colorCell(currentCell, moveRange, attackRange);
-                }
+                colorCell(currentCell, moveRange, attackRange);
+            }
+    }
+
+    public void resetAllCellColors()
+    {
+        for (int i = 0; i < (battleField.sizeX * 10); ++i)
+            for (int j = 0; j < (battleField.sizeZ * 10); ++j)
+            {
+                Cell currentCell = battleField.getCell(i, j);
+                resetSingleCell(currentCell);
             }
     }
 

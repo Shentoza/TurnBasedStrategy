@@ -48,7 +48,7 @@ public class MovementSystem : MonoBehaviour {
             targetCell = target;
             startingCell = playerAttr.getCurrentCell();
             pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
-            dijkstra.colorAllCells(true, 0, 0);
+            dijkstra.resetAllCellColors();
             playerAttr.actMovRange -= target.dij_GesamtKosten;
         }
     }
