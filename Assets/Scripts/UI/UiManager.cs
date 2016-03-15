@@ -177,7 +177,7 @@ public class UiManager : MonoBehaviour {
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         input.cancelActions();
         attr.regenerateMovepoints();
-        input.dijSys.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
+        dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
     }
     public void hit(){
         shoot();
@@ -196,7 +196,7 @@ public class UiManager : MonoBehaviour {
 
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
-        dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
+        dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
         inv.isPrimary = !inv.isPrimary;
     }
     public void heal() {
