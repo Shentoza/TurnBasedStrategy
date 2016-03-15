@@ -14,10 +14,11 @@ public class Cell : MonoBehaviour {
     public int dij_GesamtKosten = int.MaxValue;
     public enum dij_Zustand { DIJ_UNBESUCHT, DIJ_ENTDECKT, DIJ_ABGESCHLOSSEN };
     public dij_Zustand dij_ZellZustand;
-	GameObject objectOnCell;
+	public GameObject objectOnCell;
 	public bool isOccupied = false;
 	public bool setOnFire = false;
 	public bool smoked = false;
+    public bool setOnGas = false;
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +26,10 @@ public class Cell : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	 
 	}
+
+    
 
 	public void setNeighbours(GameObject u, GameObject le, GameObject r, GameObject lo)
 	{
