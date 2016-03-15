@@ -26,6 +26,8 @@ public class UiManager : MonoBehaviour {
     public AttributeComponent activeUnit;
     public List<Enums.Actions> activeUnitSkills;
 
+    DijkstraSystem dijkstra;
+
 
 	// Use this for initialization
 	void Start () {
@@ -39,9 +41,7 @@ public class UiManager : MonoBehaviour {
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
 
         //test angaben
-        isPlayer1 = managerSys.getPlayerTurn();
-
-        
+        isPlayer1 = managerSys.getPlayerTurn();       
 
 
         //getActiveUnitSkills
@@ -50,8 +50,10 @@ public class UiManager : MonoBehaviour {
 
         //setStyle
         style = new GUIStyle();
-        
-	}
+
+        dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
+
+    }
 	
 
     // Update is called once per frame
@@ -194,7 +196,7 @@ public class UiManager : MonoBehaviour {
 
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
-        input.dijSys.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
+        dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().rangeMod);
         inv.isPrimary = !inv.isPrimary;
     }
     public void heal() {
