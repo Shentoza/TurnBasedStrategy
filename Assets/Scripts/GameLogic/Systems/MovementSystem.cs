@@ -39,6 +39,9 @@ public class MovementSystem : MonoBehaviour {
 
     public void MoveTo(Cell target)
     {
+        if (moving)
+            return;
+
         if(target.dij_GesamtKosten <= playerAttr.actMovRange)
         {
             if(!yHeightSet)

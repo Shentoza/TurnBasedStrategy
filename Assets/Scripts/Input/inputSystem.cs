@@ -122,10 +122,9 @@ public class inputSystem : MonoBehaviour {
                 }
 				if (smokeAusgewaehlt)
 				{
-					if(hit.collider.gameObject.tag == "Cell")
-					{
-						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-						abilSys.throwSmoke(zelle, player);
+                    if (selectedCell != null && figurGewaehlt)
+                    {
+						abilSys.throwSmoke(selectedCell, player);
 						smokeAusgewaehlt = false;
 					}
 				}
@@ -133,27 +132,24 @@ public class inputSystem : MonoBehaviour {
 				{
                     if(selectedCell != null && figurGewaehlt)
                     { 
-						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-						abilSys.throwMolotov(zelle, player);
+						abilSys.throwMolotov(selectedCell, player);
 						molotovAusgewaehlt = false;
 					}
 				}
                 if (gasAusgewaehlt)
                 {
-                    if (hit.collider.gameObject.tag == "Cell")
+                    if (selectedCell != null && figurGewaehlt)
                     {
-                        zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-                        abilSys.throwGas(zelle, player);
+                        abilSys.throwGas(selectedCell, player);
                         gasAusgewaehlt = false;
                     }
 
                 }
                 if (granateAusgewaehlt)
                 {
-                    if (hit.collider.gameObject.tag == "Cell")
+                    if (selectedCell != null && figurGewaehlt)
                     {
-                        zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-                        abilSys.throwGrenade(zelle, player);
+                        abilSys.throwGrenade(selectedCell, player);
                         granateAusgewaehlt = false;
                     }
 
@@ -180,7 +176,7 @@ public class inputSystem : MonoBehaviour {
         
         if (Input.GetMouseButton(1))
         {
-            if (figurGewaehlt && changedSelectedMovementCell)
+            if (movementAusgewaehlt && changedSelectedMovementCell)
             { 
                 ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedMovementCell);
                 assist.PaintWalkPath(path);
@@ -188,9 +184,9 @@ public class inputSystem : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonUp (1)) {
-            if (selectedMovementCell != null && figurGewaehlt)
-            { 
-			    movement.MoveTo(selectedMovementCell);
+            if (movementAusgewaehlt)
+            {
+                movement.MoveTo(selectedMovementCell);
                 movementAusgewaehlt = false;
                 assist.ClearWalkPath();
             }
