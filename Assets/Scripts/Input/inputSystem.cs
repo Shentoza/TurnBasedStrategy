@@ -199,9 +199,11 @@ public class inputSystem : MonoBehaviour {
         if (Input.GetMouseButtonUp (1)) {
             if (movementAusgewaehlt)
             {
-                movement.MoveTo(selectedMovementCell);
-                movementAusgewaehlt = false;
-                assist.ClearWalkPath();
+                if(movement.MoveTo(selectedMovementCell))
+                {
+                    movementAusgewaehlt = false;
+                    assist.ClearWalkPath();
+                }
             }
         }
 

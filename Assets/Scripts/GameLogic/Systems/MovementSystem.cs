@@ -37,15 +37,18 @@ public class MovementSystem : MonoBehaviour {
         continueMovement();
 	}
 
-    public void MoveTo(Cell target)
+    /*
+    <returns>True, wenn Bewegung begonnen wird. False sonst
+    */
+    public bool MoveTo(Cell target)
     {
         if (moving)
-            return;
+            return false;
 
-        if(target.dij_GesamtKosten <= playerAttr.actMovRange)
+        if (target.dij_GesamtKosten <= playerAttr.actMovRange && target != playerAttr.getCurrentCell())
         {
-            if(!yHeightSet)
-            { 
+            if (!yHeightSet)
+            {
                 yHeight = playerAttr.transform.position.y - playerAttr.getCurrentCell().transform.position.y;
                 yHeightSet = true;
             }
@@ -55,6 +58,12 @@ public class MovementSystem : MonoBehaviour {
             moving = true;
             dijkstra.resetAllCellColors();
         }
+        else
+        {
+            moving = false;
+        }
+
+        return moving;
     }
 
     void continueMovement()
