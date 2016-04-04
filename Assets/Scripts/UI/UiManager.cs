@@ -16,6 +16,7 @@ public class UiManager : MonoBehaviour {
 
     InventorySystem inventSys;
     ManagerSystem managerSys;
+    HealthSystem healthSys;
     public int maxAP;
 
     GUIStyle style;
@@ -36,7 +37,7 @@ public class UiManager : MonoBehaviour {
         player2 = GameObject.Find("Player2");
         managerSys = GameObject.Find("Manager").GetComponent<ManagerSystem>();
         inventSys = GameObject.Find("Manager").GetComponent<InventorySystem>();
-
+        healthSys = this.GetComponent<HealthSystem>();
         player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
 
