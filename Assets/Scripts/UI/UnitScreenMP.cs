@@ -69,7 +69,6 @@ public class UnitScreenMP : MonoBehaviour {
 	void Start () {
          
     unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
-       
     p1UnitCap = manager.p1UnitCap;
     p2UnitCap = manager.p2UnitCap;   
         
