@@ -25,15 +25,23 @@ public class AbilitySystem : MonoBehaviour {
 			smokeTmp.transform.position = new Vector3 (ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = smokeTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
-            cellList.Add(ziel);
-            cellList.Add(ziel.upperNeighbour);
-            cellList.Add(ziel.lowerNeighbour);
-            cellList.Add(ziel.leftNeighbour);
-            cellList.Add(ziel.rightNeighbour);
-            cellList.Add(ziel.upperNeighbour.leftNeighbour);
-            cellList.Add(ziel.upperNeighbour.rightNeighbour);
-            cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-            cellList.Add(ziel.lowerNeighbour.rightNeighbour);
+			cellList.Add(ziel);
+			if (ziel.upperNeighbour != null)
+				cellList.Add(ziel.upperNeighbour);
+			if (ziel.lowerNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour);
+			if (ziel.leftNeighbour != null)
+				cellList.Add(ziel.leftNeighbour);
+			if (ziel.rightNeighbour != null)
+				cellList.Add(ziel.rightNeighbour);
+			if (ziel.upperNeighbour.leftNeighbour != null)
+				cellList.Add(ziel.upperNeighbour.leftNeighbour);
+			if (ziel.upperNeighbour.rightNeighbour != null)
+				cellList.Add(ziel.upperNeighbour.rightNeighbour);
+			if (ziel.lowerNeighbour.leftNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour.leftNeighbour);
+			if (ziel.lowerNeighbour.rightNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Smoke);
             ec.setDauer(3);
@@ -50,15 +58,23 @@ public class AbilitySystem : MonoBehaviour {
 			fireTmp.transform.position = new Vector3 (ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = fireTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
-            cellList.Add(ziel);
-            cellList.Add(ziel.upperNeighbour);
-            cellList.Add(ziel.lowerNeighbour);
-            cellList.Add(ziel.leftNeighbour);
-            cellList.Add(ziel.rightNeighbour);
-            cellList.Add(ziel.upperNeighbour.leftNeighbour);
-            cellList.Add(ziel.upperNeighbour.rightNeighbour);
-            cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-            cellList.Add(ziel.lowerNeighbour.rightNeighbour);
+			cellList.Add(ziel);
+			if (ziel.upperNeighbour != null)
+				cellList.Add(ziel.upperNeighbour);
+			if (ziel.lowerNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour);
+			if (ziel.leftNeighbour != null)
+				cellList.Add(ziel.leftNeighbour);
+			if (ziel.rightNeighbour != null)
+				cellList.Add(ziel.rightNeighbour);
+			if (ziel.upperNeighbour.leftNeighbour != null)
+				cellList.Add(ziel.upperNeighbour.leftNeighbour);
+			if (ziel.upperNeighbour.rightNeighbour != null)
+				cellList.Add(ziel.upperNeighbour.rightNeighbour);
+			if (ziel.lowerNeighbour.leftNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour.leftNeighbour);
+			if (ziel.lowerNeighbour.rightNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Fire);
             ec.setDauer(3);
@@ -78,14 +94,22 @@ public class AbilitySystem : MonoBehaviour {
             EffectComponent ec = explosionTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
             cellList.Add(ziel);
-            cellList.Add(ziel.upperNeighbour);
-            cellList.Add(ziel.lowerNeighbour);
-            cellList.Add(ziel.leftNeighbour);
-            cellList.Add(ziel.rightNeighbour);
-            cellList.Add(ziel.upperNeighbour.leftNeighbour);
-            cellList.Add(ziel.upperNeighbour.rightNeighbour);
-            cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-            cellList.Add(ziel.lowerNeighbour.rightNeighbour);
+			if (ziel.upperNeighbour != null)
+            	cellList.Add(ziel.upperNeighbour);
+			if (ziel.lowerNeighbour != null)
+            	cellList.Add(ziel.lowerNeighbour);
+			if (ziel.leftNeighbour != null)
+            	cellList.Add(ziel.leftNeighbour);
+			if (ziel.rightNeighbour != null)
+            	cellList.Add(ziel.rightNeighbour);
+			if (ziel.upperNeighbour.leftNeighbour != null)
+           		cellList.Add(ziel.upperNeighbour.leftNeighbour);
+			if (ziel.upperNeighbour.rightNeighbour != null)
+            	cellList.Add(ziel.upperNeighbour.rightNeighbour);
+			if (ziel.lowerNeighbour.leftNeighbour != null)
+            	cellList.Add(ziel.lowerNeighbour.leftNeighbour);
+			if (ziel.lowerNeighbour.rightNeighbour != null)
+            	cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Explosion);
             ec.setDauer(0);
@@ -104,15 +128,23 @@ public class AbilitySystem : MonoBehaviour {
             gasTmp.transform.position = new Vector3(ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = gasTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
-            cellList.Add(ziel);
-            cellList.Add(ziel.upperNeighbour);
-            cellList.Add(ziel.lowerNeighbour);
-            cellList.Add(ziel.leftNeighbour);
-            cellList.Add(ziel.rightNeighbour);
-            cellList.Add(ziel.upperNeighbour.leftNeighbour);
-            cellList.Add(ziel.upperNeighbour.rightNeighbour);
-            cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-            cellList.Add(ziel.lowerNeighbour.rightNeighbour);
+			cellList.Add(ziel);
+			if (ziel.upperNeighbour != null)
+				cellList.Add(ziel.upperNeighbour);
+			if (ziel.lowerNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour);
+			if (ziel.leftNeighbour != null)
+				cellList.Add(ziel.leftNeighbour);
+			if (ziel.rightNeighbour != null)
+				cellList.Add(ziel.rightNeighbour);
+			if (ziel.upperNeighbour.leftNeighbour != null)
+				cellList.Add(ziel.upperNeighbour.leftNeighbour);
+			if (ziel.upperNeighbour.rightNeighbour != null)
+				cellList.Add(ziel.upperNeighbour.rightNeighbour);
+			if (ziel.lowerNeighbour.leftNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour.leftNeighbour);
+			if (ziel.lowerNeighbour.rightNeighbour != null)
+				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Gas);
             ec.setDauer(1);
