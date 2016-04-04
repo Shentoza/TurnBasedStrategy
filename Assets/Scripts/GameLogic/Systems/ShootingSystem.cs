@@ -87,6 +87,10 @@ public class ShootingSystem : MonoBehaviour
                 return false;
             }
         }
+        else
+        {
+            Debug.Log("Schuss nicht möglich");
+        }
         
         return false;
     }
