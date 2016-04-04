@@ -14,6 +14,7 @@ public class MovementSystem : MonoBehaviour {
     Cell targetCell;
     float yHeight;
     bool yHeightSet = false;
+    public bool moving;
 
     float deltaSum;
 
@@ -36,21 +37,33 @@ public class MovementSystem : MonoBehaviour {
         continueMovement();
 	}
 
-    public void MoveTo(Cell target)
+    /*
+    <returns>True, wenn Bewegung begonnen wird. False sonst
+    */
+    public bool MoveTo(Cell target)
     {
-        if(target.dij_GesamtKosten <= playerAttr.actMovRange)
+        if (moving)
+            return false;
+
+        if (target.dij_GesamtKosten <= playerAttr.actMovRange && target != playerAttr.getCurrentCell())
         {
-            if(!yHeightSet)
-            { 
+            if (!yHeightSet)
+            {
                 yHeight = playerAttr.transform.position.y - playerAttr.getCurrentCell().transform.position.y;
                 yHeightSet = true;
             }
             targetCell = target;
             startingCell = playerAttr.getCurrentCell();
             pfad = dijkstra.getPath(playerAttr.getCurrentCell(), target);
-            dijkstra.colorAllCells(true, 0, 0);
-            playerAttr.actMovRange -= target.dij_GesamtKosten;
+            moving = true;
+            dijkstra.resetAllCellColors();
         }
+        else
+        {
+            moving = false;
+        }
+
+        return moving;
     }
 
     void continueMovement()
@@ -108,14 +121,15 @@ public class MovementSystem : MonoBehaviour {
 
                 nextCell.setOccupied(this.gameObject);
                 playerAttr.setCurrentCell(nextCell);
+                playerAttr.actMovRange--;
                 deltaSum = 0.0f;
                 pfad.RemoveAt(pfad.Count - 1);
 
                 //Zielerreicht
                 if(currentCell == targetCell)
                 {
-                    //MovementRange abziehen(?)
-                    dijkstra.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
+                    moving = false;
+                    dijkstra.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.weapon.GetComponent<WeaponComponent>().weaponRange);
                 }
             }
             deltaSum += Time.deltaTime;

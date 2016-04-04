@@ -99,4 +99,14 @@ public class HealthSystem : MonoBehaviour
 
         return false;
     }
+
+    public void inflictGrenadeDamage(AttributeComponent damageTakingPlayerAttr)
+    {
+        damageTakingPlayerAttr.hp -= 2;
+    }
+
+    public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
+    {
+        damageTakingPlayerAttr.hp -= 1;
+    }
 }

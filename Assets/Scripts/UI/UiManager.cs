@@ -15,8 +15,8 @@ public class UiManager : MonoBehaviour {
     GameObject player2;
 
     InventorySystem inventSys;
-    public ManagerSystem managerSys;
-
+    ManagerSystem managerSys;
+    HealthSystem healthSys;
     public int maxAP;
 
     GUIStyle style;
@@ -27,6 +27,8 @@ public class UiManager : MonoBehaviour {
     public AttributeComponent activeUnit;
     public List<Enums.Actions> activeUnitSkills;
 
+    DijkstraSystem dijkstra;
+
 
 	// Use this for initialization
 	void Start () {
@@ -35,14 +37,12 @@ public class UiManager : MonoBehaviour {
         player2 = GameObject.Find("Player2");
         managerSys = GameObject.Find("Manager").GetComponent<ManagerSystem>();
         inventSys = GameObject.Find("Manager").GetComponent<InventorySystem>();
-
+        healthSys = this.GetComponent<HealthSystem>();
         player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
 
         //test angaben
-        isPlayer1 = managerSys.getPlayerTurn();
-
-        
+        isPlayer1 = managerSys.getPlayerTurn();       
 
 
         //getActiveUnitSkills
@@ -51,8 +51,10 @@ public class UiManager : MonoBehaviour {
 
         //setStyle
         style = new GUIStyle();
-        
-	}
+
+        dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
+
+    }
 	
 
     // Update is called once per frame
@@ -65,12 +67,11 @@ public class UiManager : MonoBehaviour {
             input = player1.GetComponent<inputSystem>();
         else
             input = player2.GetComponent<inputSystem>();
-        activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+
         //beschaffe aktive einheit
         if (activeUnit)
         {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
-            Debug.Log("huhu");
             activeUnitSkills = activeUnit.skills;
         }
     }
@@ -171,37 +172,50 @@ public class UiManager : MonoBehaviour {
     {
         managerSys.setPlayerTurn();
     }
-    public void move(){
 
+    public void move() {
+        Debug.Log("Move Aktion");
+        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
+        input.cancelActions();
+        attr.regenerateMovepoints();
+        dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
     }
     public void hit(){
         shoot();
     }
     public void shoot()
     {
+        input.cancelActions();
         input.angriffAusgewaehlt = true;
     }
     public void reload(){
+        input.cancelActions();
         inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
     }
     public void changeWeapon(){
+        input.cancelActions();
+
+        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
+        InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
+        dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
+        inv.isPrimary = !inv.isPrimary;
     }
-    public void heal()
-    {
+    public void heal() {
+        input.cancelActions();
     }
     public void molotov() {
+        input.cancelActions();
     }
     public void grenade(){
+        input.cancelActions();
     }
     public void  smoke(){
+        input.cancelActions();
     }
     public void teargas()
     {
+        input.cancelActions();
     }
-
-
-
-
 
 
 

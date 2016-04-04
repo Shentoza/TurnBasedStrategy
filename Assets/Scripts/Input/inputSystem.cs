@@ -3,31 +3,96 @@ using System.Collections;
 
 public class inputSystem : MonoBehaviour {
 
+    //Stuff vom Manager
     ManagerSystem manager;
-	GameObject player;
-	Cell zelle;
-	DijkstraSystem dijSys;
+    DijkstraSystem dijSys;
+    PlayerAssistanceSystem assist;
+    AbilitySystem abilSys;
+
+    //Ausgewählte Figur
+    GameObject player;
+    //Stuff von der Aktuell gewählten Figur
+    AttributeComponent attr;
+    MovementSystem movement;
 	CameraRotationScript rotationScript;
 
 	bool figurGewaehlt;
     bool spielerAmZug;
 
+    //Maske für Raycast
+    public LayerMask Cellmask;
+    //Aktuelle Zelle über die man hovert
+    Cell selectedCell;
+
+    //letzte angewählte Zelle zu der man moven kann
+    Cell selectedMovementCell;
+    bool changedSelectedCell;
+    bool changedSelectedMovementCell;
+
+
+    //Bools welche Aktion aktuell ausgewählt is
+    public bool movementAusgewaehlt;
 	public bool angriffAusgewaehlt;
-	MovementSystem moveSys;
-	bool smokeAusgewaehlt;
-	bool molotovAusgewaehlt;
+    public bool smokeAusgewaehlt;
+    public bool molotovAusgewaehlt;
+    public bool gasAusgewaehlt;
+    public bool granateAusgewaehlt;
+
 	// Use this for initialization
 	void Start () {
+        GameObject managerObj = GameObject.Find("Manager");
 
-        dijSys = (DijkstraSystem) FindObjectOfType (typeof(DijkstraSystem));
-        manager = GameObject.Find("Manager").GetComponent<ManagerSystem>();
-		rotationScript = (CameraRotationScript)FindObjectOfType (typeof(CameraRotationScript));
+        manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
+        dijSys = (DijkstraSystem)managerObj.GetComponent(typeof(DijkstraSystem));
+        assist = (PlayerAssistanceSystem)managerObj.GetComponent(typeof(PlayerAssistanceSystem));
+        abilSys = (AbilitySystem)managerObj.GetComponent(typeof(AbilitySystem));
+
+
+        selectedCell = selectedMovementCell =  null;
+        changedSelectedCell = changedSelectedMovementCell = false;
+
+        rotationScript = (CameraRotationScript)FindObjectOfType (typeof(CameraRotationScript));
 	}
 	
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown (0)) 
+        Ray mouseOver = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hover;
+        Physics.Raycast(mouseOver, out hover, Mathf.Infinity,Cellmask);
+        
+        //Cell getroffen?
+        if(hover.collider != null)
+        {
+            Cell tmp = (Cell)hover.collider.gameObject.GetComponent(typeof(Cell));
+            changedSelectedCell = selectedCell != tmp;
+
+            //Cellkomponent vorhanden?  und Haben wir die alte Zelle getroffen, oder noch garkeine ausgewählt?
+            if(tmp != null && (changedSelectedCell || selectedCell == null))
+            {
+                if (selectedCell != null)
+                {
+                    if (figurGewaehlt && !movement.moving)
+                        dijSys.colorCell(selectedCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
+                    else
+                        dijSys.resetSingleCell(selectedCell);
+                }
+                    selectedCell = tmp;
+                    dijSys.highlightSingleCell(selectedCell);
+
+                if(movementAusgewaehlt)
+                {
+                    if(selectedCell.dij_GesamtKosten <= attr.actMovRange)
+                    {
+                        changedSelectedMovementCell = selectedMovementCell != selectedCell;
+                        selectedMovementCell = selectedCell;
+                    }
+                }
+            }
+        }
+
+
+        if (Input.GetMouseButtonDown (0)) 
 		{
             spielerAmZug = manager.getPlayerTurn();  //True = Spieler Eins, False = Spieler zwei
             Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -40,18 +105,22 @@ public class inputSystem : MonoBehaviour {
                     || (hit.collider.gameObject.tag == "FigurSpieler2" && !spielerAmZug)) 
                     && !angriffAusgewaehlt) 
 				{
+                    //Neuer Spieler angeklickt
 					if(player != hit.collider.gameObject)
 					{
                         manager.setSelectedFigurine(hit.collider.gameObject);
-						player = hit.collider.gameObject;
+                        assist.ClearThrowPath();
+                        assist.ClearWalkPath();
+                        player = hit.collider.gameObject;
 						figurGewaehlt = true;
-						AttributeComponent playerAttr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
-						Cell currentCell = (Cell) playerAttr.getCurrentCell().GetComponent(typeof(Cell));
-						dijSys.executeDijsktra(currentCell, playerAttr.actMovRange, playerAttr.attackRange);
+						attr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
+                        movement = (MovementSystem)player.GetComponent(typeof(MovementSystem));
+                        Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
+						dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
 						rotationScript.setNewTarget(player);
 					}
 				}
-				if (angriffAusgewaehlt)
+				if (angriffAusgewaehlt && figurGewaehlt)
 				{
 					if((hit.collider.gameObject.tag == "FigurSpieler2" && spielerAmZug)
                         || hit.collider.gameObject.tag == "FigurSpieler1" && !spielerAmZug)
@@ -66,48 +135,78 @@ public class inputSystem : MonoBehaviour {
                 }
 				if (smokeAusgewaehlt)
 				{
-					if(hit.collider.gameObject.tag == "Cell")
-					{
-						AbilitySystem playerAbilSys = (AbilitySystem) player.GetComponent(typeof(AbilitySystem));
-						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-						playerAbilSys.throwSmoke(zelle);
+                    if (selectedCell != null && figurGewaehlt)
+                    {
+						abilSys.throwSmoke(selectedCell, player);
 						smokeAusgewaehlt = false;
 					}
 				}
 				if (molotovAusgewaehlt)
 				{
-					if(hit.collider.gameObject.tag == "Cell")
-					{
-						AbilitySystem playerAbilSys = (AbilitySystem) player.GetComponent(typeof(AbilitySystem));
-						zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-						playerAbilSys.throwMolotov(zelle);
+                    if(selectedCell != null && figurGewaehlt)
+                    { 
+						abilSys.throwMolotov(selectedCell, player);
 						molotovAusgewaehlt = false;
 					}
 				}
-			}
+                if (gasAusgewaehlt)
+                {
+                    if (selectedCell != null && figurGewaehlt)
+                    {
+                        abilSys.throwGas(selectedCell, player);
+                        gasAusgewaehlt = false;
+                    }
+
+                }
+                if (granateAusgewaehlt)
+                {
+                    if (selectedCell != null && figurGewaehlt)
+                    {
+                        abilSys.throwGrenade(selectedCell, player);
+                        granateAusgewaehlt = false;
+                    }
+
+                }
+            }
 			else
 			{
 				figurGewaehlt = false;
 			}
 		}
-		if (Input.GetMouseButtonDown (1)) {
-			Ray clicked = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;
-			Physics.Raycast (clicked, out hit);
-			if(hit.collider != null)
-			{
-				if(figurGewaehlt && hit.collider.gameObject.tag == "Cell")
-				{
-					zelle = (Cell)hit.collider.gameObject.GetComponent(typeof(Cell));
-					MovementSystem moveSys = (MovementSystem) player.GetComponent(typeof(MovementSystem));
-					moveSys.MoveTo(zelle);
-				}
-			}
-			else
-			{
-				figurGewaehlt = false;
-			}
-		}
+
+        //Wenn begonnen wird rechts zu klicken
+        if(Input.GetMouseButtonDown(1))
+        {
+            if (figurGewaehlt && selectedCell.dij_GesamtKosten <= attr.actMovRange)
+            {
+                movementAusgewaehlt = true;
+                selectedMovementCell = selectedCell;
+                ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedMovementCell);
+                assist.PaintWalkPath(path);
+            }
+        }
+
+        
+        if (Input.GetMouseButton(1))
+        {
+            if (movementAusgewaehlt && changedSelectedMovementCell)
+            { 
+                ArrayList path = dijSys.getPath(attr.getCurrentCell(), selectedMovementCell);
+                assist.PaintWalkPath(path);
+            }
+        }
+
+        if (Input.GetMouseButtonUp (1)) {
+            if (movementAusgewaehlt)
+            {
+                if(movement.MoveTo(selectedMovementCell))
+                {
+                    movementAusgewaehlt = false;
+                    assist.ClearWalkPath();
+                }
+            }
+        }
+
         if(Input.GetKeyDown("a") && player != null)
         {
             angriffAusgewaehlt = !angriffAusgewaehlt;
@@ -129,10 +228,32 @@ public class inputSystem : MonoBehaviour {
 		if (Input.GetKeyDown ("f")) {
 			molotovAusgewaehlt = true;
 		}
+        if(Input.GetKeyDown("g"))
+        {
+            gasAusgewaehlt = true;
+        }
+        if (Input.GetKeyDown("d"))
+        {
+            granateAusgewaehlt = true;
+        }
         if(Input.GetKeyDown("space"))
         {
 			rotationScript.switchCamera();
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            cancelActions();
+        }
 	}
+
+    public void cancelActions()
+    {
+        Debug.Log("Cancel Actions");
+        angriffAusgewaehlt = false;
+        molotovAusgewaehlt = false;
+        smokeAusgewaehlt = false;
+        movementAusgewaehlt = false;
+    }
 }
 
