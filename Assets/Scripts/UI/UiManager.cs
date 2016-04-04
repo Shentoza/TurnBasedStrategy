@@ -15,7 +15,7 @@ public class UiManager : MonoBehaviour {
     GameObject player2;
 
     InventorySystem inventSys;
-    ManagerSystem managerSys;
+    public ManagerSystem managerSys;
 
     public int maxAP;
 
@@ -65,11 +65,12 @@ public class UiManager : MonoBehaviour {
             input = player1.GetComponent<inputSystem>();
         else
             input = player2.GetComponent<inputSystem>();
-
+        activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
         //beschaffe aktive einheit
         if (activeUnit)
         {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+            Debug.Log("huhu");
             activeUnitSkills = activeUnit.skills;
         }
     }
