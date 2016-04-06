@@ -38,8 +38,8 @@ public class AttributeComponent : MonoBehaviour {
 	void Start ()
     {
       //  skills = new List<Enums.Actions>();
-        hp = 10;
-        ap = 2;
+       
+    
         canShoot = true;
         skills.Add(Enums.Actions.Move);
 	}
