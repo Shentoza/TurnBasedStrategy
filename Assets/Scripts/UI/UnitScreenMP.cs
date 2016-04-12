@@ -387,12 +387,12 @@ public class UnitScreenMP : MonoBehaviour {
 
         //einheiten auswahlbuttons
         //riot
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), new GUIContent( riotTex, "Riot" ) ))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker, unitIconWidth, unitIconHeight), new GUIContent(riotTex, "Riot")))
         {
             p2Pick(Enums.Prof.Riot);
         }
 
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker, unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
         {
             if (!player1Picking)
             {
@@ -400,7 +400,7 @@ public class UnitScreenMP : MonoBehaviour {
             }
   
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner" )))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner")))
         {
             if (!player1Picking)
             {
@@ -408,14 +408,14 @@ public class UnitScreenMP : MonoBehaviour {
             }
    
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support") ))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
         {
             if (!player1Picking)
             {
                 p2Pick(Enums.Prof.Support);
             }
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.6), unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper" )))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2 * buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper")))
         {
             if (!player1Picking)
             {
