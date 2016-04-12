@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class PlayerComponent : MonoBehaviour {
-    //To Do: Array mit Spielfiguren füllen
+
+
+    public Texture2D teamColor;
 
     GameObject[] figurines = new GameObject[3]; //Alle Figuren über die ein Spieler verfügt
     public int actionPoints = 0; //Anzahl an verfügbaren Aktionspunkten
