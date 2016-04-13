@@ -25,7 +25,7 @@ public class WeaponComponent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isPrimary)
+      /*  if (isPrimary)
         {
             if ((Enums.PrimaryWeapons)name == Enums.PrimaryWeapons.ShieldnStick)
             {
@@ -36,7 +36,7 @@ public class WeaponComponent : MonoBehaviour {
 
             }
         }
-
+        */
 
 	}
 }

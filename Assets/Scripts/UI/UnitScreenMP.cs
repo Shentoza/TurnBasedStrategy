@@ -46,9 +46,9 @@ public class UnitScreenMP : MonoBehaviour {
   
     public Texture2D riotTex;
     public Texture2D soldierTex;
-    public Texture2D hGTex;
+   // public Texture2D hGTex;
     public Texture2D supportTex;
-    public Texture2D sniperTex;
+   // public Texture2D sniperTex;
 
     Vector4 equip = new Vector4(0,0,0,0);
 
@@ -222,8 +222,8 @@ public class UnitScreenMP : MonoBehaviour {
         //primärwaffen dropdown
         else if (draw == 1)
         {
-            xBase -= (pWeapons.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < pWeapons.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(pWeapons[i], ((Enums.PrimaryWeapons)i).ToString())))
                 {                   
@@ -235,8 +235,8 @@ public class UnitScreenMP : MonoBehaviour {
         //sekundärwaffen dropdown
         else if (draw == 2)
         {
-            xBase -= (sWeapons.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < sWeapons.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.SecondaryWeapons)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.SecondaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(sWeapons[i], ((Enums.SecondaryWeapons)i).ToString())))
                 {
@@ -251,8 +251,8 @@ public class UnitScreenMP : MonoBehaviour {
         //untility dropdown
         else if (draw == 3)
         {
-            xBase -= (util.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < util.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.Equipment)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.Equipment)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize),new GUIContent( util[i], ((Enums.Equipment)i).ToString())))
                 {
@@ -392,7 +392,7 @@ public class UnitScreenMP : MonoBehaviour {
             p2Pick(Enums.Prof.Riot);
         }
 
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker, unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
         {
             if (!player1Picking)
             {
@@ -400,7 +400,7 @@ public class UnitScreenMP : MonoBehaviour {
             }
   
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner")))
+    /*    if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner")))
         {
             if (!player1Picking)
             {
@@ -408,13 +408,15 @@ public class UnitScreenMP : MonoBehaviour {
             }
    
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
+     * */
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2* buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
         {
             if (!player1Picking)
             {
                 p2Pick(Enums.Prof.Support);
             }
         }
+        /*
         if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2 * buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper")))
         {
             if (!player1Picking)
@@ -422,7 +424,7 @@ public class UnitScreenMP : MonoBehaviour {
                 p2Pick(Enums.Prof.Sniper);
             }
         }
-
+        */
     }
 
 
@@ -450,6 +452,15 @@ public class UnitScreenMP : MonoBehaviour {
              
             }
         }
+      
+        else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Support)
+        {
+            if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), supportTex))
+            {
+               
+            }
+        }
+            /*
         else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.HeavyGunner)
         {
             if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), hGTex))
@@ -458,13 +469,6 @@ public class UnitScreenMP : MonoBehaviour {
             }
 
         }
-        else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Support)
-        {
-            if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), supportTex))
-            {
-               
-            }
-        }
         else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Sniper)
         {
             if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), sniperTex))
@@ -472,6 +476,7 @@ public class UnitScreenMP : MonoBehaviour {
 
             }
         }
+             * */
     }
 
 
