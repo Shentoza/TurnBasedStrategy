@@ -222,8 +222,8 @@ public class UnitScreenMP : MonoBehaviour {
         //primärwaffen dropdown
         else if (draw == 1)
         {
-            xBase -= (pWeapons.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < pWeapons.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(pWeapons[i], ((Enums.PrimaryWeapons)i).ToString())))
                 {                   
@@ -235,8 +235,8 @@ public class UnitScreenMP : MonoBehaviour {
         //sekundärwaffen dropdown
         else if (draw == 2)
         {
-            xBase -= (sWeapons.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < sWeapons.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.SecondaryWeapons)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.SecondaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(sWeapons[i], ((Enums.SecondaryWeapons)i).ToString())))
                 {
@@ -251,8 +251,8 @@ public class UnitScreenMP : MonoBehaviour {
         //untility dropdown
         else if (draw == 3)
         {
-            xBase -= (util.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < util.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.Equipment)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.Equipment)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize),new GUIContent( util[i], ((Enums.Equipment)i).ToString())))
                 {
