@@ -74,6 +74,8 @@ public class UiManager : MonoBehaviour {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
         }
+
+
     }
 
 

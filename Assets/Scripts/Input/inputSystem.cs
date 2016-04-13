@@ -168,10 +168,6 @@ public class inputSystem : MonoBehaviour {
 
                 }
             }
-			else
-			{
-				figurGewaehlt = false;
-			}
 		}
 
         //Wenn begonnen wird rechts zu klicken
@@ -203,6 +199,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     movementAusgewaehlt = false;
                     assist.ClearWalkPath();
+                    dijSys.resetDijkstra();
                 }
             }
         }
