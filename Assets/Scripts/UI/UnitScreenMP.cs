@@ -46,9 +46,9 @@ public class UnitScreenMP : MonoBehaviour {
   
     public Texture2D riotTex;
     public Texture2D soldierTex;
-    public Texture2D hGTex;
+   // public Texture2D hGTex;
     public Texture2D supportTex;
-    public Texture2D sniperTex;
+   // public Texture2D sniperTex;
 
     Vector4 equip = new Vector4(0,0,0,0);
 
@@ -400,7 +400,7 @@ public class UnitScreenMP : MonoBehaviour {
             }
   
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner")))
+    /*    if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner")))
         {
             if (!player1Picking)
             {
@@ -408,6 +408,7 @@ public class UnitScreenMP : MonoBehaviour {
             }
    
         }
+     * */
         if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
         {
             if (!player1Picking)
@@ -415,6 +416,7 @@ public class UnitScreenMP : MonoBehaviour {
                 p2Pick(Enums.Prof.Support);
             }
         }
+        /*
         if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2 * buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper")))
         {
             if (!player1Picking)
@@ -422,7 +424,7 @@ public class UnitScreenMP : MonoBehaviour {
                 p2Pick(Enums.Prof.Sniper);
             }
         }
-
+        */
     }
 
 
@@ -450,6 +452,15 @@ public class UnitScreenMP : MonoBehaviour {
              
             }
         }
+      
+        else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Support)
+        {
+            if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), supportTex))
+            {
+               
+            }
+        }
+            /*
         else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.HeavyGunner)
         {
             if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), hGTex))
@@ -458,13 +469,6 @@ public class UnitScreenMP : MonoBehaviour {
             }
 
         }
-        else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Support)
-        {
-            if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), supportTex))
-            {
-               
-            }
-        }
         else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Sniper)
         {
             if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), sniperTex))
@@ -472,6 +476,7 @@ public class UnitScreenMP : MonoBehaviour {
 
             }
         }
+             * */
     }
 
 
