@@ -392,7 +392,7 @@ public class UnitScreenMP : MonoBehaviour {
             p2Pick(Enums.Prof.Riot);
         }
 
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker, unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
         {
             if (!player1Picking)
             {
@@ -409,7 +409,7 @@ public class UnitScreenMP : MonoBehaviour {
    
         }
      * */
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2* buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
         {
             if (!player1Picking)
             {
