@@ -65,6 +65,7 @@ public class HealthSystem : MonoBehaviour
 
     private void inflictShootDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr, int damage)
     {
+        Debug.Log("Damage taken : " + damage);
         damageTakingPlayerAtrr.hp -= damage;
         attackingPlayerAttr.ap--;
         attackingPlayerAttr.canShoot = false;

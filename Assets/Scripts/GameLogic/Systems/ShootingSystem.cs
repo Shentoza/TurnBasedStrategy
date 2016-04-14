@@ -66,6 +66,7 @@ public class ShootingSystem : MonoBehaviour
                 return false;
             }
         }
+        currentPlayerWeapon.shootingSound.Play();
         return false;
     }
 
@@ -86,6 +87,10 @@ public class ShootingSystem : MonoBehaviour
                 Debug.Log("Keine Kugeln im Magazin vorhanden. Bitte nachladen.");
                 return false;
             }
+        }
+        else
+        {
+            Debug.Log("Schuss nicht möglich");
         }
         
         return false;

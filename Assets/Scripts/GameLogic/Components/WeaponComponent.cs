@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponComponent : MonoBehaviour {
-
+public class WeaponComponent : MonoBehaviour
+{
+    public AudioSource shootingSound;
+   
     public bool isPrimary;
     public int damage;
     public int weaponRange;
@@ -10,22 +12,16 @@ public class WeaponComponent : MonoBehaviour {
     public int magazineSize;
     public int rangeMod;
     public float weaponAccuracy;
-    public int name;
+    public int name;   
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        /* Testing 
-        damage = 8;
-        weaponRange = 8;
-        currentBulletsInMagazine = 3;
-        magazineSize = 5;
-         * */
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (isPrimary)
+      /*  if (isPrimary)
         {
             if ((Enums.PrimaryWeapons)name == Enums.PrimaryWeapons.ShieldnStick)
             {
@@ -36,7 +32,7 @@ public class WeaponComponent : MonoBehaviour {
 
             }
         }
-
+        */
 
 	}
 }
