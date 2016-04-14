@@ -15,10 +15,15 @@ public class Cell : MonoBehaviour {
     public enum dij_Zustand { DIJ_UNBESUCHT, DIJ_ENTDECKT, DIJ_ABGESCHLOSSEN };
     public dij_Zustand dij_ZellZustand;
 	public GameObject objectOnCell;
+
 	public bool isOccupied = false;
 	public bool setOnFire = false;
 	public bool smoked = false;
     public bool setOnGas = false;
+
+	public bool keineDeckung;
+	public bool niedrigeDeckung;
+	public bool hoheDeckung;
 
 	// Use this for initialization
 	void Start () {

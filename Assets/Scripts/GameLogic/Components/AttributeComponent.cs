@@ -12,7 +12,7 @@ public class AttributeComponent : MonoBehaviour {
     public int actMovRange; //Aktuelle Bewegungsreichweite
     public int regPerAP; //Regeneration pro Aufruf von Move
     public float minAccuracy; //Mindest Trefferwahrscheinlichkeit
-    public int attackRange = 4; //Dient der Wurfrange von Granaten etc.
+    public int attackRange = 100; //Dient der Wurfrange von Granaten etc.
     public bool canShoot; // Spieler kann nur 1 mal pro Runde schießen
     public bool highCover; // Spieler ist hinter hoher Deckung
     public bool lowCover; // Spieler ist niedriger hoher Deckung
