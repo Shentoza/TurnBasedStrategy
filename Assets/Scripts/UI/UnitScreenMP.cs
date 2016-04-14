@@ -65,12 +65,15 @@ public class UnitScreenMP : MonoBehaviour {
 
     bool done = false;
 
+
+
 	// Use this for initialization
 	void Start () {
          
     unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
     p1UnitCap = manager.p1UnitCap;
-    p2UnitCap = manager.p2UnitCap;   
+    p2UnitCap = manager.p2UnitCap;
+    GameObject.Find("Main Camera").GetComponent<CameraRotationScript>().enabled = false;   
         
 	}
 	

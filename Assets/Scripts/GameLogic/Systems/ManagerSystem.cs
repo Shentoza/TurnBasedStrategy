@@ -60,6 +60,7 @@ public class ManagerSystem : MonoBehaviour {
         Instantiate(uiManager);
         selectedFigurine = unitListP1[0];
         isPlayer1 = true;
+        Camera.main.GetComponent<CameraRotationScript>().enabled = true;
     }
 
 
