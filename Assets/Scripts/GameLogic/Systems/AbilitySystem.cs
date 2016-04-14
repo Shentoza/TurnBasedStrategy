@@ -15,6 +15,19 @@ public class AbilitySystem : MonoBehaviour {
     private bool startAngleSet;
     private float turningDirection;
 
+
+    //Grenade Stuff
+    private GameObject throwing_Object;
+    private float throwing_TimePerCell = 0.25f;
+    private float throwing_TimeNeeded;
+    private float throwing_TimeSum;
+    private float throwing_Length;
+    private Vector3 throwing_StartPos;
+    private Vector3 throwing_DestinationPos;
+    private Cell throwing_DestinationCell;
+    private bool throwing_Active = false;
+    private Enums.Effects throwing_effect;
+    
     // Use this for initialization
     void Start () {
         
@@ -22,7 +35,8 @@ public class AbilitySystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (throwing_Active)
+            continousThrowing(Time.deltaTime);
 	}
 
 	public void throwSmoke(Cell ziel, GameObject figur)
@@ -242,33 +256,48 @@ public class AbilitySystem : MonoBehaviour {
         return angle == 0.0f;
     }
 
-    public void throwIt(Cell ziel, GameObject it)
+    public void throwIt(GameObject grenade)
     {
-        Vector3 start = it.transform.position;
-        Vector3 target = ziel.transform.position;
+        throwing_Object = grenade;
+        throwing_StartPos = throwing_Object.transform.position;
+        throwing_DestinationPos = throwing_DestinationCell.gameObject.transform.position;
 
-        Vector3 direction = target - start;
+        Vector3 baselength = throwing_DestinationPos - throwing_StartPos;
+        baselength.y = 0.0f;
 
-        /*
-        while(!WERFIWERF)
-        {
-            //mach irgendwas
-        }
-        boom!
-        */
+        throwing_TimeSum = 0.0f;
+        throwing_TimeNeeded = throwing_TimePerCell * baselength.magnitude;
+
+        throwing_Active = true;
+        
     }
-    /*
-    bool werfiwerf()
+    void continousThrowing(float deltaTime)
     {
-        zeitGeworfen+= deltaTime;
+        if (throwing_TimeSum <= throwing_TimeNeeded)
+        {
+            throwing_TimeSum += deltaTime;
+        }
 
-    progress = zeitGeworfen / (Länge der Strecke);
-        y = -6.0f * progress * progress + 6.0f * progress;
-        x = Lerp zwischen 
-        if (progress == 1.0)
-            return true;
+        float progress = Mathf.Clamp01(throwing_TimeSum / throwing_TimeNeeded);
+        float yValue = -20 * (progress * progress) + 20 * progress;
 
-    return false
+        //Debug.Log(progress);
+        Vector3 result = Vector3.Lerp(throwing_StartPos, throwing_DestinationPos, progress);
+        result.y += yValue;
+        throwing_Object.transform.position = result;
+        if(progress == 1.0f)
+        {
+            throwing_Active = false;
+            GameObject.Destroy(throwing_Object);
+            Debug.Log("BOOM");
+        }
+
+
+    }
+
+    public void setThrowDestination(Cell destination)
+    {
+        throwing_DestinationCell = destination;
     }
 
 }
