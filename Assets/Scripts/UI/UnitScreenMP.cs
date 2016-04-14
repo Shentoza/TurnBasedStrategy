@@ -65,12 +65,15 @@ public class UnitScreenMP : MonoBehaviour {
 
     bool done = false;
 
+
+
 	// Use this for initialization
 	void Start () {
          
     unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
     p1UnitCap = manager.p1UnitCap;
-    p2UnitCap = manager.p2UnitCap;   
+    p2UnitCap = manager.p2UnitCap;
+    GameObject.Find("Main Camera").GetComponent<CameraRotationScript>().enabled = false;   
         
 	}
 	
@@ -190,25 +193,25 @@ public class UnitScreenMP : MonoBehaviour {
 
         
 
-        if (dp1 == true)
+        if (dp1 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth/2;
             yBase = unitListYAnker + unitIconHeight + 2;
             draw = 1;
         }
-        else if (dp2 == true)
+        else if (dp2 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth / 2;
             yBase = unitListYAnker + buttonYOffset + unitIconHeight + 2; ;
             draw = 2;
         }
-        else if (dp3 == true)
+        else if (dp3 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth / 2;
             yBase = unitListYAnker + 2*buttonYOffset + unitIconHeight + 2;
             draw = 3;
         }
-        else if (dp4 == true)
+        else if (dp4 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth / 2;
             yBase = yBase = unitListYAnker + 3 * buttonYOffset + unitIconHeight + 2;
