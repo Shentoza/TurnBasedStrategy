@@ -66,6 +66,7 @@ public class ShootingSystem : MonoBehaviour
                 return false;
             }
         }
+        currentPlayerWeapon.shootingSound.Play();
         return false;
     }
 

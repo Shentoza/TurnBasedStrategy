@@ -29,7 +29,9 @@ public class ManagerSystem : MonoBehaviour {
 
     GameObject plane;
 
-	// Use this for initialization
+    public AudioSource endTurnSound;
+
+   	// Use this for initialization
 	void Start () {
 
         rounds = 0;
@@ -41,6 +43,8 @@ public class ManagerSystem : MonoBehaviour {
         shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
 
         plane = GameObject.Find("Plane");
+
+        
     }
 	
 	// Update is called once per frame
@@ -90,6 +94,7 @@ public class ManagerSystem : MonoBehaviour {
     //Legt fest, welcher Spieler am Zug ist
     public void setPlayerTurn()
     {
+        endTurnSound.Play();
         roundHalf++;
         if(roundHalf == 2)
         {
