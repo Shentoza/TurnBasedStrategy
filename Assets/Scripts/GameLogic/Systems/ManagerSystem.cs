@@ -4,9 +4,7 @@ using System.Collections.Generic;
 
 public class ManagerSystem : MonoBehaviour {
 
-    public GameObject unit;
-    public GameObject uiManager;
-    public GameObject map;
+    
 
     public int p1UnitCap = 6;
     public int p2UnitCap = 5;
@@ -25,9 +23,12 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
+    //Verweise auf andere System
     private ShootingSystem shootingSys;
-
-    GameObject plane;
+    public GameObject unit;
+    public GameObject uiManager;
+    public GameObject map;
+    public GameObject plane;
 
 	// Use this for initialization
 	void Start () {
@@ -72,9 +73,6 @@ public class ManagerSystem : MonoBehaviour {
     //Runde wird inkrementiert && AP werden wieder aufgefüllt
     void nextRound()
     {
-
-
-
         player1.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler1 wieder auf
         player2.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler2 wieder auf
         rounds++;

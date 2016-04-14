@@ -1,10 +1,10 @@
 \chapter{Manager Objekt}
 
-
+Um die verschiedenen Systeme, die f"ur den korrekten Ablauf der Spielz"uge und allgemein spielregeltechnischen Abl"aufe zu handeln, wurde ein Spielobjekt, das als Manager bezeichnet wird, erstellt. Im folgenden Kapitel wird auf die einzelnen Skripte die an diesem Manager Objekt h"angen genauer eingegangen. 
 
 \section{Manager System}
 
-
+Das Manager System ist für den korrekten Ablauf der einzelnen Züge zuständig. Es z"ahlt die Runden hoch, stellt sicher, dass nur das die Eingabe des Spielers, der aktuell an der Reihe ist, abgehandelt wird, merkt sich die aktuell ausgew"ahlte Spielfigur, damit das User-Interface korrekt dargestellt wird, f"ugt jedem Spieler seine Spielfiguren zu und setzt die Spielfiguren zu Beginn der Sitzung an zuvor festgelegte Positionen.
 
 \section{Shooting System}
 
@@ -12,7 +12,16 @@
 
 \section{Inventory System \& Inventory Component}
 
+Das Inventory System wird aufgerufen sobald ein Spieler eine der folgenden Aktionen ausf"uhrt um die Anzahl der im Inventar enthaltenen Gegenst"ande zu verringern:\newline
 
+
+\begin{itemize}
+	\item Nachladen der Prim"arwaffe
+	\item Einsatz von Handgranaten
+	\item Einsatz von Tr"anengas
+	\item Einsatz von Rauchgranaten
+	\item Einsatz von Molotovcocktails
+\end{itemize}
 
 \section{Player Assistance System}
 

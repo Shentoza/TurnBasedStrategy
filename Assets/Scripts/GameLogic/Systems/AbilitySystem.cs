@@ -7,6 +7,8 @@ public class AbilitySystem : MonoBehaviour {
     public GameObject fire;
     public GameObject explosion;
     public GameObject gas;
+
+    public int effektDauer;
 	// Use this for initialization
 	void Start () {
 
@@ -44,7 +46,7 @@ public class AbilitySystem : MonoBehaviour {
 				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Smoke);
-            ec.setDauer(3);
+            ec.setDauer(effektDauer);
         } else {
 			Debug.Log ("OutOfRange");
 		}
@@ -77,7 +79,7 @@ public class AbilitySystem : MonoBehaviour {
 				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Fire);
-            ec.setDauer(3);
+            ec.setDauer(effektDauer);
         } else {
 			Debug.Log ("OutOfRange");
 
