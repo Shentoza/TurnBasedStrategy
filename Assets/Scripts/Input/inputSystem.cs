@@ -8,6 +8,7 @@ public class inputSystem : MonoBehaviour {
     DijkstraSystem dijSys;
     PlayerAssistanceSystem assist;
     AbilitySystem abilSys;
+    Animator anim;
 
     //Ausgewählte Figur
     GameObject player;
@@ -38,8 +39,8 @@ public class inputSystem : MonoBehaviour {
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         GameObject managerObj = GameObject.Find("Manager");
 
         manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
@@ -118,6 +119,9 @@ public class inputSystem : MonoBehaviour {
                         Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
 						dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
 						rotationScript.setNewTarget(player);
+
+                        //Fuer Animationen
+                        anim = (Animator) player.GetComponent(typeof(Animator));
 					}
 				}
 				if (angriffAusgewaehlt && figurGewaehlt)
@@ -146,7 +150,7 @@ public class inputSystem : MonoBehaviour {
                     if(selectedCell != null && figurGewaehlt)
                     { 
 						abilSys.throwMolotov(selectedCell, player);
-						molotovAusgewaehlt = false;
+                        molotovAusgewaehlt = false;
 					}
 				}
                 if (gasAusgewaehlt)
@@ -163,6 +167,7 @@ public class inputSystem : MonoBehaviour {
                     if (selectedCell != null && figurGewaehlt)
                     {
                         abilSys.throwGrenade(selectedCell, player);
+                        anim.SetTrigger("Throw");
                         granateAusgewaehlt = false;
                     }
 
