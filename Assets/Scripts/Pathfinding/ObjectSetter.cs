@@ -50,14 +50,22 @@ public class ObjectSetter : MonoBehaviour {
 		Transform objectTrans = (Transform)this.gameObject.GetComponent (typeof(Transform));
 		ObjectComponent objectComp = (ObjectComponent)this.gameObject.GetComponent (typeof(ObjectComponent));
 
+        //Setzt alle Zellen auf occupied, deckung etc sofern das Objekt mehr als eine Zelle in x oder z einnimmt.
+        // zB an Stelle 1, 1 und groesse 2*2 waere dann:
+        // 0 0 0 0
+        // 0 x x 0
+        // 0 x x 0
+        // 0 0 0 0
 
-		//Setzt alle Zellen auf occupied, deckung etc sofern das Objekt mehr als eine Zelle in x oder z einnimmt.
-		// zB an Stelle 1, 1 und groesse 2*2 waere dann:
-		// 0 0 0 0
-		// 0 x x 0
-		// 0 x x 0
-		// 0 0 0 0
-		if (objectComp.sizeX > 1 || objectComp.sizeZ > 1) {
+        Debug.Log(this.gameObject);
+        Vector3 posi = Zellen[x + objectComp.sizeX - 1, z + objectComp.sizeZ -1].transform.position - Zellen[x, z].transform.position;
+        posi /= 2;
+        posi += Zellen[x, z].transform.position;
+
+        objectTrans.position = new Vector3(posi.x, objectTrans.position.y, posi.z) ;
+
+
+        if (objectComp.sizeX > 1 || objectComp.sizeZ > 1) {
 			for (int i = 0; i < objectComp.sizeX; i++) {
 				zelle = Zellen [x + i, z];
 				cell = (Cell)zelle.GetComponent (typeof(Cell));
@@ -91,25 +99,9 @@ public class ObjectSetter : MonoBehaviour {
 						if (objectComp.hoheDeckung) {
 							cell.hoheDeckung = true;
 						}
-
-					}
-					if (objectComp.sizeZ % 2 == 0) {
-						posiZ = Zellen [x, z + (objectComp.sizeZ / 2)].transform.position.z;
-						posiZ += 0.5f;
-					} else {
-						posiZ = Zellen [x, z + (objectComp.sizeZ / 2)].transform.position.z;
 					}
 				}
 			}
-
-			if (objectComp.sizeX % 2 == 0) {
-				posiX = Zellen [x + (objectComp.sizeX / 2), z].transform.position.x;
-				posiX -= 0.5f;
-			} else {
-				posiX = Zellen [x + (objectComp.sizeX / 2), z].transform.position.x;
-			}
-
-			objectTrans.position = new Vector3 (posiX, objectTrans.position.y, posiZ);
 		}
 		//Falls die groesse des Objekts 1*1 ist
 		else 
@@ -129,8 +121,6 @@ public class ObjectSetter : MonoBehaviour {
 			if (objectComp.hoheDeckung) {
 				cell.hoheDeckung = true;
 			}
-
-			objectTrans.position = new Vector3 (zelle.transform.position.x, objectTrans.position.y, zelle.transform.position.z);
 		}
 	}
 }
