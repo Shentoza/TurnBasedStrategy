@@ -436,13 +436,11 @@ public class AttributeComponent : MonoBehaviour {
 
         }
              
-             * */
         else if (items.utility2 == Enums.Equipment.Scope)
         {
 
         }
-      
-            
+
         else if (items.utility2 == Enums.Equipment.Mine)
         {
             items.amountMines = 2;
