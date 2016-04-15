@@ -22,6 +22,7 @@ public class AttributeComponent : MonoBehaviour {
     public InventoryComponent items; //Inventory
     public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
     public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
+    public Enums.Prof prof;
     Cell cell;
 
     public List<Enums.Actions> skills;
@@ -98,7 +99,8 @@ public class AttributeComponent : MonoBehaviour {
 
     public void setProf(int i)
     {
-
+        
+        prof = (Enums.Prof)i;
         armory = GameObject.Find("Armory").GetComponent<ArmoryComponent>();
         ManagerSystem managersys = (ManagerSystem) FindObjectOfType(typeof(ManagerSystem));
         items = this.GetComponent<InventoryComponent>();

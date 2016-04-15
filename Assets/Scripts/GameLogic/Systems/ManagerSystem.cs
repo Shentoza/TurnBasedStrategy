@@ -32,6 +32,8 @@ public class ManagerSystem : MonoBehaviour {
 
     public AudioSource endTurnSound;
 
+    public bool uiManagerSet;
+
     public GameObject policePrefab;
     public GameObject rebelPrefab;
 
@@ -65,6 +67,8 @@ public class ManagerSystem : MonoBehaviour {
         selectedFigurine = unitListP1[0];
         isPlayer1 = true;
         Camera.main.GetComponent<CameraRotationScript>().enabled = true;
+
+        uiManagerSet = true;
     }
 
 

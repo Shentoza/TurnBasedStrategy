@@ -21,7 +21,7 @@ public class UiManager : MonoBehaviour {
 
     GUIStyle style;
 
-    inputSystem input;
+    public inputSystem input;
 
     // aktionen enum
     public AttributeComponent activeUnit;
@@ -29,6 +29,7 @@ public class UiManager : MonoBehaviour {
 
     DijkstraSystem dijkstra;
 
+   public Enums.Actions activeSkill = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -74,7 +75,10 @@ public class UiManager : MonoBehaviour {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
         }
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            actionCancel();
+        }
 
     }
 
@@ -173,9 +177,14 @@ public class UiManager : MonoBehaviour {
     public void endTurn()
     {
         managerSys.setPlayerTurn();
+        actionCancel();
     }
 
     public void move() {
+        actionCancel();
+
+        activeSkill = Enums.Actions.Move;
+
         if (isPlayer1)
             player1.GetComponent<PlayerComponent>().useAP();
         else
@@ -187,20 +196,26 @@ public class UiManager : MonoBehaviour {
         dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
     }
     public void hit(){
-        shoot();
+        actionCancel();
+        activeSkill = Enums.Actions.Hit;
+
+        input.angriffAusgewaehlt = true;
     }
     public void shoot()
     {
-        input.cancelActions();
+        actionCancel();
+        activeSkill = Enums.Actions.Shoot;
+        
         input.angriffAusgewaehlt = true;
     }
     public void reload(){
-        input.cancelActions();
+        actionCancel();
+        activeSkill = Enums.Actions.Reload;
         inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
     }
     public void changeWeapon(){
-        input.cancelActions();
-          
+        actionCancel();
+        activeSkill = Enums.Actions.ChangeWeapon;
         // Audiofeedback wenn Waffe gewechselt wird
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
@@ -212,7 +227,8 @@ public class UiManager : MonoBehaviour {
         inv.isPrimary = !inv.isPrimary;
     }
     public void heal() {
-        input.cancelActions();
+        actionCancel();
+        activeSkill = Enums.Actions.Heal;
         HealthSystem healthSystem = GameObject.Find("Manager").GetComponent<HealthSystem>();
         if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
         {
@@ -229,31 +245,42 @@ public class UiManager : MonoBehaviour {
     * Audio nur für Feedback erst einmal hier drin, eigentliche Audio soll bei ausführender Aktion gespielt werden
     */
     public void molotov() {
+        actionCancel();
+        activeSkill = Enums.Actions.Molotov;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
         audioSource.Play();
 
-        input.cancelActions();
+        
     }
     public void grenade(){
+        actionCancel();
+        activeSkill = Enums.Actions.Grenade;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
         audioSource.Play();
 
-        input.cancelActions();
+        
     }
     public void  smoke(){
-        input.cancelActions();
+        actionCancel();
+        activeSkill = Enums.Actions.Smoke;
     }
     public void teargas()
     {
+        actionCancel();
+        activeSkill = Enums.Actions.Teargas;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
         audioSource.Play();
 
-        input.cancelActions();
+        
     }
 
 
-
+    public void actionCancel()
+    {
+        activeSkill = Enums.Actions.Cancel;
+            input.cancelActions();
+    }
 }
