@@ -32,6 +32,8 @@ public class ManagerSystem : MonoBehaviour {
 
     public AudioSource endTurnSound;
 
+    public bool uiManagerSet;
+
    	// Use this for initialization
 	void Start () {
 
@@ -62,6 +64,8 @@ public class ManagerSystem : MonoBehaviour {
         selectedFigurine = unitListP1[0];
         isPlayer1 = true;
         Camera.main.GetComponent<CameraRotationScript>().enabled = true;
+
+        uiManagerSet = true;
     }
 
 

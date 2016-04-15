@@ -84,7 +84,10 @@ public class UiManager : MonoBehaviour {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
         }
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            actionCancel();
+        }
 
     }
 
@@ -183,11 +186,11 @@ public class UiManager : MonoBehaviour {
     public void endTurn()
     {
         managerSys.setPlayerTurn();
-        activeSkill = Enums.Actions.Cancel;
+        actionCancel();
     }
 
     public void move() {
-        input.cancelActions();
+        actionCancel();
 
         activeSkill = Enums.Actions.Move;
 
@@ -202,23 +205,25 @@ public class UiManager : MonoBehaviour {
         dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
     }
     public void hit(){
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Hit;
-        shoot();
+
+        input.angriffAusgewaehlt = true;
     }
     public void shoot()
     {
+        actionCancel();
         activeSkill = Enums.Actions.Shoot;
-        input.cancelActions();
+        
         input.angriffAusgewaehlt = true;
     }
     public void reload(){
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Reload;
         inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
     }
     public void changeWeapon(){
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.ChangeWeapon;
         // Audiofeedback wenn Waffe gewechselt wird
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
@@ -231,7 +236,7 @@ public class UiManager : MonoBehaviour {
         inv.isPrimary = !inv.isPrimary;
     }
     public void heal() {
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Heal;
         HealthSystem healthSystem = GameObject.Find("Manager").GetComponent<HealthSystem>();
         if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
@@ -249,7 +254,7 @@ public class UiManager : MonoBehaviour {
     * Audio nur für Feedback erst einmal hier drin, eigentliche Audio soll bei ausführender Aktion gespielt werden
     */
     public void molotov() {
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Molotov;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
@@ -258,7 +263,7 @@ public class UiManager : MonoBehaviour {
         
     }
     public void grenade(){
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Grenade;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
@@ -267,12 +272,12 @@ public class UiManager : MonoBehaviour {
         
     }
     public void  smoke(){
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Smoke;
     }
     public void teargas()
     {
-        input.cancelActions();
+        actionCancel();
         activeSkill = Enums.Actions.Teargas;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
@@ -282,5 +287,9 @@ public class UiManager : MonoBehaviour {
     }
 
 
-
+    public void actionCancel()
+    {
+        activeSkill = Enums.Actions.Cancel;
+            input.cancelActions();
+    }
 }

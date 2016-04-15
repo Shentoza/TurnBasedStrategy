@@ -160,11 +160,29 @@ public class ShootingSystem : MonoBehaviour
     /* COVER related */
     private bool targetIsCovered()
     {
-        if (currentTargetAttr.highCover || currentTargetAttr.lowCover)
+        if (currentPlayerCell.niedrigeDeckung || currentPlayerCell.hoheDeckung)
+        {
             return true;
+        }
+        else
+        {
+            Ray raycast = new Ray(currentPlayerCell.transform.position - Vector3.up / 8, currentTargetCell.transform.position - currentPlayerCell.transform.position);
 
-        return false;
-    }
+            //Mask ist die Maske, die nur Objekte des Layers Cell betrachet
+            RaycastHit[] hits = Physics.RaycastAll(raycast, distanceBetweenPlayers, mask);
+
+            // Debug
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.gameObject.GetComponent<Cell>().niedrigeDeckung || hit.collider.gameObject.GetComponent<Cell>().hoheDeckung)
+                {
+                    Debug.Log(hit.collider.name + " gives you defense");
+                    return true;
+                }
+            }
+            return false;
+        }
+      }
 
     private float generateCoverMalus()
     {        

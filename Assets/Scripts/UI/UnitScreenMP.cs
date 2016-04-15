@@ -186,7 +186,11 @@ public class UnitScreenMP : MonoBehaviour {
         {
             bool p1PickButton = GUI.Button(new Rect(unitListXAnker, unitListYAnker + (int)(Screen.height * 0.8f) + 5, unitIconWidth, unitIconHeight), new GUIContent(newUnitButton, "Order Now"));
             if(p1PickButton){
-                p1Pick();
+                if ((Enums.PrimaryWeapons)equip.x != Enums.PrimaryWeapons.None)
+                {
+                    p1Pick();
+                }
+                
             }
         }
 
