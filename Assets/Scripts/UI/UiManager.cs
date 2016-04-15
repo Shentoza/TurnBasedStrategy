@@ -21,7 +21,7 @@ public class UiManager : MonoBehaviour {
 
     GUIStyle style;
 
-    inputSystem input;
+    public inputSystem input;
 
     // aktionen enum
     public AttributeComponent activeUnit;
@@ -29,6 +29,7 @@ public class UiManager : MonoBehaviour {
 
     DijkstraSystem dijkstra;
 
+   public Enums.Actions activeSkill = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -173,9 +174,14 @@ public class UiManager : MonoBehaviour {
     public void endTurn()
     {
         managerSys.setPlayerTurn();
+        activeSkill = Enums.Actions.Cancel;
     }
 
     public void move() {
+        input.cancelActions();
+
+        activeSkill = Enums.Actions.Move;
+
         if (isPlayer1)
             player1.GetComponent<PlayerComponent>().useAP();
         else
@@ -187,20 +193,24 @@ public class UiManager : MonoBehaviour {
         dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
     }
     public void hit(){
+        input.cancelActions();
+        activeSkill = Enums.Actions.Hit;
         shoot();
     }
     public void shoot()
     {
+        activeSkill = Enums.Actions.Shoot;
         input.cancelActions();
         input.angriffAusgewaehlt = true;
     }
     public void reload(){
         input.cancelActions();
+        activeSkill = Enums.Actions.Reload;
         inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
     }
     public void changeWeapon(){
         input.cancelActions();
-          
+        activeSkill = Enums.Actions.ChangeWeapon;
         // Audiofeedback wenn Waffe gewechselt wird
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
@@ -213,6 +223,7 @@ public class UiManager : MonoBehaviour {
     }
     public void heal() {
         input.cancelActions();
+        activeSkill = Enums.Actions.Heal;
         HealthSystem healthSystem = GameObject.Find("Manager").GetComponent<HealthSystem>();
         if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
         {
@@ -229,29 +240,36 @@ public class UiManager : MonoBehaviour {
     * Audio nur für Feedback erst einmal hier drin, eigentliche Audio soll bei ausführender Aktion gespielt werden
     */
     public void molotov() {
+        input.cancelActions();
+        activeSkill = Enums.Actions.Molotov;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
         audioSource.Play();
 
-        input.cancelActions();
+        
     }
     public void grenade(){
+        input.cancelActions();
+        activeSkill = Enums.Actions.Grenade;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
         audioSource.Play();
 
-        input.cancelActions();
+        
     }
     public void  smoke(){
         input.cancelActions();
+        activeSkill = Enums.Actions.Smoke;
     }
     public void teargas()
     {
+        input.cancelActions();
+        activeSkill = Enums.Actions.Teargas;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
         audioSource.Play();
 
-        input.cancelActions();
+        
     }
 
 

@@ -36,8 +36,8 @@ public class HealthBar : MonoBehaviour {
 
     void OnGUI()
     {
-
-        if(Input.GetKey("space")){
+        UiManager uim = GameObject.Find("UiManager").GetComponent<UiManager>();
+        if(uim && (Input.GetKey("space") | uim.input.angriffAusgewaehlt)){
 
             int xOffset = ((hp + 9) / 10 ) * width /2  ;
 
