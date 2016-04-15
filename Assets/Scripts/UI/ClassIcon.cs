@@ -5,8 +5,8 @@ public class ClassIcon : MonoBehaviour {
 
     public int width;
     public int height;
-    public int figureOffset;
-    public int barOffset;
+    public float figureOffset;
+    public float barOffset;
 
 
     int baseX;
