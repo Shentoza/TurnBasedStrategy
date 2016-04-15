@@ -27,8 +27,8 @@ public class ManagerSystem : MonoBehaviour {
     private ShootingSystem shootingSys;
     public GameObject unit;
     public GameObject uiManager;
-    public GameObject map;
     public GameObject plane;
+    
 
     public AudioSource endTurnSound;
 
@@ -44,8 +44,9 @@ public class ManagerSystem : MonoBehaviour {
         shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
 
         plane = GameObject.Find("Plane");
+ 
 
-        
+
     }
 	
 	// Update is called once per frame
@@ -178,16 +179,16 @@ public class ManagerSystem : MonoBehaviour {
 
         Vector2 posi = new Vector2(0,0);
         
-        float sizeX = map.GetComponent<BattlefieldCreater>().mapSizeX;
-        float sizeZ = map.GetComponent<BattlefieldCreater>().mapSizeZ;
+        float sizeX = plane.GetComponent<BattlefieldCreater>().mapSizeX;
+        float sizeZ = plane.GetComponent<BattlefieldCreater>().mapSizeZ;
 
         if (team == 1)
         {
-            posi = map.GetComponent<BattlefieldCreater>().startPostionsP1[unitListP1.Count];           
+            posi = plane.GetComponent<BattlefieldCreater>().startPostionsP1[unitListP1.Count];           
         }
         else if (team == 2)
         {
-            posi = map.GetComponent<BattlefieldCreater>().startPostionsP2[unitListP1.Count];
+            posi = plane.GetComponent<BattlefieldCreater>().startPostionsP2[unitListP1.Count];
         }
 
         //setze map Coordinaten
@@ -198,8 +199,8 @@ public class ManagerSystem : MonoBehaviour {
 
 
         //setze welt coordinaten
-        float xBase = map.transform.position.x -map.transform.localScale.x *10 /2;
-        float yBase = map.transform.position.y;
+        float xBase = plane.transform.position.x -plane.transform.localScale.x *10 /2;
+        float yBase = plane.transform.position.y;
         float zBase = 0;
 
 
