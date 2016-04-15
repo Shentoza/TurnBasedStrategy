@@ -63,7 +63,7 @@ public class AttributeComponent : MonoBehaviour {
             }
         }
 
-        if (items.isPrimary)
+        if (items.isPrimary && items.primary != null)
         {
             weapon = items.primary.gameObject;
         }

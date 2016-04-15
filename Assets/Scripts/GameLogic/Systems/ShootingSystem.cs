@@ -31,6 +31,7 @@ public class ShootingSystem : MonoBehaviour
 
     private AttributeComponent currentplayerAttr;
     private WeaponComponent currentPlayerWeapon;
+    private PlayerComponent currentPlayerComp;
     private Cell currentPlayerCell;
 
     private AttributeComponent currentTargetAttr;
@@ -45,6 +46,10 @@ public class ShootingSystem : MonoBehaviour
         currentplayerAttr = (AttributeComponent)attacker.GetComponent(typeof(AttributeComponent));
         currentPlayerCell = currentplayerAttr.getCurrentCell();
         currentPlayerWeapon = (WeaponComponent)currentplayerAttr.weapon.GetComponent(typeof(WeaponComponent));
+        if(attacker.tag == "FigurSpieler1")
+            currentPlayerComp = GameObject.Find("Player1").GetComponent<PlayerComponent>();
+        else
+            currentPlayerComp = GameObject.Find("Player2").GetComponent<PlayerComponent>();
 
         currentTargetAttr = (AttributeComponent)target.GetComponent(typeof(AttributeComponent));        
         currentTargetCell = currentTargetAttr.getCurrentCell();
@@ -59,24 +64,18 @@ public class ShootingSystem : MonoBehaviour
             if(hitChance >= Random.value)
             {
                 currentPlayerWeapon.shootingSound.Play();
-                healthSystem.doDamage(currentplayerAttr, currentTargetAttr, HealthSystem.SHOOT);
+                healthSystem.doDamage(currentplayerAttr, currentPlayerComp, currentTargetAttr, HealthSystem.SHOOT);
                 return true;
             }
             else
-            {
-                // Eigentlich ist die Stelle hier richtig aber im moment nicht brauchbar
-                /*
+            {                
                 AudioSource audioSource = gameObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
                 audioSource.Play();
-                */
+                
                 return false;
             }
         }
-
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/missed") as AudioClip;
-        audioSource.Play();
         return false;
     }
 
@@ -85,7 +84,7 @@ public class ShootingSystem : MonoBehaviour
     {
         if (distanceBetweenPlayers <= currentplayerAttr.attackRange + currentPlayerWeapon.weaponRange            
             && currentplayerAttr.canShoot
-            && currentplayerAttr.ap > 0)
+            && currentPlayerComp.actionPoints > 0)
         {
             if(currentPlayerWeapon.currentBulletsInMagazine > 0)
             { 

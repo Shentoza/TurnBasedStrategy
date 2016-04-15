@@ -31,6 +31,8 @@ public class UiManager : MonoBehaviour {
 
    public Enums.Actions activeSkill = 0;
 
+    private bool figureSelected = false;
+    
 	// Use this for initialization
 	void Start () {
 
@@ -69,6 +71,13 @@ public class UiManager : MonoBehaviour {
         else
             input = player2.GetComponent<inputSystem>();
 
+        if (managerSys.selectedFigurine != null && figureSelected == false)
+        {
+            Debug.Log("Hi");
+            figureSelected = true;
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        }
+        
         //beschaffe aktive einheit
         if (activeUnit)
         {

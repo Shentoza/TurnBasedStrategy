@@ -14,13 +14,13 @@ public class HealthSystem : MonoBehaviour
     private const int MEDIPACK_HEAL = 25;
 
     /* Generates and inflicts damage if necessary */
-    public void doDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
+    public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
     {
         switch(damageFlag)
         {
             case SHOOT:
                 int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
-                inflictShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr, damage);
+                inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);
                                 
                 break;
 
@@ -63,11 +63,11 @@ public class HealthSystem : MonoBehaviour
         return damage;
     }
 
-    private void inflictShootDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr, int damage)
+    private void inflictShootDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damage)
     {
         Debug.Log("Damage taken : " + damage);
         damageTakingPlayerAtrr.hp -= damage;
-        attackingPlayerAttr.ap--;
+        attackingPlayerComp.useAP();
         attackingPlayerAttr.canShoot = false;
     }
 
