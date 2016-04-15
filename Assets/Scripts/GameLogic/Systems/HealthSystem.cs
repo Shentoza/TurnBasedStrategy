@@ -103,11 +103,16 @@ public class HealthSystem : MonoBehaviour
 
     public void inflictGrenadeDamage(AttributeComponent damageTakingPlayerAttr)
     {
-        damageTakingPlayerAttr.hp -= 2;
+        damageTakingPlayerAttr.hp -= 20;
     }
 
     public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
     {
-        damageTakingPlayerAttr.hp -= 1;
+        damageTakingPlayerAttr.hp -= 10;
+    }
+
+    public void inflictGasDamage(AttributeComponent damageTakingPlayerAttr)
+    {
+        damageTakingPlayerAttr.hp -= 10;
     }
 }

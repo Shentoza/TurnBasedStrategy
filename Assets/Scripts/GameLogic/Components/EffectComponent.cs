@@ -83,6 +83,19 @@ public class EffectComponent : MonoBehaviour {
                     }
                 }
             }
+            if (effekt == Enums.Effects.Gas)
+            {
+                foreach (Cell c in betroffeneZellen)
+                {
+                    if (c.isOccupied)
+                    {
+                        if (c.objectOnCell.tag == "FigurSpieler1" || c.objectOnCell.tag == "FigurSpieler2")
+                        {
+                            hs.inflictGasDamage((AttributeComponent)c.objectOnCell.GetComponent(typeof(AttributeComponent)));
+                        }
+                    }
+                }
+            }
             momentaneRunde = ms.rounds;
         }
     }
@@ -122,6 +135,13 @@ public class EffectComponent : MonoBehaviour {
             foreach (Cell c in betroffeneZellen)
             {
                 c.setOnGas = true;
+                if (c.isOccupied)
+                {
+                    if (c.objectOnCell.tag == "FigurSpieler1" || c.objectOnCell.tag == "FigurSpieler2")
+                    {
+                        hs.inflictGasDamage((AttributeComponent)c.objectOnCell.GetComponent(typeof(AttributeComponent)));
+                    }
+                }
             }
         }
         if (effekt == Enums.Effects.Explosion)
