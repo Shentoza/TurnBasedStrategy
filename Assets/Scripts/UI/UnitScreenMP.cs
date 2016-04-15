@@ -46,9 +46,9 @@ public class UnitScreenMP : MonoBehaviour {
   
     public Texture2D riotTex;
     public Texture2D soldierTex;
-    public Texture2D hGTex;
+   // public Texture2D hGTex;
     public Texture2D supportTex;
-    public Texture2D sniperTex;
+   // public Texture2D sniperTex;
 
     Vector4 equip = new Vector4(0,0,0,0);
 
@@ -65,12 +65,16 @@ public class UnitScreenMP : MonoBehaviour {
 
     bool done = false;
 
+    // for music
+    private float pitch;
+
 	// Use this for initialization
 	void Start () {
          
     unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
     p1UnitCap = manager.p1UnitCap;
-    p2UnitCap = manager.p2UnitCap;   
+    p2UnitCap = manager.p2UnitCap;
+    GameObject.Find("Main Camera").GetComponent<CameraRotationScript>().enabled = false;   
         
 	}
 	
@@ -79,6 +83,8 @@ public class UnitScreenMP : MonoBehaviour {
 
         if (!done)
         {
+            pitch = UnityEngine.Random.Range(0.75f, 1.25f);
+
             unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
 
             if (unitCountP1 > unitCountP2 && unitCountP2 < p2UnitCap)
@@ -107,6 +113,11 @@ public class UnitScreenMP : MonoBehaviour {
 
 
     void  p1Pick(){
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+
         if (player1Picking)
         {
             setChar(1, equip);
@@ -118,6 +129,11 @@ public class UnitScreenMP : MonoBehaviour {
 
     void p2Pick( Enums.Prof i)
     {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+        audioSource.pitch = pitch;
+        audioSource.Play();
+
         if (!player1Picking)
         {
             setChar(2, i);
@@ -190,25 +206,25 @@ public class UnitScreenMP : MonoBehaviour {
 
         
 
-        if (dp1 == true)
+        if (dp1 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth/2;
             yBase = unitListYAnker + unitIconHeight + 2;
             draw = 1;
         }
-        else if (dp2 == true)
+        else if (dp2 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth / 2;
             yBase = unitListYAnker + buttonYOffset + unitIconHeight + 2; ;
             draw = 2;
         }
-        else if (dp3 == true)
+        else if (dp3 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth / 2;
             yBase = unitListYAnker + 2*buttonYOffset + unitIconHeight + 2;
             draw = 3;
         }
-        else if (dp4 == true)
+        else if (dp4 == true && player1Picking)
         {
             xBase = (int)(Screen.width * dropdownBaseX) + unitIconWidth / 2;
             yBase = yBase = unitListYAnker + 3 * buttonYOffset + unitIconHeight + 2;
@@ -222,27 +238,36 @@ public class UnitScreenMP : MonoBehaviour {
         //primärwaffen dropdown
         else if (draw == 1)
         {
-            xBase -= (pWeapons.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < pWeapons.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(pWeapons[i], ((Enums.PrimaryWeapons)i).ToString())))
-                {                   
-                        equip.x = i;
-                        dp1 = false;             
+                {   
+                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                    audioSource.clip = Resources.Load("Audio/second_click") as AudioClip;
+                    audioSource.pitch = pitch;
+                    audioSource.Play();
+
+                    equip.x = i;
+                    dp1 = false;             
                 }
             }
         }
         //sekundärwaffen dropdown
         else if (draw == 2)
         {
-            xBase -= (sWeapons.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < sWeapons.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.SecondaryWeapons)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.SecondaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(sWeapons[i], ((Enums.SecondaryWeapons)i).ToString())))
                 {
-                  
-                        equip.y = i;
-                        dp2 = false;
+                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                    audioSource.clip = Resources.Load("Audio/second_click") as AudioClip;
+                    audioSource.pitch = pitch;
+                    audioSource.Play();
+
+                    equip.y = i;
+                    dp2 = false;
                     
 
                 }
@@ -251,11 +276,15 @@ public class UnitScreenMP : MonoBehaviour {
         //untility dropdown
         else if (draw == 3)
         {
-            xBase -= (util.Count * dropdownOptionSize / 2);
-            for (int i = 0; i < util.Count; i++)
+            xBase -= (Enum.GetNames(typeof(Enums.Equipment)).Length * dropdownOptionSize / 2);
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.Equipment)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize),new GUIContent( util[i], ((Enums.Equipment)i).ToString())))
                 {
+                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                    audioSource.clip = Resources.Load("Audio/second_click") as AudioClip;
+                    audioSource.pitch = pitch;
+                    audioSource.Play();
                     if (dp3)
                     {
                         equip.z = i;
@@ -295,18 +324,38 @@ public class UnitScreenMP : MonoBehaviour {
 
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker, 75, 75), new GUIContent(pWeapons[(int)equip.x], ((Enums.PrimaryWeapons)equip.x).ToString())))
         {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+            audioSource.pitch = pitch;
+            audioSource.Play();
+
             dp1 = true;
         }
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + buttonYOffset, 75, 75), new GUIContent( sWeapons[(int)equip.y], ((Enums.SecondaryWeapons)equip.y).ToString())))
         {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+            audioSource.pitch = pitch;
+            audioSource.Play();
+
             dp2 = true;
         }
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 2 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.z], ((Enums.Equipment)equip.z).ToString())))
         {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+            audioSource.pitch = pitch;
+            audioSource.Play();
+
             dp3 = true;
         }
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 3 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.w], ((Enums.Equipment)equip.w).ToString())))
         {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+            audioSource.pitch = pitch;
+            audioSource.Play();
+
             dp4 = true;
         }
         
@@ -387,12 +436,12 @@ public class UnitScreenMP : MonoBehaviour {
 
         //einheiten auswahlbuttons
         //riot
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), new GUIContent( riotTex, "Riot" ) ))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker, unitIconWidth, unitIconHeight), new GUIContent(riotTex, "Riot")))
         {
             p2Pick(Enums.Prof.Riot);
         }
 
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.2), unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(soldierTex, "Soldier")))
         {
             if (!player1Picking)
             {
@@ -400,7 +449,7 @@ public class UnitScreenMP : MonoBehaviour {
             }
   
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner" )))
+    /*    if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(hGTex, "HeavyGunner")))
         {
             if (!player1Picking)
             {
@@ -408,21 +457,23 @@ public class UnitScreenMP : MonoBehaviour {
             }
    
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.8), (int)(Screen.height * 0.4), unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support") ))
+     * */
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2* buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(supportTex, "Support")))
         {
             if (!player1Picking)
             {
                 p2Pick(Enums.Prof.Support);
             }
         }
-        if (GUI.Button(new Rect((int)(Screen.width * 0.55), (int)(Screen.height * 0.6), unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper" )))
+        /*
+        if (GUI.Button(new Rect((int)(Screen.width * 0.55), unitListYAnker + 2 * buttonYOffset, unitIconWidth, unitIconHeight), new GUIContent(sniperTex, "Sniper")))
         {
             if (!player1Picking)
             {
                 p2Pick(Enums.Prof.Sniper);
             }
         }
-
+        */
     }
 
 
@@ -450,6 +501,15 @@ public class UnitScreenMP : MonoBehaviour {
              
             }
         }
+      
+        else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Support)
+        {
+            if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), supportTex))
+            {
+               
+            }
+        }
+            /*
         else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.HeavyGunner)
         {
             if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), hGTex))
@@ -458,13 +518,6 @@ public class UnitScreenMP : MonoBehaviour {
             }
 
         }
-        else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Support)
-        {
-            if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), supportTex))
-            {
-               
-            }
-        }
         else if (manager.unitListP2[unitID].GetComponent<AttributeComponent>().profession == Enums.Prof.Sniper)
         {
             if (GUI.Button(new Rect(xPos, yPos, unitIconWidth, unitIconHeight), sniperTex))
@@ -472,6 +525,7 @@ public class UnitScreenMP : MonoBehaviour {
 
             }
         }
+             * */
     }
 
 

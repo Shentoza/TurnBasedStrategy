@@ -82,7 +82,7 @@ public class ActionButtons : MonoBehaviour {
 
 
         
-
+        
         if (skills[i] == Enums.Actions.Move)
         {
             
@@ -120,6 +120,7 @@ public class ActionButtons : MonoBehaviour {
        
             if(clicked4)
             {
+                
                 uiM.reload();
                 Debug.Log("Reload");
             }
@@ -185,7 +186,7 @@ public class ActionButtons : MonoBehaviour {
             }
         }
 
-
+        
 
 
     }

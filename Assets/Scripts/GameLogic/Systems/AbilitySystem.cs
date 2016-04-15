@@ -8,7 +8,7 @@ public class AbilitySystem : MonoBehaviour {
     public GameObject explosion;
     public GameObject gas;
 
-
+    public int effektDauer;
     //Shit für animationen zum drehen
     private float turningSpeed = 360.0f;
     private float startAngle;
@@ -69,7 +69,7 @@ public class AbilitySystem : MonoBehaviour {
 				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Smoke);
-            ec.setDauer(3);
+            ec.setDauer(effektDauer);
 
             //Für Wurfanimation
             playerAttr.anim.SetTrigger("Throw");
@@ -111,7 +111,7 @@ public class AbilitySystem : MonoBehaviour {
 				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Fire);
-            ec.setDauer(3);
+            ec.setDauer(effektDauer);
 
             //Für Wurfanimation
             playerAttr.anim.SetTrigger("Throw");

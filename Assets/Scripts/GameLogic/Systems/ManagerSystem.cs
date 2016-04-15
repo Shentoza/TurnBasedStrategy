@@ -4,9 +4,7 @@ using System.Collections.Generic;
 
 public class ManagerSystem : MonoBehaviour {
 
-    public GameObject unit;
-    public GameObject uiManager;
-    public GameObject map;
+    
 
     public int p1UnitCap = 6;
     public int p2UnitCap = 5;
@@ -25,15 +23,20 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
     int roundHalf;  //1 wenn Spieler1 seinen Turn beendet, 2 wenn Spieler2 seinen Turn beendet;
 
+    //Verweise auf andere System
     private ShootingSystem shootingSys;
+    public GameObject unit;
+    public GameObject uiManager;
+    public GameObject map;
+    public GameObject plane;
 
-    GameObject plane;
+    public AudioSource endTurnSound;
 
     public GameObject policePrefab;
     public GameObject rebelPrefab;
 
 
-    // Use this for initialization
+   	// Use this for initialization
     void Start () {
 
         rounds = 0;
@@ -45,6 +48,8 @@ public class ManagerSystem : MonoBehaviour {
         shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
 
         plane = GameObject.Find("Plane");
+
+        
     }
 	
 	// Update is called once per frame
@@ -59,6 +64,7 @@ public class ManagerSystem : MonoBehaviour {
         Instantiate(uiManager);
         selectedFigurine = unitListP1[0];
         isPlayer1 = true;
+        Camera.main.GetComponent<CameraRotationScript>().enabled = true;
     }
 
 
@@ -76,9 +82,6 @@ public class ManagerSystem : MonoBehaviour {
     //Runde wird inkrementiert && AP werden wieder aufgefüllt
     void nextRound()
     {
-
-
-
         player1.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler1 wieder auf
         player2.GetComponent<PlayerComponent>().regenerateAP(); //Füllt AP von Spieler2 wieder auf
         rounds++;
@@ -94,6 +97,7 @@ public class ManagerSystem : MonoBehaviour {
     //Legt fest, welcher Spieler am Zug ist
     public void setPlayerTurn()
     {
+        endTurnSound.Play();
         roundHalf++;
         if(roundHalf == 2)
         {

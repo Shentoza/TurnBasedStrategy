@@ -11,7 +11,7 @@ public class HealthSystem : MonoBehaviour
     public const int MEDIPACK = 0;
 
     /* Heals */
-    private const int MEDIPACK_HEAL = 5;
+    private const int MEDIPACK_HEAL = 25;
 
     //Für Animationen
     Animator anim;
@@ -68,6 +68,7 @@ public class HealthSystem : MonoBehaviour
 
     private void inflictShootDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr, int damage)
     {
+        Debug.Log("Damage taken : " + damage);
         damageTakingPlayerAtrr.hp -= damage;
         attackingPlayerAttr.ap--;
         attackingPlayerAttr.canShoot = false;
@@ -109,7 +110,7 @@ public class HealthSystem : MonoBehaviour
 
     public void inflictGrenadeDamage(AttributeComponent damageTakingPlayerAttr)
     {
-        damageTakingPlayerAttr.hp -= 2;
+        damageTakingPlayerAttr.hp -= 20;
 
         //Zeug für Animationen
         anim = damageTakingPlayerAttr.gameObject.GetComponent<Animator>();
@@ -118,6 +119,11 @@ public class HealthSystem : MonoBehaviour
 
     public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
     {
-        damageTakingPlayerAttr.hp -= 1;
+        damageTakingPlayerAttr.hp -= 10;
+    }
+
+    public void inflictGasDamage(AttributeComponent damageTakingPlayerAttr)
+    {
+        damageTakingPlayerAttr.hp -= 10;
     }
 }

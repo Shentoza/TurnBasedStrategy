@@ -74,6 +74,8 @@ public class UiManager : MonoBehaviour {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
         }
+
+
     }
 
 
@@ -174,6 +176,10 @@ public class UiManager : MonoBehaviour {
     }
 
     public void move() {
+        if (isPlayer1)
+            player1.GetComponent<PlayerComponent>().useAP();
+        else
+            player2.GetComponent<PlayerComponent>().useAP();
         Debug.Log("Move Aktion");
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         input.cancelActions();
@@ -194,6 +200,11 @@ public class UiManager : MonoBehaviour {
     }
     public void changeWeapon(){
         input.cancelActions();
+          
+        // Audiofeedback wenn Waffe gewechselt wird
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
+        audioSource.Play();
 
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
@@ -202,11 +213,33 @@ public class UiManager : MonoBehaviour {
     }
     public void heal() {
         input.cancelActions();
+        HealthSystem healthSystem = GameObject.Find("Manager").GetComponent<HealthSystem>();
+        if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
+        {
+            // Audiofeedpack wenn heilen klappt
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Audio/medikit") as AudioClip;
+            audioSource.Play();
+
+            healthSystem.doHeal(null, activeUnit, HealthSystem.MEDIPACK);
+        }
     }
+
+    /*
+    * Audio nur für Feedback erst einmal hier drin, eigentliche Audio soll bei ausführender Aktion gespielt werden
+    */
     public void molotov() {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
+        audioSource.Play();
+
         input.cancelActions();
     }
     public void grenade(){
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
+        audioSource.Play();
+
         input.cancelActions();
     }
     public void  smoke(){
@@ -214,6 +247,10 @@ public class UiManager : MonoBehaviour {
     }
     public void teargas()
     {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
+        audioSource.Play();
+
         input.cancelActions();
     }
 

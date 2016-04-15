@@ -58,14 +58,25 @@ public class ShootingSystem : MonoBehaviour
             Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
+                currentPlayerWeapon.shootingSound.Play();
                 healthSystem.doDamage(currentplayerAttr, currentTargetAttr, HealthSystem.SHOOT);
                 return true;
             }
             else
             {
+                // Eigentlich ist die Stelle hier richtig aber im moment nicht brauchbar
+                /*
+                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
+                audioSource.Play();
+                */
                 return false;
             }
         }
+
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/missed") as AudioClip;
+        audioSource.Play();
         return false;
     }
 
@@ -86,6 +97,10 @@ public class ShootingSystem : MonoBehaviour
                 Debug.Log("Keine Kugeln im Magazin vorhanden. Bitte nachladen.");
                 return false;
             }
+        }
+        else
+        {
+            Debug.Log("Schuss nicht möglich");
         }
         
         return false;

@@ -103,11 +103,26 @@ public class BattlefieldCreater : MonoBehaviour {
 			}
 		}
 
+		/*
 		//Setzt Objekte an richtiche Stelle
 		ObjectSetter[] os = FindObjectsOfType (typeof(ObjectSetter)) as ObjectSetter[];
 		foreach (ObjectSetter obs in os) 
 		{
 			obs.move (Zellen);
+		}*/
+
+		AttributeComponent[] attribComp = FindObjectsOfType (typeof(AttributeComponent)) as AttributeComponent[];
+		foreach (AttributeComponent abc in attribComp) 
+		{
+			ObjectSetter obs = (ObjectSetter) abc.gameObject.GetComponent (typeof(ObjectSetter));
+			obs.move (Zellen);
+		}
+
+		ObjectComponent[] objectComp = FindObjectsOfType (typeof(ObjectComponent)) as ObjectComponent[];
+		foreach (ObjectComponent obc in objectComp) 
+		{
+			ObjectSetter obs = (ObjectSetter) obc.gameObject.GetComponent (typeof(ObjectSetter));
+			obs.moveObject (Zellen);
 		}
 	}
 

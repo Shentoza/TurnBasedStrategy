@@ -38,10 +38,12 @@ public class inputSystem : MonoBehaviour {
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
 
+    UiManager uiManager;
+
     // Use this for initialization
     void Start () {
         GameObject managerObj = GameObject.Find("Manager");
-
+        uiManager = (UiManager)managerObj.GetComponent<UiManager>();
         manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
         dijSys = (DijkstraSystem)managerObj.GetComponent(typeof(DijkstraSystem));
         assist = (PlayerAssistanceSystem)managerObj.GetComponent(typeof(PlayerAssistanceSystem));
@@ -108,16 +110,7 @@ public class inputSystem : MonoBehaviour {
                     //Neuer Spieler angeklickt
 					if(player != hit.collider.gameObject)
 					{
-                        manager.setSelectedFigurine(hit.collider.gameObject);
-                        assist.ClearThrowPath();
-                        assist.ClearWalkPath();
-                        player = hit.collider.gameObject;
-						figurGewaehlt = true;
-						attr = (AttributeComponent) player.GetComponent(typeof(AttributeComponent));
-                        movement = (MovementSystem)player.GetComponent(typeof(MovementSystem));
-                        Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
-						dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
-						rotationScript.setNewTarget(player);
+                        selectFigurine(hit.collider.gameObject);
 					}
 				}
 				if (angriffAusgewaehlt && figurGewaehlt)
@@ -169,10 +162,6 @@ public class inputSystem : MonoBehaviour {
 
                 }
             }
-			else
-			{
-				figurGewaehlt = false;
-			}
 		}
 
         //Wenn begonnen wird rechts zu klicken
@@ -204,6 +193,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     movementAusgewaehlt = false;
                     assist.ClearWalkPath();
+                    dijSys.resetDijkstra();
                 }
             }
         }
@@ -255,6 +245,20 @@ public class inputSystem : MonoBehaviour {
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
         movementAusgewaehlt = false;
+    }
+
+    void selectFigurine(GameObject figurine)
+    {
+        manager.setSelectedFigurine(figurine);
+        assist.ClearThrowPath();
+        assist.ClearWalkPath();
+        player = figurine;
+        figurGewaehlt = true;
+        attr = (AttributeComponent)player.GetComponent(typeof(AttributeComponent));
+        movement = (MovementSystem)player.GetComponent(typeof(MovementSystem));
+        Cell currentCell = (Cell)attr.getCurrentCell().GetComponent(typeof(Cell));
+        dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
+        rotationScript.setNewTarget(player);
     }
 }
 
