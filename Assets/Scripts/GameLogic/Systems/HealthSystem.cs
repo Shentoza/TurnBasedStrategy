@@ -11,7 +11,7 @@ public class HealthSystem : MonoBehaviour
     public const int MEDIPACK = 0;
 
     /* Heals */
-    private const int MEDIPACK_HEAL = 5;
+    private const int MEDIPACK_HEAL = 25;
 
     /* Generates and inflicts damage if necessary */
     public void doDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr, int damageFlag)

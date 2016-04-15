@@ -37,6 +37,10 @@ public class InventorySystem : MonoBehaviour {
                 }
             }
 
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = Resources.Load("Audio/reload") as AudioClip;
+            audioSource.Play();
+
             //Verringert Anzahl der Magazine im Inventar
             inventory.amountMagazines--;
             WeaponComponent weapon = inventory.primary;
@@ -67,10 +71,12 @@ public class InventorySystem : MonoBehaviour {
     }
 
     //Wird durch MedikitAktion aufgerufen
-    public void decreaseMedikits(GameObject figurine)
+    public int decreaseMedikits(GameObject figurine)
     {
         InventoryComponent inventory = figurine.GetComponent<InventoryComponent>();
-        inventory.amountMediKits--;
+        if(inventory.amountMediKits > 0)
+            inventory.amountMediKits--;
+        return inventory.amountMediKits;
     }
 
    /* 
