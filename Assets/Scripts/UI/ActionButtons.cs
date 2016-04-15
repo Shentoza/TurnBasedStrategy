@@ -25,6 +25,8 @@ public class ActionButtons : MonoBehaviour {
     public Texture2D Smoke;
     public Texture2D Teargas;
 
+    public Texture2D activeSkillBackground;
+
     public int buttonsToDraw;
 
     public List<Enums.Actions> skills;
@@ -85,7 +87,12 @@ public class ActionButtons : MonoBehaviour {
         
         if (skills[i] == Enums.Actions.Move)
         {
-            
+
+            if (uiM.activeSkill == Enums.Actions.Move)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
+
             bool clicked1 = GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Move, "Move"));           
             if(clicked1)
             {
@@ -96,6 +103,10 @@ public class ActionButtons : MonoBehaviour {
         }
         else if (skills[i] == Enums.Actions.Hit)
         {
+            if (uiM.activeSkill == Enums.Actions.Hit)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
             bool clicked2 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Hit, "Hit")));
           
             if(clicked2)
@@ -104,8 +115,12 @@ public class ActionButtons : MonoBehaviour {
                 Debug.Log("hit");
             }
         }
-        else if (skills[i] == Enums.Actions.Shoot)
-        {
+        else if (skills[i] == Enums.Actions.Shoot){
+            if (uiM.activeSkill == Enums.Actions.Shoot)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
+        
             bool clicked3 =(GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Shoot, "Shoot")));
   
             if(clicked3)
@@ -114,8 +129,12 @@ public class ActionButtons : MonoBehaviour {
                 Debug.Log("shoot");
             }
         }
-        else if (skills[i] == Enums.Actions.Reload)
-        {
+        else if (skills[i] == Enums.Actions.Reload){
+            if (uiM.activeSkill == Enums.Actions.Reload)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
+        
             bool clicked4 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Reload, "Reload")));
        
             if(clicked4)
@@ -125,8 +144,12 @@ public class ActionButtons : MonoBehaviour {
                 Debug.Log("Reload");
             }
         }
-        else if (skills[i] == Enums.Actions.ChangeWeapon)
-        {
+        else if (skills[i] == Enums.Actions.ChangeWeapon){
+            if (uiM.activeSkill == Enums.Actions.ChangeWeapon){
+            
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
+        
             bool clicked5 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(ChangeWeapon, "Change Weapon")));
         
             if(clicked5)
@@ -137,6 +160,10 @@ public class ActionButtons : MonoBehaviour {
         }
         else if (skills[i] == Enums.Actions.Heal)
         {
+            if (uiM.activeSkill == Enums.Actions.Heal)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
             bool clicked6 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Heal, "Heal")));
          
             if(clicked6)
@@ -147,6 +174,10 @@ public class ActionButtons : MonoBehaviour {
         }
         else if (skills[i] == Enums.Actions.Molotov)
         {
+            if (uiM.activeSkill == Enums.Actions.Molotov)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
             bool clicked7 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Molotov, "Molotov")));
         
             if(clicked7)
@@ -157,6 +188,10 @@ public class ActionButtons : MonoBehaviour {
         }
         else if (skills[i] == Enums.Actions.Grenade)
         {
+            if (uiM.activeSkill == Enums.Actions.Grenade)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
             bool clicked8 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Grenade, "Grenade")));
     
             if(clicked8)
@@ -167,6 +202,10 @@ public class ActionButtons : MonoBehaviour {
         }
         else if (skills[i] == Enums.Actions.Smoke)
         {
+            if (uiM.activeSkill == Enums.Actions.Smoke)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
             bool clicked9 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Smoke, "Smoke")));
    
             if(clicked9)
@@ -177,6 +216,10 @@ public class ActionButtons : MonoBehaviour {
         }
         else if (skills[i] == Enums.Actions.Teargas)
         {
+            if (uiM.activeSkill == Enums.Actions.Teargas)
+            {
+                GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
+            }
             bool clicked10 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Teargas, "Teargas")));
           
             if (clicked10)
