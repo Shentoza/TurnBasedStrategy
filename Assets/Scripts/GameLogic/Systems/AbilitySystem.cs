@@ -42,7 +42,6 @@ public class AbilitySystem : MonoBehaviour {
 	public void throwSmoke(Cell ziel, GameObject figur)
 	{
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        Animator anim = figur.GetComponent<Animator>();
 
         checkRotation(ziel, playerAttr);
 
@@ -73,7 +72,7 @@ public class AbilitySystem : MonoBehaviour {
             ec.setDauer(3);
 
             //Für Wurfanimation
-            anim.SetTrigger("Throw");
+            playerAttr.anim.SetTrigger("Throw");
 
         } else {
 			Debug.Log ("OutOfRange");
@@ -83,7 +82,6 @@ public class AbilitySystem : MonoBehaviour {
 	public void throwMolotov(Cell ziel, GameObject figur)
 	{
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        Animator anim = figur.GetComponent<Animator>();
 
         //Dreht Figur in Wurfrichtung
         checkRotation(ziel, playerAttr);
@@ -116,7 +114,7 @@ public class AbilitySystem : MonoBehaviour {
             ec.setDauer(3);
 
             //Für Wurfanimation
-            anim.SetTrigger("Throw");
+            playerAttr.anim.SetTrigger("Throw");
 
 
         } else {
@@ -128,7 +126,7 @@ public class AbilitySystem : MonoBehaviour {
     public void throwGrenade(Cell ziel, GameObject figur)
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        Animator anim = figur.GetComponent<Animator>();
+
 
         checkRotation(ziel, playerAttr);
 
@@ -160,7 +158,7 @@ public class AbilitySystem : MonoBehaviour {
             ec.setDauer(0);
 
             //Für Wurfanimation
-            anim.SetTrigger("Throw");
+            playerAttr.anim.SetTrigger("Throw");
 
         }
         else {
@@ -170,8 +168,7 @@ public class AbilitySystem : MonoBehaviour {
 
     public void throwGas(Cell ziel, GameObject figur)
     {
-        AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        Animator anim = figur.GetComponent<Animator>();
+        AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>(); 
 
         checkRotation(ziel, playerAttr);
 
@@ -203,7 +200,7 @@ public class AbilitySystem : MonoBehaviour {
             ec.setDauer(1);
 
             //Für Wurfanimation
-            anim.SetTrigger("Throw");
+            playerAttr.anim.SetTrigger("Throw");
 
         }
         else {

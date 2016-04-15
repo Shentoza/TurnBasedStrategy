@@ -179,7 +179,7 @@ ModelImporter:
     - serializedVersion: 16
       name: eins_fern_angriff
       takeName: eins_fern_angriff
-      firstFrame: -1
+      firstFrame: 0
       lastFrame: 122
       wrapMode: 0
       orientationOffsetY: 0
@@ -261,7 +261,7 @@ ModelImporter:
     - serializedVersion: 16
       name: eins_fern_angriff_wurf
       takeName: eins_fern_angriff_wurf
-      firstFrame: -1
+      firstFrame: 0
       lastFrame: 95
       wrapMode: 0
       orientationOffsetY: 0
@@ -281,7 +281,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.34693876
+        functionName: takeIt
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5384615
+        functionName: throwIt
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -343,7 +357,7 @@ ModelImporter:
     - serializedVersion: 16
       name: eins_fern_hit
       takeName: eins_fern_hit
-      firstFrame: -1
+      firstFrame: 0
       lastFrame: 103
       wrapMode: 0
       orientationOffsetY: 0
@@ -425,7 +439,7 @@ ModelImporter:
     - serializedVersion: 16
       name: eins_fern_idle
       takeName: eins_fern_idle
-      firstFrame: 19
+      firstFrame: 0
       lastFrame: 249
       wrapMode: 0
       orientationOffsetY: 0

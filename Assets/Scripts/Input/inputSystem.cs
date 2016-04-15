@@ -8,7 +8,6 @@ public class inputSystem : MonoBehaviour {
     DijkstraSystem dijSys;
     PlayerAssistanceSystem assist;
     AbilitySystem abilSys;
-    Animator anim;
 
     //Ausgewählte Figur
     GameObject player;
@@ -119,9 +118,6 @@ public class inputSystem : MonoBehaviour {
                         Cell currentCell = (Cell) attr.getCurrentCell().GetComponent(typeof(Cell));
 						dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
 						rotationScript.setNewTarget(player);
-
-                        //Fuer Animationen
-                        anim = (Animator) player.GetComponent(typeof(Animator));
 					}
 				}
 				if (angriffAusgewaehlt && figurGewaehlt)
@@ -168,7 +164,6 @@ public class inputSystem : MonoBehaviour {
                     {
                         abilSys.setThrowDestination(selectedCell);
                         abilSys.throwGrenade(selectedCell, player);
-                        anim.SetTrigger("Throw");
                         granateAusgewaehlt = false;
                     }
 
@@ -221,10 +216,10 @@ public class inputSystem : MonoBehaviour {
             else
                 Debug.Log("Kein Angriff");
         }
-		if (Input.GetKey ("r")) {
+		if (Input.GetMouseButtonDown(2)) {
 			rotationScript.setStartRotation ();
 		}
-		if (!Input.GetKey ("r")) {
+		if (Input.GetMouseButtonUp(2)) {
 			rotationScript.setStopRotation ();  
 		}
 

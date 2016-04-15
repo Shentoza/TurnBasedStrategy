@@ -29,8 +29,12 @@ public class ManagerSystem : MonoBehaviour {
 
     GameObject plane;
 
-	// Use this for initialization
-	void Start () {
+    public GameObject policePrefab;
+    public GameObject rebelPrefab;
+
+
+    // Use this for initialization
+    void Start () {
 
         rounds = 0;
         isPlayer1 = true;

@@ -8,9 +8,6 @@ public class throwObject : MonoBehaviour {
 
     public Enums.Effects selectedGrenade;
 
-    GameObject
-
-    Cell destination;
     GameObject grenade;
 
     public float floatingTime;
@@ -25,11 +22,6 @@ public class throwObject : MonoBehaviour {
 	void Update () {
 	
 	}
-
-    public void setThrowPath(Cell destination)
-    {
-        this.destination = destination;
-    }
 
     public void takeIt()
     {
