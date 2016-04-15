@@ -7,8 +7,9 @@ public class throwObject : MonoBehaviour {
     AbilitySystem ability;
 
     public Enums.Effects selectedGrenade;
+    GameObject grenadeInstance;
 
-    GameObject grenade;
+    ArmoryComponent armory;
 
     public float floatingTime;
     public float range;
@@ -16,6 +17,7 @@ public class throwObject : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         ability = (AbilitySystem)FindObjectOfType(typeof(AbilitySystem));
+        armory = (ArmoryComponent)FindObjectOfType(typeof(ArmoryComponent));
     }
 	
 	// Update is called once per frame
@@ -26,17 +28,32 @@ public class throwObject : MonoBehaviour {
     public void takeIt()
     {
         //Ausm Abilitysystem geworfene Art Granate ziehen
-
-        grenade = (GameObject)Instantiate(GameObject.Find("grenade"));
-        grenade.transform.position = leftHand.transform.position;
-        grenade.transform.parent = leftHand.transform;
+        switch(selectedGrenade)
+        {
+            case Enums.Effects.Explosion:
+                grenadeInstance = (GameObject)Instantiate(armory.grenade);
+                break;
+            case Enums.Effects.Fire:
+                grenadeInstance = (GameObject)Instantiate(armory.molotov);
+                break;
+            case Enums.Effects.Gas:
+                grenadeInstance = (GameObject)Instantiate(armory.smoke);
+                break;
+            case Enums.Effects.Smoke:
+                grenadeInstance = (GameObject)Instantiate(armory.gas);
+                break;
+        }
+        grenadeInstance.transform.position = leftHand.transform.position;
+        grenadeInstance.transform.parent = leftHand.transform;
     }
 
     public void throwIt()
     {
-        //Vector3 vec3 = grenade.transform.position;
-        //grenade.transform.parent = null;
-        //grenade.transform.position = vec3;
-        ability.throwIt(grenade);
+        ability.throwIt(grenadeInstance);
+    }
+
+    public void setNextGrenade(Enums.Effects type)
+    {
+        selectedGrenade = type;
     }
 }

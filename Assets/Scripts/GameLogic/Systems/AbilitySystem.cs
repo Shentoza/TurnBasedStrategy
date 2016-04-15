@@ -48,7 +48,7 @@ public class AbilitySystem : MonoBehaviour {
             checkRotation(ziel, playerAttr);
             throwing_DestinationCell = ziel;
             throwing_effect = effectType;
-
+            throwObject throwy = (throwObject)playerAttr.model.GetComponent(typeof(throwObject));
             playerAttr.anim.SetTrigger("Throw");
 
         }

@@ -12,6 +12,13 @@ public class ArmoryComponent : MonoBehaviour {
     public GameObject MG;
     public GameObject Sniper;
     public GameObject Pistol;
+
+    //Nades
+    public GameObject grenade;
+    public GameObject molotov;
+    public GameObject smoke;
+    public GameObject gas;
+      
    // public GameObject Mortar;
     //public GameObject RPG;
 

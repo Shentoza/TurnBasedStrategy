@@ -70,8 +70,14 @@ public class ManagerSystem : MonoBehaviour {
 
     public void shoot(GameObject attacker, GameObject target)
     {
-        if(shootingSys.shoot(attacker, target))
+        AttributeComponent attackAttr = (AttributeComponent) attacker.GetComponent(typeof(AttributeComponent));
+        AttributeComponent targetAttr = (AttributeComponent)attacker.GetComponent(typeof(AttributeComponent));
+
+        attackAttr.anim.SetTrigger("Shoot");
+        if (shootingSys.shoot(attacker, target))
         {
+            Debug.Log("HIIIIT!!!");
+            targetAttr.anim.SetTrigger("getHit");
             Debug.Log("Getroffen");
         }
         else
