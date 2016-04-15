@@ -39,125 +39,16 @@ public class AbilitySystem : MonoBehaviour {
             continousThrowing(Time.deltaTime);
 	}
 
-	public void throwSmoke(Cell ziel, GameObject figur)
-	{
-        AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-
-        checkRotation(ziel, playerAttr);
-
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange) {
-            GameObject smokeTmp = Instantiate(smoke);
-			smokeTmp.transform.position = new Vector3 (ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
-            EffectComponent ec = smokeTmp.AddComponent<EffectComponent>();
-            ArrayList cellList = new ArrayList();
-			cellList.Add(ziel);
-			if (ziel.upperNeighbour != null)
-				cellList.Add(ziel.upperNeighbour);
-			if (ziel.lowerNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour);
-			if (ziel.leftNeighbour != null)
-				cellList.Add(ziel.leftNeighbour);
-			if (ziel.rightNeighbour != null)
-				cellList.Add(ziel.rightNeighbour);
-			if (ziel.upperNeighbour.leftNeighbour != null)
-				cellList.Add(ziel.upperNeighbour.leftNeighbour);
-			if (ziel.upperNeighbour.rightNeighbour != null)
-				cellList.Add(ziel.upperNeighbour.rightNeighbour);
-			if (ziel.lowerNeighbour.leftNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-			if (ziel.lowerNeighbour.rightNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
-            ec.zellenSetzen(cellList);
-            ec.setEffekt(Enums.Effects.Smoke);
-            ec.setDauer(effektDauer);
-
-            //Für Wurfanimation
-            playerAttr.anim.SetTrigger("Throw");
-
-        } else {
-			Debug.Log ("OutOfRange");
-		}
-	}
-
-	public void throwMolotov(Cell ziel, GameObject figur)
-	{
-        AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-
-        //Dreht Figur in Wurfrichtung
-        checkRotation(ziel, playerAttr);
-
-        //Setzt effekte und "wirft" die eigentliche physik
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange) {
-			GameObject fireTmp = Instantiate (fire);
-			fireTmp.transform.position = new Vector3 (ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
-            EffectComponent ec = fireTmp.AddComponent<EffectComponent>();
-            ArrayList cellList = new ArrayList();
-			cellList.Add(ziel);
-			if (ziel.upperNeighbour != null)
-				cellList.Add(ziel.upperNeighbour);
-			if (ziel.lowerNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour);
-			if (ziel.leftNeighbour != null)
-				cellList.Add(ziel.leftNeighbour);
-			if (ziel.rightNeighbour != null)
-				cellList.Add(ziel.rightNeighbour);
-			if (ziel.upperNeighbour.leftNeighbour != null)
-				cellList.Add(ziel.upperNeighbour.leftNeighbour);
-			if (ziel.upperNeighbour.rightNeighbour != null)
-				cellList.Add(ziel.upperNeighbour.rightNeighbour);
-			if (ziel.lowerNeighbour.leftNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-			if (ziel.lowerNeighbour.rightNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
-            ec.zellenSetzen(cellList);
-            ec.setEffekt(Enums.Effects.Fire);
-            ec.setDauer(effektDauer);
-
-            //Für Wurfanimation
-            playerAttr.anim.SetTrigger("Throw");
-
-
-        } else {
-			Debug.Log ("OutOfRange");
-
-		}
-	}
-
-    public void throwGrenade(Cell ziel, GameObject figur)
+    //Methode um anfangen shit zu schmeißen
+    public void throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-
-
-        checkRotation(ziel, playerAttr);
-
         if (ziel.dij_GesamtKosten <= playerAttr.attackRange)
         {
-            GameObject explosionTmp = Instantiate(explosion);
-            explosionTmp.transform.position = new Vector3(ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
-            EffectComponent ec = explosionTmp.AddComponent<EffectComponent>();
-            ArrayList cellList = new ArrayList();
-            cellList.Add(ziel);
-			if (ziel.upperNeighbour != null)
-            	cellList.Add(ziel.upperNeighbour);
-			if (ziel.lowerNeighbour != null)
-            	cellList.Add(ziel.lowerNeighbour);
-			if (ziel.leftNeighbour != null)
-            	cellList.Add(ziel.leftNeighbour);
-			if (ziel.rightNeighbour != null)
-            	cellList.Add(ziel.rightNeighbour);
-			if (ziel.upperNeighbour.leftNeighbour != null)
-           		cellList.Add(ziel.upperNeighbour.leftNeighbour);
-			if (ziel.upperNeighbour.rightNeighbour != null)
-            	cellList.Add(ziel.upperNeighbour.rightNeighbour);
-			if (ziel.lowerNeighbour.leftNeighbour != null)
-            	cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-			if (ziel.lowerNeighbour.rightNeighbour != null)
-            	cellList.Add(ziel.lowerNeighbour.rightNeighbour);
-            ec.zellenSetzen(cellList);
-            ec.setEffekt(Enums.Effects.Explosion);
-            ec.setDauer(0);
+            checkRotation(ziel, playerAttr);
+            throwing_DestinationCell = ziel;
+            throwing_effect = effectType;
 
-            //Für Wurfanimation
             playerAttr.anim.SetTrigger("Throw");
 
         }
@@ -166,47 +57,119 @@ public class AbilitySystem : MonoBehaviour {
         }
     }
 
-    public void throwGas(Cell ziel, GameObject figur)
+    void smokeEffect()
+	{
+            GameObject smokeTmp = Instantiate(smoke);
+			smokeTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
+            EffectComponent ec = smokeTmp.AddComponent<EffectComponent>();
+            ArrayList cellList = new ArrayList();
+			cellList.Add(throwing_DestinationCell);
+			if (throwing_DestinationCell.upperNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour);
+			if (throwing_DestinationCell.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.leftNeighbour);
+			if (throwing_DestinationCell.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.rightNeighbour);
+			if (throwing_DestinationCell.upperNeighbour.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour.leftNeighbour);
+			if (throwing_DestinationCell.upperNeighbour.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour.rightNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour.leftNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour.rightNeighbour);
+            ec.zellenSetzen(cellList);
+            ec.setEffekt(Enums.Effects.Smoke);
+            ec.setDauer(effektDauer);
+	}
+
+	void molotovEffect()
+	{
+			GameObject fireTmp = Instantiate (fire);
+			fireTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
+            EffectComponent ec = fireTmp.AddComponent<EffectComponent>();
+            ArrayList cellList = new ArrayList();
+			cellList.Add(throwing_DestinationCell);
+			if (throwing_DestinationCell.upperNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour);
+			if (throwing_DestinationCell.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.leftNeighbour);
+			if (throwing_DestinationCell.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.rightNeighbour);
+			if (throwing_DestinationCell.upperNeighbour.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour.leftNeighbour);
+			if (throwing_DestinationCell.upperNeighbour.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour.rightNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour.leftNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour.rightNeighbour);
+            ec.zellenSetzen(cellList);
+            ec.setEffekt(Enums.Effects.Fire);
+            ec.setDauer(effektDauer);
+	}
+
+
+
+
+    void grenadeEffect()
     {
-        AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>(); 
+            GameObject explosionTmp = Instantiate(explosion);
+            explosionTmp.transform.position = new Vector3(throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
+            EffectComponent ec = explosionTmp.AddComponent<EffectComponent>();
+            ArrayList cellList = new ArrayList();
+            cellList.Add(throwing_DestinationCell);
+            if (throwing_DestinationCell.upperNeighbour != null)
+                cellList.Add(throwing_DestinationCell.upperNeighbour);
+            if (throwing_DestinationCell.lowerNeighbour != null)
+                cellList.Add(throwing_DestinationCell.lowerNeighbour);
+            if (throwing_DestinationCell.leftNeighbour != null)
+                cellList.Add(throwing_DestinationCell.leftNeighbour);
+            if (throwing_DestinationCell.rightNeighbour != null)
+                cellList.Add(throwing_DestinationCell.rightNeighbour);
+            if (throwing_DestinationCell.upperNeighbour.leftNeighbour != null)
+                cellList.Add(throwing_DestinationCell.upperNeighbour.leftNeighbour);
+            if (throwing_DestinationCell.upperNeighbour.rightNeighbour != null)
+                cellList.Add(throwing_DestinationCell.upperNeighbour.rightNeighbour);
+            if (throwing_DestinationCell.lowerNeighbour.leftNeighbour != null)
+                cellList.Add(throwing_DestinationCell.lowerNeighbour.leftNeighbour);
+            if (throwing_DestinationCell.lowerNeighbour.rightNeighbour != null)
+                cellList.Add(throwing_DestinationCell.lowerNeighbour.rightNeighbour);
+            ec.zellenSetzen(cellList);
+            ec.setEffekt(Enums.Effects.Explosion);
+            ec.setDauer(0);
+    }
 
-        checkRotation(ziel, playerAttr);
-
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange)
-        {
+    void gasEffect()
+    {       
             GameObject gasTmp = Instantiate(gas);
-            gasTmp.transform.position = new Vector3(ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
+            gasTmp.transform.position = new Vector3(throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = gasTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
-			cellList.Add(ziel);
-			if (ziel.upperNeighbour != null)
-				cellList.Add(ziel.upperNeighbour);
-			if (ziel.lowerNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour);
-			if (ziel.leftNeighbour != null)
-				cellList.Add(ziel.leftNeighbour);
-			if (ziel.rightNeighbour != null)
-				cellList.Add(ziel.rightNeighbour);
-			if (ziel.upperNeighbour.leftNeighbour != null)
-				cellList.Add(ziel.upperNeighbour.leftNeighbour);
-			if (ziel.upperNeighbour.rightNeighbour != null)
-				cellList.Add(ziel.upperNeighbour.rightNeighbour);
-			if (ziel.lowerNeighbour.leftNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour.leftNeighbour);
-			if (ziel.lowerNeighbour.rightNeighbour != null)
-				cellList.Add(ziel.lowerNeighbour.rightNeighbour);
+			cellList.Add(throwing_DestinationCell);
+			if (throwing_DestinationCell.upperNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour);
+			if (throwing_DestinationCell.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.leftNeighbour);
+			if (throwing_DestinationCell.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.rightNeighbour);
+			if (throwing_DestinationCell.upperNeighbour.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour.leftNeighbour);
+			if (throwing_DestinationCell.upperNeighbour.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.upperNeighbour.rightNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour.leftNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour.leftNeighbour);
+			if (throwing_DestinationCell.lowerNeighbour.rightNeighbour != null)
+				cellList.Add(throwing_DestinationCell.lowerNeighbour.rightNeighbour);
             ec.zellenSetzen(cellList);
             ec.setEffekt(Enums.Effects.Gas);
             ec.setDauer(1);
-
-            //Für Wurfanimation
-            playerAttr.anim.SetTrigger("Throw");
-
-        }
-        else {
-            Debug.Log("OutOfRange");
-
-        }
     }
 
     public bool checkRotation(Cell targetCell, AttributeComponent playerAttr)
@@ -284,17 +247,37 @@ public class AbilitySystem : MonoBehaviour {
         throwing_Object.transform.position = result;
         if(progress == 1.0f)
         {
-            throwing_Active = false;
-            GameObject.Destroy(throwing_Object);
-            Debug.Log("BOOM");
+            grenadeReachedDestination();
         }
 
 
     }
 
+    void grenadeReachedDestination()
+    {
+        switch(throwing_effect)
+        {
+            case Enums.Effects.Explosion:
+                grenadeEffect();
+                break;
+            case Enums.Effects.Fire:
+                molotovEffect();
+                break;
+            case Enums.Effects.Gas:
+                gasEffect();
+                break;
+            case Enums.Effects.Smoke:
+                smokeEffect();
+                break;
+        }
+        throwing_Active = false;
+        GameObject.Destroy(throwing_Object);
+        Debug.Log("BOOM");
+    }
+
+
     public void setThrowDestination(Cell destination)
     {
         throwing_DestinationCell = destination;
     }
-
 }
