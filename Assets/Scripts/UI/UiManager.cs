@@ -73,7 +73,6 @@ public class UiManager : MonoBehaviour {
 
         if (managerSys.selectedFigurine != null && figureSelected == false)
         {
-            Debug.Log("Hi");
             figureSelected = true;
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
         }

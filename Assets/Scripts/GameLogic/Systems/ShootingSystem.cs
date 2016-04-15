@@ -70,7 +70,7 @@ public class ShootingSystem : MonoBehaviour
             else
             {                
                 AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
+                audioSource.clip = Resources.Load("Audio/missed") as AudioClip;
                 audioSource.Play();
                 
                 return false;
