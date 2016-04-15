@@ -11,7 +11,7 @@ public class HealthSystem : MonoBehaviour
     public const int MEDIPACK = 0;
 
     /* Heals */
-    private const int MEDIPACK_HEAL = 5;
+    private const int MEDIPACK_HEAL = 25;
 
     /* Generates and inflicts damage if necessary */
     public void doDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
@@ -103,11 +103,16 @@ public class HealthSystem : MonoBehaviour
 
     public void inflictGrenadeDamage(AttributeComponent damageTakingPlayerAttr)
     {
-        damageTakingPlayerAttr.hp -= 2;
+        damageTakingPlayerAttr.hp -= 20;
     }
 
     public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
     {
-        damageTakingPlayerAttr.hp -= 1;
+        damageTakingPlayerAttr.hp -= 10;
+    }
+
+    public void inflictGasDamage(AttributeComponent damageTakingPlayerAttr)
+    {
+        damageTakingPlayerAttr.hp -= 10;
     }
 }

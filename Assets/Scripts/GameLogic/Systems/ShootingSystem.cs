@@ -58,15 +58,25 @@ public class ShootingSystem : MonoBehaviour
             Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
+                currentPlayerWeapon.shootingSound.Play();
                 healthSystem.doDamage(currentplayerAttr, currentTargetAttr, HealthSystem.SHOOT);
                 return true;
             }
             else
             {
+                // Eigentlich ist die Stelle hier richtig aber im moment nicht brauchbar
+                /*
+                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
+                audioSource.Play();
+                */
                 return false;
             }
         }
-        currentPlayerWeapon.shootingSound.Play();
+
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/missed") as AudioClip;
+        audioSource.Play();
         return false;
     }
 

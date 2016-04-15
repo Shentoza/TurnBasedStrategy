@@ -116,6 +116,25 @@ public class MovementSystem : MonoBehaviour {
             {
                 if (currentCell == targetCell)
                     playerAttr.transform.position = targetCell.transform.position;
+
+                /*
+                *   Put audio all over the place, sorry crunchtime
+                */
+                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+
+                // Randomize sound, because of repetition (boring)
+                int random = UnityEngine.Random.Range(0, 4);
+                switch(random)
+                {
+                    case 0: audioSource.clip = Resources.Load("Audio/soldierWalk1") as AudioClip; break;
+                    case 1: audioSource.clip = Resources.Load("Audio/soldierWalk2") as AudioClip; break;
+                    case 2: audioSource.clip = Resources.Load("Audio/soldierCrouch1") as AudioClip; break;
+                    case 3: audioSource.clip = Resources.Load("Audio/soldierCrouch2") as AudioClip; break;
+                    default: audioSource.clip = Resources.Load("Audio/soldierWalk1") as AudioClip; break;
+                }
+                Debug.Log(random);                
+                audioSource.Play();
+                
                 currentCell.setOccupied(null);
                 currentCell = nextCell;
 
