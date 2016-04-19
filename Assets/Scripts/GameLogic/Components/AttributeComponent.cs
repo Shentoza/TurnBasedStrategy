@@ -105,7 +105,7 @@ public class AttributeComponent : MonoBehaviour {
         ManagerSystem managersys = (ManagerSystem) FindObjectOfType(typeof(ManagerSystem));
         items = this.GetComponent<InventoryComponent>();
 
-        model = (GameObject) Instantiate(managersys.policePrefab,this.transform.position,this.transform.rotation);
+        model = (GameObject) Instantiate(managersys.policePrefab,this.transform.position + managersys.policePrefab.transform.position,managersys.policePrefab.transform.rotation);
         model.transform.parent = this.transform;
         anim = (Animator)model.GetComponent(typeof(Animator));
 
@@ -216,7 +216,7 @@ public class AttributeComponent : MonoBehaviour {
         items = this.GetComponent<InventoryComponent>();
 
         ManagerSystem managersys = (ManagerSystem) FindObjectOfType(typeof(ManagerSystem));
-        model = (GameObject)Instantiate(managersys.rebelPrefab, this.transform.position, this.transform.rotation);
+        model = (GameObject)Instantiate(managersys.rebelPrefab, this.transform.position + managersys.rebelPrefab.transform.position, managersys.rebelPrefab.transform.rotation);
         model.transform.parent = this.transform;
         anim = (Animator)model.GetComponent(typeof(Animator));
 

@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class throwObject : MonoBehaviour {
+public class WeaponHolding : MonoBehaviour {
 
     public GameObject leftHand;
+    public GameObject rightHand;
+
+    GameObject leftHandObject;
+    GameObject rightHandObject;
+
     AbilitySystem ability;
 
     public Enums.Effects selectedGrenade;
+    public Enums.PrimaryWeapons weaponPrim;
+    public Enums.SecondaryWeapons weaponSecond;
+
     GameObject grenadeInstance;
 
     ArmoryComponent armory;
@@ -24,6 +32,25 @@ public class throwObject : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void setLeftHandItem(GameObject item)
+    {
+        if (leftHandObject != null)
+            Destroy(leftHandObject);
+
+        leftHandObject = (GameObject) Instantiate(item,leftHand.transform.position + item.transform.position,item.transform.rotation);
+        leftHandObject.transform.parent = leftHand.transform;
+
+    }
+
+    public void setRightHandItem(GameObject item)
+    {
+        if (leftHandObject != null)
+            Destroy(leftHandObject);
+
+        leftHandObject = (GameObject)Instantiate(item, leftHand.transform.position + item.transform.position, item.transform.rotation);
+        leftHandObject.transform.parent = leftHand.transform;
+    }
 
     public void takeIt()
     {
