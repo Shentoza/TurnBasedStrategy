@@ -140,7 +140,7 @@ public class inputSystem : MonoBehaviour {
                     { 
 						abilSys.throwMolotov(selectedCell, player);
 						molotovAusgewaehlt = false;
-					}
+				}
 				}
                 if (gasAusgewaehlt)
                 {
@@ -244,6 +244,7 @@ public class inputSystem : MonoBehaviour {
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
         movementAusgewaehlt = false;
+        GameObject.Find("UiManager(Clone)").GetComponent<UiManager>().activeSkill = Enums.Actions.Cancel;
     }
 
     void selectFigurine(GameObject figurine)
