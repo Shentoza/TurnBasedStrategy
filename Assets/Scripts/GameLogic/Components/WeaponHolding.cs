@@ -54,6 +54,8 @@ public class WeaponHolding : MonoBehaviour {
 
     public void takeIt()
     {
+        if(leftHandObject != null)
+            leftHandObject.SetActive(false);
         //Ausm Abilitysystem geworfene Art Granate ziehen
         switch(selectedGrenade)
         {
@@ -72,11 +74,14 @@ public class WeaponHolding : MonoBehaviour {
         }
         grenadeInstance.transform.position = leftHand.transform.position;
         grenadeInstance.transform.parent = leftHand.transform;
+        
     }
 
     public void throwIt()
     {
         ability.throwIt(grenadeInstance);
+        if (leftHandObject != null)
+            leftHandObject.SetActive(true);
     }
 
     public void setNextGrenade(Enums.Effects type)
