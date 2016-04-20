@@ -13,6 +13,9 @@ public class HealthSystem : MonoBehaviour
     /* Heals */
     private const int MEDIPACK_HEAL = 25;
 
+    //Für Animationen
+    Animator anim;
+
     /* Generates and inflicts damage if necessary */
     public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
     {
@@ -69,6 +72,10 @@ public class HealthSystem : MonoBehaviour
         damageTakingPlayerAtrr.hp -= damage;
         attackingPlayerComp.useAP();
         attackingPlayerAttr.canShoot = false;
+
+        //Zeug für Animationen
+        anim = damageTakingPlayerAtrr.gameObject.GetComponent<Animator>();
+        anim.SetTrigger("getHit");
     }
 
     /* MEDIPACK related */
@@ -104,6 +111,10 @@ public class HealthSystem : MonoBehaviour
     public void inflictGrenadeDamage(AttributeComponent damageTakingPlayerAttr)
     {
         damageTakingPlayerAttr.hp -= 20;
+
+        //Zeug für Animationen
+        anim = damageTakingPlayerAttr.gameObject.GetComponent<Animator>();
+        anim.SetTrigger("getHit");
     }
 
     public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
