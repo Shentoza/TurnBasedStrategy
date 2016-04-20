@@ -22,7 +22,10 @@ public class AbilitySystem : MonoBehaviour {
 	public void throwSmoke(Cell ziel, GameObject figur)
 	{
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange) {
+        InventoryComponent invent = figur.GetComponent<InventoryComponent>();
+        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && invent.amountSmokes > 0) {
+            //Einsatz von AP durch Faehigkeit
+            figur.GetComponentInParent<PlayerComponent>().useAP();
             GameObject smokeTmp = Instantiate(smoke);
 			smokeTmp.transform.position = new Vector3 (ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = smokeTmp.AddComponent<EffectComponent>();
@@ -55,8 +58,10 @@ public class AbilitySystem : MonoBehaviour {
 	public void throwMolotov(Cell ziel, GameObject figur)
 	{
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange) {
-			GameObject fireTmp = Instantiate (fire);
+        InventoryComponent invent = figur.GetComponent<InventoryComponent>();
+        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && invent.amountMolotovs > 0) {
+            figur.GetComponentInParent<PlayerComponent>().useAP();
+            GameObject fireTmp = Instantiate (fire);
 			fireTmp.transform.position = new Vector3 (ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = fireTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
@@ -89,8 +94,11 @@ public class AbilitySystem : MonoBehaviour {
     public void throwGrenade(Cell ziel, GameObject figur)
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange)
+        InventoryComponent invent = figur.GetComponent<InventoryComponent>();
+        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && invent.amountGrenades > 0)
         {
+            //Einsatz von AP durch Faehigkeit
+            figur.GetComponentInParent<PlayerComponent>().useAP();
             GameObject explosionTmp = Instantiate(explosion);
             explosionTmp.transform.position = new Vector3(ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = explosionTmp.AddComponent<EffectComponent>();
@@ -124,8 +132,11 @@ public class AbilitySystem : MonoBehaviour {
     public void throwGas(Cell ziel, GameObject figur)
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange)
+        InventoryComponent invent = figur.GetComponent<InventoryComponent>();
+        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && invent.amountTeargas > 0)
         {
+            //Einsatz von AP durch Faehigkeit
+            figur.GetComponentInParent<PlayerComponent>().useAP();
             GameObject gasTmp = Instantiate(gas);
             gasTmp.transform.position = new Vector3(ziel.transform.position.x, ziel.transform.position.y + 0.2f, ziel.transform.position.z);
             EffectComponent ec = gasTmp.AddComponent<EffectComponent>();

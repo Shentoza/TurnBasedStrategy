@@ -18,6 +18,8 @@ public class HealthBar : MonoBehaviour {
     public Texture2D hpTexture;
     int hp;
 
+    public int xOffset = 0;
+    public int yOffset = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -38,26 +40,43 @@ public class HealthBar : MonoBehaviour {
     {
         if (GameObject.Find("Manager").GetComponent<ManagerSystem>().uiManagerSet)
         {
-
             UiManager uim = GameObject.Find("Manager").GetComponent<ManagerSystem>().uiManager.GetComponent<UiManager>();
 
-            bool d = false;// uim.activeUnit.gameObject == this.gameObject;
+            bool d = false;// uim.activeUnit.gameObject == this.gameObject;          
 
             if (Input.GetKey("space") | uim.activeSkill == Enums.Actions.Shoot | d)
             {
 
-                int xOffset = ((hp + 9) / 10) * width / 2;
+                xOffset = 0;
+                yOffset = 0;
 
+
+                int hpBars = (unit.GetComponent<AttributeComponent>().hp + 9) / 10;
+
+                if (hpBars <= 5)
+                {
+                    xOffset = hpBars * (width + barOffset) / 2;
+                }
+                else
+                {
+                    xOffset = 5 * (width + barOffset) / 2;
+                    yOffset = ((hpBars + 4) / 5) * (height + barOffset);
+                }
                 //bestimme hp leisten position
                 Vector3 worldPosition = unit.transform.position;
                 worldPosition.y += figureOffset;
                 Vector3 position = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(worldPosition);
 
 
-                for (int i = 0; i < hp; i += 10)
+
+              
+                for (int i = 0; i <= hpBars; i ++)
                 {
-                    GUI.DrawTexture(new Rect(position.x - xOffset + i / 10 * (width + barOffset), Screen.height - position.y, width, height), hpTexture);
+                   
+                    GUI.DrawTexture(new Rect(position.x - xOffset + (i%5 * (width + barOffset)), (Screen.height - position.y) - yOffset + (i/5 *(height+barOffset)), width, height), hpTexture);
                     // Debug.Log("positionX: " + position.x + "position.y: " + position.y);
+
+                    
                 }
 
             }

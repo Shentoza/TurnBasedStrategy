@@ -140,7 +140,7 @@ public class inputSystem : MonoBehaviour {
                     { 
 						abilSys.throwMolotov(selectedCell, player);
 						molotovAusgewaehlt = false;
-					}
+				}
 				}
                 if (gasAusgewaehlt)
                 {
