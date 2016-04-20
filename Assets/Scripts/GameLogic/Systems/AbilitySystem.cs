@@ -44,7 +44,24 @@ public class AbilitySystem : MonoBehaviour {
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
         InventoryComponent invent = figur.GetComponent<InventoryComponent>();
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && invent.amountSmokes > 0)
+        int amountOfGrenades = 0;
+        switch(effectType)
+        {
+            case Enums.Effects.Explosion:
+                amountOfGrenades = invent.amountGrenades;
+                break;
+            case Enums.Effects.Fire:
+                amountOfGrenades = invent.amountMolotovs;
+                break;
+            case Enums.Effects.Gas:
+                amountOfGrenades = invent.amountTeargas;
+                break;
+            case Enums.Effects.Smoke:
+                amountOfGrenades = invent.amountSmokes;
+                break;
+        }
+
+        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && amountOfGrenades > 0)
         {
             figur.GetComponentInParent<PlayerComponent>().useAP();
             checkRotation(ziel, playerAttr);
@@ -54,6 +71,21 @@ public class AbilitySystem : MonoBehaviour {
             throwing_effect = effectType;
             WeaponHolding throwy = (WeaponHolding)playerAttr.model.GetComponent(typeof(WeaponHolding));
             playerAttr.anim.SetTrigger("Throw");
+            switch (effectType)
+            {
+                case Enums.Effects.Explosion:
+                    invent.amountGrenades--;
+                    break;
+                case Enums.Effects.Fire:
+                    invent.amountMolotovs--;
+                    break;
+                case Enums.Effects.Gas:
+                    invent.amountTeargas--;
+                    break;
+                case Enums.Effects.Smoke:
+                    invent.amountSmokes--;
+                    break;
+            }
 
         }
         else {
