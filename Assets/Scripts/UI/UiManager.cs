@@ -265,26 +265,26 @@ public class UiManager : MonoBehaviour {
     }
 
     public void  smoke(){
+        actionCancel();
         activeSkill = Enums.Actions.Smoke;
         input.smokeAusgewaehlt = true;
-        actionCancel();
     }
     public void teargas()
     {
+        actionCancel();
         activeSkill = Enums.Actions.Teargas;
         input.gasAusgewaehlt = true;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
         audioSource.Play();
-        actionCancel();
 
-
+        
     }
 
 
     public void actionCancel()
     {
-        activeSkill = Enums.Actions.Cancel;
+       // activeSkill = Enums.Actions.Cancel;
         input.cancelActions();
     }
 }
