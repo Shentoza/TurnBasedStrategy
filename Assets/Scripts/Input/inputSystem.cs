@@ -40,8 +40,8 @@ public class inputSystem : MonoBehaviour {
 
     UiManager uiManager;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         GameObject managerObj = GameObject.Find("Manager");
         uiManager = (UiManager)managerObj.GetComponent<UiManager>();
         manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
@@ -130,24 +130,24 @@ public class inputSystem : MonoBehaviour {
 				{
                     if (selectedCell != null && figurGewaehlt)
                     {
-						abilSys.throwSmoke(selectedCell, player);
-						smokeAusgewaehlt = false;
-					}
+						abilSys.throwGrenade(selectedCell, player,Enums.Effects.Smoke);
+                        cancelActions();
+                    }
 				}
 				if (molotovAusgewaehlt)
 				{
                     if(selectedCell != null && figurGewaehlt)
                     { 
-						abilSys.throwMolotov(selectedCell, player);
-						molotovAusgewaehlt = false;
-				}
+			abilSys.throwGrenade(selectedCell, player,Enums.Effects.Fire);
+                        cancelActions();
+                    }
 				}
                 if (gasAusgewaehlt)
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGas(selectedCell, player);
-                        gasAusgewaehlt = false;
+                        abilSys.throwGrenade(selectedCell, player,Enums.Effects.Gas);
+                        cancelActions();
                     }
 
                 }
@@ -155,7 +155,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player);
+                        abilSys.throwGrenade(selectedCell, player,Enums.Effects.Explosion);
                         granateAusgewaehlt = false;
                     }
 
@@ -205,10 +205,10 @@ public class inputSystem : MonoBehaviour {
             else
                 Debug.Log("Kein Angriff");
         }
-		if (Input.GetKey ("r")) {
+		if (Input.GetMouseButtonDown(2)) {
 			rotationScript.setStartRotation ();
 		}
-		if (!Input.GetKey ("r")) {
+		if (Input.GetMouseButtonUp(2)) {
 			rotationScript.setStopRotation ();  
 		}
 
