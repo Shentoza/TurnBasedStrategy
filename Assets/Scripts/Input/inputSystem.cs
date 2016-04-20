@@ -138,7 +138,7 @@ public class inputSystem : MonoBehaviour {
 				{
                     if(selectedCell != null && figurGewaehlt)
                     { 
-						abilSys.throwGrenade(selectedCell, player,Enums.Effects.Fire);
+			abilSys.throwGrenade(selectedCell, player,Enums.Effects.Fire);
                         cancelActions();
                     }
 				}

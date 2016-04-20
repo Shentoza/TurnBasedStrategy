@@ -31,6 +31,8 @@ public class UiManager : MonoBehaviour {
 
    public Enums.Actions activeSkill = 0;
 
+    private bool figureSelected = false;
+    
 	// Use this for initialization
 	void Start () {
 
@@ -69,6 +71,12 @@ public class UiManager : MonoBehaviour {
         else
             input = player2.GetComponent<inputSystem>();
 
+        if (managerSys.selectedFigurine != null && figureSelected == false)
+        {
+            figureSelected = true;
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        }
+        
         //beschaffe aktive einheit
         if (activeUnit)
         {
@@ -247,6 +255,7 @@ public class UiManager : MonoBehaviour {
     public void molotov() {
         actionCancel();
         activeSkill = Enums.Actions.Molotov;
+        input.molotovAusgewaehlt = true;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
         audioSource.Play();
@@ -256,6 +265,7 @@ public class UiManager : MonoBehaviour {
     public void grenade(){
         actionCancel();
         activeSkill = Enums.Actions.Grenade;
+        input.granateAusgewaehlt = true;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
         audioSource.Play();
@@ -265,11 +275,13 @@ public class UiManager : MonoBehaviour {
     public void  smoke(){
         actionCancel();
         activeSkill = Enums.Actions.Smoke;
+        input.smokeAusgewaehlt = true;
     }
     public void teargas()
     {
         actionCancel();
         activeSkill = Enums.Actions.Teargas;
+        input.gasAusgewaehlt = true;
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
         audioSource.Play();
