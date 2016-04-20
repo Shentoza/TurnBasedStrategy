@@ -33,7 +33,7 @@ public class WeaponHolding : MonoBehaviour {
 	
 	}
 
-    public void setLeftHandItem(GameObject item)
+    public GameObject setLeftHandItem(GameObject item)
     {
         if (leftHandObject != null)
             Destroy(leftHandObject);
@@ -41,15 +41,19 @@ public class WeaponHolding : MonoBehaviour {
         leftHandObject = (GameObject) Instantiate(item,leftHand.transform.position + item.transform.position,item.transform.rotation);
         leftHandObject.transform.parent = leftHand.transform;
 
+        return leftHandObject;
+
     }
 
-    public void setRightHandItem(GameObject item)
+    public GameObject setRightHandItem(GameObject item)
     {
-        if (leftHandObject != null)
-            Destroy(leftHandObject);
+        if (rightHandObject != null)
+            Destroy(rightHandObject);
 
-        leftHandObject = (GameObject)Instantiate(item, leftHand.transform.position + item.transform.position, item.transform.rotation);
-        leftHandObject.transform.parent = leftHand.transform;
+        rightHandObject = (GameObject)Instantiate(item, rightHand.transform.position + item.transform.position, item.transform.rotation);
+        rightHandObject.transform.parent = rightHand.transform;
+
+        return rightHand;
     }
 
     public void takeIt()
