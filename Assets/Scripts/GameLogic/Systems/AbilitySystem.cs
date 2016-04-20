@@ -46,6 +46,7 @@ public class AbilitySystem : MonoBehaviour {
         InventoryComponent invent = figur.GetComponent<InventoryComponent>();
         if (ziel.dij_GesamtKosten <= playerAttr.attackRange && invent.amountSmokes > 0)
         {
+            figur.GetComponentInParent<PlayerComponent>().useAP();
             checkRotation(ziel, playerAttr);
             throwing_DestinationCell = ziel;
             //Einsatz von AP durch Faehigkeit
@@ -63,7 +64,7 @@ public class AbilitySystem : MonoBehaviour {
     void smokeEffect()
 	{
             GameObject smokeTmp = Instantiate(smoke);
-  	    smokeTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
+  	        smokeTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = smokeTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
 			cellList.Add(throwing_DestinationCell);
@@ -91,7 +92,7 @@ public class AbilitySystem : MonoBehaviour {
 	void molotovEffect()
 	{
             GameObject fireTmp = Instantiate (fire);
-	    fireTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
+	        fireTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = fireTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
 			cellList.Add(throwing_DestinationCell);
@@ -122,7 +123,6 @@ public class AbilitySystem : MonoBehaviour {
     void grenadeEffect()
     {
             //Einsatz von AP durch Faehigkeit
-            figur.GetComponentInParent<PlayerComponent>().useAP();
             GameObject explosionTmp = Instantiate(explosion);
             explosionTmp.transform.position = new Vector3(throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = explosionTmp.AddComponent<EffectComponent>();
@@ -151,7 +151,6 @@ public class AbilitySystem : MonoBehaviour {
 
     void gasEffect()
     {       
-
             GameObject gasTmp = Instantiate(gas);
             gasTmp.transform.position = new Vector3(throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = gasTmp.AddComponent<EffectComponent>();
