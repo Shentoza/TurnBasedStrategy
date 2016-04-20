@@ -123,7 +123,12 @@ public class AbilitySystem : MonoBehaviour {
 
 	void molotovEffect()
 	{
-            GameObject fireTmp = Instantiate (fire);
+        // Audioeffect for molotov
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
+        audioSource.Play();
+
+        GameObject fireTmp = Instantiate (fire);
 	        fireTmp.transform.position = new Vector3 (throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = fireTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();
@@ -154,8 +159,13 @@ public class AbilitySystem : MonoBehaviour {
 
     void grenadeEffect()
     {
-            //Einsatz von AP durch Faehigkeit
-            GameObject explosionTmp = Instantiate(explosion);
+        // Audioeffect for molotov
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
+        audioSource.Play();
+
+        //Einsatz von AP durch Faehigkeit
+        GameObject explosionTmp = Instantiate(explosion);
             explosionTmp.transform.position = new Vector3(throwing_DestinationCell.transform.position.x, throwing_DestinationCell.transform.position.y + 0.2f, throwing_DestinationCell.transform.position.z);
             EffectComponent ec = explosionTmp.AddComponent<EffectComponent>();
             ArrayList cellList = new ArrayList();

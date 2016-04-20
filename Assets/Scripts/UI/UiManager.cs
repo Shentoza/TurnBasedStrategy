@@ -255,23 +255,15 @@ public class UiManager : MonoBehaviour {
     public void molotov() {
         actionCancel();
         activeSkill = Enums.Actions.Molotov;
-        input.molotovAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
-        audioSource.Play();
-
-        
+        input.molotovAusgewaehlt = true;     
     }
+
     public void grenade(){
         actionCancel();
         activeSkill = Enums.Actions.Grenade;
-        input.granateAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
-        audioSource.Play();
-
-        
+        input.granateAusgewaehlt = true;        
     }
+
     public void  smoke(){
         activeSkill = Enums.Actions.Smoke;
         input.smokeAusgewaehlt = true;
