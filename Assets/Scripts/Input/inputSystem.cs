@@ -40,8 +40,8 @@ public class inputSystem : MonoBehaviour {
 
     UiManager uiManager;
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
         GameObject managerObj = GameObject.Find("Manager");
         uiManager = (UiManager)managerObj.GetComponent<UiManager>();
         manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
@@ -130,24 +130,24 @@ public class inputSystem : MonoBehaviour {
 				{
                     if (selectedCell != null && figurGewaehlt)
                     {
-						abilSys.throwGrenade(selectedCell, player,Enums.Effects.Smoke);
-                        cancelActions();
-                    }
+						abilSys.throwSmoke(selectedCell, player);
+						smokeAusgewaehlt = false;
+					}
 				}
 				if (molotovAusgewaehlt)
 				{
                     if(selectedCell != null && figurGewaehlt)
                     { 
-			abilSys.throwGrenade(selectedCell, player,Enums.Effects.Fire);
-                        cancelActions();
-                    }
+						abilSys.throwMolotov(selectedCell, player);
+						molotovAusgewaehlt = false;
+				}
 				}
                 if (gasAusgewaehlt)
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player,Enums.Effects.Gas);
-                        cancelActions();
+                        abilSys.throwGas(selectedCell, player);
+                        gasAusgewaehlt = false;
                     }
 
                 }
@@ -155,7 +155,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player,Enums.Effects.Explosion);
+                        abilSys.throwGrenade(selectedCell, player);
                         granateAusgewaehlt = false;
                     }
 
@@ -205,10 +205,10 @@ public class inputSystem : MonoBehaviour {
             else
                 Debug.Log("Kein Angriff");
         }
-		if (Input.GetMouseButtonDown(2)) {
+		if (Input.GetKey ("r")) {
 			rotationScript.setStartRotation ();
 		}
-		if (Input.GetMouseButtonUp(2)) {
+		if (!Input.GetKey ("r")) {
 			rotationScript.setStopRotation ();  
 		}
 
@@ -244,6 +244,7 @@ public class inputSystem : MonoBehaviour {
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
         movementAusgewaehlt = false;
+        GameObject.Find("UiManager(Clone)").GetComponent<UiManager>().activeSkill = Enums.Actions.Cancel;
     }
 
     void selectFigurine(GameObject figurine)

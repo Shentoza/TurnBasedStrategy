@@ -64,6 +64,14 @@ public class ShootingSystem : MonoBehaviour
             if(hitChance >= Random.value)
             {
                 currentPlayerWeapon.shootingSound.Play();
+                if (healthSystem == null)
+                    Debug.Log("Healthsys");
+                if (currentplayerAttr == null)
+                    Debug.Log("currentplayerAttr");
+                if (currentPlayerComp == null)
+                    Debug.Log("currentPlayerComp");
+                if (currentTargetAttr == null)
+                    Debug.Log("currentTargetAttr");
                 healthSystem.doDamage(currentplayerAttr, currentPlayerComp, currentTargetAttr, HealthSystem.SHOOT);
                 return true;
             }
