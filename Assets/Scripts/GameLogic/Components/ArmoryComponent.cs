@@ -5,7 +5,8 @@ public class ArmoryComponent : MonoBehaviour {
 
 
     public GameObject Pipe;
-    public GameObject ShieldnStick;
+    public GameObject Stick;
+    public GameObject Riotshield;
     public GameObject Shotgun;
     public GameObject HuntingRifle;
     public GameObject AssaultRifle;
