@@ -130,11 +130,11 @@ public class ActionButtons : MonoBehaviour {
             }
         }
         else if (skills[i] == Enums.Actions.Reload){
-            if (uiM.activeSkill == Enums.Actions.Reload)
+          /*  if (uiM.activeSkill == Enums.Actions.Reload)
             {
                 GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
             }
-        
+        */
             bool clicked4 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Reload, "Reload")));
        
             if(clicked4)
@@ -145,11 +145,11 @@ public class ActionButtons : MonoBehaviour {
             }
         }
         else if (skills[i] == Enums.Actions.ChangeWeapon){
-            if (uiM.activeSkill == Enums.Actions.ChangeWeapon){
+            /*if (uiM.activeSkill == Enums.Actions.ChangeWeapon){
             
                 GUI.Label(new Rect(posX, posY, width, height), activeSkillBackground);
             }
-        
+        */
             bool clicked5 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(ChangeWeapon, "Change Weapon")));
         
             if(clicked5)
