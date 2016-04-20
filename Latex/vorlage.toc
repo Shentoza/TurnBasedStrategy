@@ -15,7 +15,7 @@
 \contentsline {section}{\numberline {6.1}Player Component}{7}{section.6.1}
 \contentsline {section}{\numberline {6.2}Input Component}{7}{section.6.2}
 \contentsline {chapter}{\numberline {7}Spielfiguren}{8}{chapter.7}
-\contentsline {section}{\numberline {7.1}Movement System}{8}{section.7.1}
+\contentsline {section}{\numberline {7.1}Bewegung}{8}{section.7.1}
 \contentsline {section}{\numberline {7.2}Attribute Component}{8}{section.7.2}
 \contentsline {section}{\numberline {7.3}Selektierte Spielfigur}{8}{section.7.3}
 \contentsline {chapter}{\numberline {8}Pathfinding}{9}{chapter.8}
