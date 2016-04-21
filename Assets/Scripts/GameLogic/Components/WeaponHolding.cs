@@ -6,21 +6,20 @@ public class WeaponHolding : MonoBehaviour {
     public GameObject leftHand;
     public GameObject rightHand;
 
-    GameObject leftHandObject;
-    GameObject rightHandObject;
+    public GameObject leftHandObjectPrimary;
+    public GameObject rightHandObjectPrimary;
+
+    public GameObject leftHandObjectSecondary;
+    public GameObject rightHandObjectSecondary;
 
     AbilitySystem ability;
 
     public Enums.Effects selectedGrenade;
-    public Enums.PrimaryWeapons weaponPrim;
-    public Enums.SecondaryWeapons weaponSecond;
+    public Enums.Stance primaryStance;
+    public Enums.Stance secondaryStance;
 
     GameObject grenadeInstance;
-
     ArmoryComponent armory;
-
-    public float floatingTime;
-    public float range;
 
 	// Use this for initialization
 	void Start () {
@@ -35,31 +34,43 @@ public class WeaponHolding : MonoBehaviour {
 
     public GameObject setLeftHandItem(GameObject item)
     {
-        if (leftHandObject != null)
-            Destroy(leftHandObject);
+        if (leftHandObjectPrimary != null)
+            Destroy(leftHandObjectPrimary);
 
-        leftHandObject = (GameObject) Instantiate(item,leftHand.transform.position + item.transform.position,item.transform.rotation);
-        leftHandObject.transform.parent = leftHand.transform;
+        leftHandObjectPrimary = (GameObject) Instantiate(item,leftHand.transform.position + item.transform.position,item.transform.rotation);
+        leftHandObjectPrimary.transform.parent = leftHand.transform;
 
-        return leftHandObject;
+        return leftHandObjectPrimary;
 
     }
 
     public GameObject setRightHandItem(GameObject item)
     {
-        if (rightHandObject != null)
-            Destroy(rightHandObject);
+        if (rightHandObjectPrimary != null)
+            Destroy(rightHandObjectPrimary);
 
-        rightHandObject = (GameObject)Instantiate(item, rightHand.transform.position + item.transform.position, item.transform.rotation);
-        rightHandObject.transform.parent = rightHand.transform;
+        rightHandObjectPrimary = (GameObject)Instantiate(item, rightHand.transform.position + item.transform.position, item.transform.rotation);
+        rightHandObjectPrimary.transform.parent = rightHand.transform;
 
         return rightHand;
     }
 
+    public void initializeEquip(GameObject addedItemLeft, GameObject addedItemRight, Enums.Stance primStance, Enums.Stance secondStance)
+    {
+        if (addedItemLeft != null)
+            setLeftHandItem(addedItemLeft);
+
+        if (rightHandObjectPrimary != null)
+            setRightHandItem(addedItemRight);
+
+        primaryStance = primStance;
+        secondaryStance = secondStance;
+    }
+
     public void takeIt()
     {
-        if(leftHandObject != null)
-            leftHandObject.SetActive(false);
+        if(leftHandObjectPrimary != null)
+            leftHandObjectPrimary.SetActive(false);
         //Ausm Abilitysystem geworfene Art Granate ziehen
         switch(selectedGrenade)
         {
@@ -84,12 +95,20 @@ public class WeaponHolding : MonoBehaviour {
     public void throwIt()
     {
         ability.throwIt(grenadeInstance);
-        if (leftHandObject != null)
-            leftHandObject.SetActive(true);
+        if (leftHandObjectPrimary != null)
+            leftHandObjectPrimary.SetActive(true);
     }
 
     public void setNextGrenade(Enums.Effects type)
     {
         selectedGrenade = type;
     }
+
+    public void swapWeapons()
+    {
+
+    }
 }
+
+
+/*Inventory Component besitzt schon viele der Weapon Gameobjects / Types / Primary Secondary etc. pp. */
