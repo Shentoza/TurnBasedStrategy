@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour {
     public int height;
     public int figureOffset;
     public int barOffset;
-
+    UiManager uim;
 
     int baseX;
     int baseY;   
@@ -23,7 +23,8 @@ public class HealthBar : MonoBehaviour {
 	void Start () {
         unit = this.transform.gameObject;
         hpTexture = unit.GetComponentInParent<PlayerComponent>().teamColor;
-	}
+        uim = GameObject.Find("Manager").GetComponent<UiManager>();
+    }
 	
 
 	// Update is called once per frame
@@ -36,9 +37,10 @@ public class HealthBar : MonoBehaviour {
 
     void OnGUI()
     {
-        UiManager uim = GameObject.Find("Manager").GetComponent<UiManager>();
-        if(uim && (Input.GetKey("space") | uim.input.angriffAusgewaehlt)){
+        
 
+        if(uim && (Input.GetKey("tab") | uim.input.angriffAusgewaehlt)){
+            Debug.Log("FICK DICH");
             int xOffset = ((hp + 9) / 10 ) * width /2  ;
 
             //bestimme hp leisten position
