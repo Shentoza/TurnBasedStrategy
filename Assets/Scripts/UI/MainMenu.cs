@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -37,7 +38,7 @@ public class MainMenu : MonoBehaviour {
            if (GUI.Button(new Rect((int)(Screen.width / 2 - buttonWidth / 2), (int)(Screen.height / 4 - buttonHeight / 2), buttonWidth, buttonHeight), new GUIContent(StartGameButton, "Start")))
            {
                
-               Application.LoadLevel("MPTestScene");
+               SceneManager.LoadScene("MPTestScene");
            }
            //OptionsButton
            if (GUI.Button(new Rect((int)(Screen.width / 2 - buttonWidth / 2), (int)(Screen.height /2 - buttonHeight / 2), buttonWidth, buttonHeight),  new GUIContent(OptionButtons,"Options")))
