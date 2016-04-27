@@ -30,8 +30,6 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject plane;
     
 
-    public AudioSource endTurnSound;
-
     public bool uiManagerSet;
 
     public GameObject policePrefab;
@@ -108,7 +106,7 @@ public class ManagerSystem : MonoBehaviour {
     //Legt fest, welcher Spieler am Zug ist
     public void setPlayerTurn()
     {
-        endTurnSound.Play();
+        AudioManager.playEndTurn();
         roundHalf++;
         if(roundHalf == 2)
         {
@@ -134,7 +132,7 @@ public class ManagerSystem : MonoBehaviour {
             player2.GetComponent<inputSystem>().enabled = true;                      //Aktiviere InputSys von Spieler2
         }
 
-        plane.GetComponent<DijkstraSystem>().resetDijkstra();
+        gameObject.GetComponent<DijkstraSystem>().resetDijkstra();
 
     }
 

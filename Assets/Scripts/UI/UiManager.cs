@@ -229,9 +229,7 @@ public class UiManager : MonoBehaviour {
         actionCancel();
         activeSkill = Enums.Actions.ChangeWeapon;
         // Audiofeedback wenn Waffe gewechselt wird
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-        audioSource.Play();
+        AudioManager.playMainClick();
 
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
@@ -245,9 +243,7 @@ public class UiManager : MonoBehaviour {
         if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
         {
             // Audiofeedpack wenn heilen klappt
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/medikit") as AudioClip;
-            audioSource.Play();
+            AudioManager.playMedikit();
 
             healthSystem.doHeal(null, activeUnit, HealthSystem.MEDIPACK);
         }

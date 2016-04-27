@@ -63,7 +63,7 @@ public class ShootingSystem : MonoBehaviour
             Debug.Log("Hitchance: " + hitChance);
             if(hitChance >= Random.value)
             {
-                currentPlayerWeapon.shootingSound.Play();
+                AudioManager.playShootingSound(currentPlayerWeapon);                
                 if (healthSystem == null)
                     Debug.Log("Healthsys");
                 if (currentplayerAttr == null)
@@ -76,11 +76,8 @@ public class ShootingSystem : MonoBehaviour
                 return true;
             }
             else
-            {                
-                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                audioSource.clip = Resources.Load("Audio/missed") as AudioClip;
-                audioSource.Play();
-                
+            {
+                AudioManager.playMissed();                
                 return false;
             }
         }
