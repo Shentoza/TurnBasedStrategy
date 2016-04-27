@@ -39,6 +39,7 @@ public class WeaponHolding : MonoBehaviour {
         armory = FindObjectOfType<ArmoryComponent>();
         anim = GetComponent<Animator>();
         animId_iStance = Animator.StringToHash("Stance");
+        primary = true;
     }
 	
 	// Update is called once per frame
@@ -105,8 +106,10 @@ public class WeaponHolding : MonoBehaviour {
         if (itemRightPrim != null)
             setRightHandItem(itemRightPrim,true);
 
-        if(itemLeftSec != null)
-
+        if (itemLeftSec != null)
+            setLeftHandItem(itemLeftSec, false);
+        if (itemRightSec != null)
+            setRightHandItem(itemRightSec, false);
 
         primaryStance = primStance;
         secondaryStance = secondStance;
@@ -142,48 +145,42 @@ public class WeaponHolding : MonoBehaviour {
 
     public void grenade_resetItem(bool left)
     {
+        GameObject resetting;
+        GameObject prefab;
+        Transform handTransform;
         if (left)
         {
+            handTransform = leftHand.transform;
             if(primary)
             {
-                leftHandObjectPrimary.transform.SetParent(null);
-                leftHandObjectPrimary.transform.position = lhPrimPrefab.transform.position + leftHand.transform.position;
-                leftHandObjectPrimary.transform.localScale = lhPrimPrefab.transform.localScale;
-                leftHandObjectPrimary.transform.rotation = lhPrimPrefab.transform.rotation;
-
-                leftHandObjectPrimary.transform.SetParent(leftHand.transform);
+                resetting = leftHandObjectPrimary;
+                prefab = lhPrimPrefab;
             }
             else
             {
-                leftHandObjectSecondary.transform.SetParent(null);
-                leftHandObjectSecondary.transform.position = lhSecondPrefab.transform.position + leftHand.transform.position;
-                leftHandObjectSecondary.transform.localScale = lhSecondPrefab.transform.localScale;
-                leftHandObjectSecondary.transform.rotation = lhSecondPrefab.transform.rotation;
-
-                leftHandObjectSecondary.transform.SetParent(leftHand.transform);
+                resetting = leftHandObjectSecondary;
+                prefab = lhSecondPrefab;
             }
         }
         else
         {
+            handTransform = rightHand.transform;
             if (primary)
             {
-                rightHandObjectPrimary.transform.SetParent(null);
-                rightHandObjectPrimary.transform.position = rhPrimPrefab.transform.position + rightHand.transform.position;
-                rightHandObjectPrimary.transform.localScale = rhPrimPrefab.transform.localScale;
-                rightHandObjectPrimary.transform.rotation = rhPrimPrefab.transform.rotation;
-
-                rightHandObjectPrimary.transform.SetParent(rightHand.transform);
+                resetting = rightHandObjectPrimary;
+                prefab = rhPrimPrefab;
             }
             else
             {
-                rightHandObjectSecondary.transform.SetParent(null);
-                rightHandObjectSecondary.transform.position = rhSecondPrefab.transform.position + rightHand.transform.position;
-                rightHandObjectSecondary.transform.localScale = rhSecondPrefab.transform.localScale;
-                rightHandObjectSecondary.transform.rotation = rhSecondPrefab.transform.rotation;
-
-                rightHandObjectSecondary.transform.SetParent(rightHand.transform);
+                resetting = rightHandObjectSecondary;
+                prefab = rhSecondPrefab;
             }
         }
+        resetting.transform.SetParent(handTransform);
+
+        resetting.transform.localPosition = prefab.transform.position;
+        resetting.transform.localRotation = prefab.transform.rotation;
+        resetting.transform.localScale = prefab.transform.lossyScale;
     }
 
 
@@ -225,17 +222,28 @@ public class WeaponHolding : MonoBehaviour {
 
     public void swapWeapons()
     {
+        Debug.Log("Primary ? " + primary);
         foreach (GameObject g in getActiveItems())
             if (g != null)
+            {
                 g.SetActive(false);
+                Debug.Log(g.name);
+            }
+            else
+                Debug.Log("Null");
 
         primary = !primary;
 
         foreach (GameObject g in getActiveItems())
             if (g != null)
+            {
+                Debug.Log(g.name);
                 g.SetActive(true);
+            }
+            else
+                Debug.Log("Null");
 
-        anim.SetInteger("Stance", (int) getActiveStance());
+        anim.SetInteger(animId_iStance, (int) getActiveStance());
     }
 
 

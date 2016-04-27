@@ -12,7 +12,6 @@ public class WeaponComponent : MonoBehaviour
     public int magazineSize;
     public int rangeMod;
     public float weaponAccuracy;
-    public int name;   
 
     // Use this for initialization
     void Start ()

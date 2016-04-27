@@ -34,7 +34,7 @@ public class CameraRotationScript : MonoBehaviour {
 	Vector3 distanceToObject = new Vector3 (0.0f, 2.0f, -5.0f);
 
 	//Dient für die Rotation
-	private Rigidbody rigidbody;
+	private Rigidbody rigid;
 	
 	float x = 0.0f;
 	float y = 0.0f;
@@ -74,12 +74,12 @@ public class CameraRotationScript : MonoBehaviour {
 		cameraTarget = (GameObject)GameObject.Find ("centerCameraTarget");
 		target = cameraTarget.transform;
 
-		rigidbody = GetComponent<Rigidbody>();
+		rigid = GetComponent<Rigidbody>();
 		
 		// Make the rigid body not change rotation
-		if (rigidbody != null)
+		if (rigid != null)
 		{
-			rigidbody.freezeRotation = true;
+			rigid.freezeRotation = true;
 		}
 	}
 	
