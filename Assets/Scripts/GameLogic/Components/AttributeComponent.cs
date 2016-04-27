@@ -45,8 +45,13 @@ public class AttributeComponent : MonoBehaviour {
     
         canShoot = true;
         skills.Add(Enums.Actions.Move);
-        animId_iStance = Animator.StringToHash("Stance");
+        
 	}
+
+    void Awake()
+    {
+        animId_iStance = Animator.StringToHash("Stance");
+    }
 	
 	// Update is called once per frame
 	void Update () {

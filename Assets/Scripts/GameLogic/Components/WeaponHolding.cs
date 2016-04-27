@@ -9,8 +9,14 @@ public class WeaponHolding : MonoBehaviour {
     public GameObject leftHandObjectPrimary;
     public GameObject rightHandObjectPrimary;
 
+    private GameObject lhPrimPrefab;
+    private GameObject rhPrimPrefab;
+
     public GameObject leftHandObjectSecondary;
     public GameObject rightHandObjectSecondary;
+
+    private GameObject lhSecondPrefab;
+    private GameObject rhSecondPrefab;
 
     public Enums.Effects selectedGrenade;
     public Enums.Stance primaryStance;
@@ -45,18 +51,23 @@ public class WeaponHolding : MonoBehaviour {
         GameObject addedItem = null;
         if(primary)
         {
+            lhPrimPrefab = item;
             if (leftHandObjectPrimary != null)
                 Destroy(leftHandObjectPrimary);
-            addedItem = leftHandObjectPrimary = (GameObject)Instantiate(item, leftHand.transform.position + item.transform.position, item.transform.rotation);
-            leftHandObjectPrimary.transform.parent = leftHand.transform;
+            addedItem = leftHandObjectPrimary = Instantiate(item);
         }
         else
         {
+            lhSecondPrefab = item;
             if (leftHandObjectSecondary != null)
                 Destroy(leftHandObjectSecondary);
-            addedItem = leftHandObjectSecondary = (GameObject)Instantiate(item, leftHand.transform.position + item.transform.position, item.transform.rotation);
-            leftHandObjectSecondary.transform.parent = leftHand.transform;
+            addedItem = leftHandObjectSecondary = Instantiate(item);
         }
+        addedItem.transform.SetParent(leftHand.transform);
+        addedItem.transform.localPosition = item.transform.position;
+        addedItem.transform.localRotation = item.transform.rotation;
+        addedItem.transform.localScale = item.transform.lossyScale;
+
         return addedItem;
     }
 
@@ -65,18 +76,23 @@ public class WeaponHolding : MonoBehaviour {
         GameObject addedItem = null;
         if(primary)
         {
+            rhPrimPrefab = item;
             if (rightHandObjectPrimary != null)
                 Destroy(rightHandObjectPrimary);
-            addedItem = rightHandObjectPrimary = (GameObject)Instantiate(item, rightHand.transform.position + item.transform.position, item.transform.rotation);
-            rightHandObjectPrimary.transform.parent = rightHand.transform;
+            addedItem = rightHandObjectPrimary = Instantiate(item);
         }
         else
         {
+            rhSecondPrefab = item;
             if (rightHandObjectSecondary != null)
                 Destroy(rightHandObjectSecondary);
-            addedItem = rightHandObjectSecondary = (GameObject)Instantiate(item, rightHand.transform.position + item.transform.position, item.transform.rotation);
-            rightHandObjectSecondary.transform.parent = rightHand.transform;
+            addedItem = rightHandObjectSecondary = Instantiate(item);
         }
+        addedItem.transform.SetParent(rightHand.transform);
+        addedItem.transform.localPosition = item.transform.position;
+        addedItem.transform.localRotation = item.transform.rotation;
+        addedItem.transform.localScale = item.transform.lossyScale;
+
         return addedItem;
     }
 
@@ -96,26 +112,86 @@ public class WeaponHolding : MonoBehaviour {
         secondaryStance = secondStance;
     }
 
-    public void grenade_swapToOther()
+    public void grenade_swapToOther(int starting)
     {
-        if(getActiveStance() == Enums.Stance.Melee1H)
+        bool start = starting == 1;
+        if (getActiveStance() == Enums.Stance.MeleeRiot)
         {
+            getActiveItems()[0].SetActive(!start);
+        }
 
+        //Primärwaffe?
+        if (primary)
+            //Anfang der Animation: Linkes Item in rechte Hand
+            if (start)
+                leftHandObjectPrimary.transform.SetParent(rightHand.transform);
+            //Ende Animation: wieder zurück in Linke
+            else
+            {
+                grenade_resetItem(true);
+            }
+                
+
+        //Sekundärwaffe
+        else
+            if (start)
+                leftHandObjectSecondary.transform.SetParent(rightHand.transform);
+            else
+                grenade_resetItem(true);
+    }
+
+    public void grenade_resetItem(bool left)
+    {
+        if (left)
+        {
+            if(primary)
+            {
+                leftHandObjectPrimary.transform.SetParent(null);
+                leftHandObjectPrimary.transform.position = lhPrimPrefab.transform.position + leftHand.transform.position;
+                leftHandObjectPrimary.transform.localScale = lhPrimPrefab.transform.localScale;
+                leftHandObjectPrimary.transform.rotation = lhPrimPrefab.transform.rotation;
+
+                leftHandObjectPrimary.transform.SetParent(leftHand.transform);
+            }
+            else
+            {
+                leftHandObjectSecondary.transform.SetParent(null);
+                leftHandObjectSecondary.transform.position = lhSecondPrefab.transform.position + leftHand.transform.position;
+                leftHandObjectSecondary.transform.localScale = lhSecondPrefab.transform.localScale;
+                leftHandObjectSecondary.transform.rotation = lhSecondPrefab.transform.rotation;
+
+                leftHandObjectSecondary.transform.SetParent(leftHand.transform);
+            }
+        }
+        else
+        {
+            if (primary)
+            {
+                rightHandObjectPrimary.transform.SetParent(null);
+                rightHandObjectPrimary.transform.position = rhPrimPrefab.transform.position + rightHand.transform.position;
+                rightHandObjectPrimary.transform.localScale = rhPrimPrefab.transform.localScale;
+                rightHandObjectPrimary.transform.rotation = rhPrimPrefab.transform.rotation;
+
+                rightHandObjectPrimary.transform.SetParent(rightHand.transform);
+            }
+            else
+            {
+                rightHandObjectSecondary.transform.SetParent(null);
+                rightHandObjectSecondary.transform.position = rhSecondPrefab.transform.position + rightHand.transform.position;
+                rightHandObjectSecondary.transform.localScale = rhSecondPrefab.transform.localScale;
+                rightHandObjectSecondary.transform.rotation = rhSecondPrefab.transform.rotation;
+
+                rightHandObjectSecondary.transform.SetParent(rightHand.transform);
+            }
         }
     }
 
 
     public void takeIt()
     {
-        GameObject[] activeItems = null;
-        activeItems = (GameObject[]) getActiveItems().Clone();
 
-        if(getActiveStance() == Enums.Stance.Range2H)
-        {
-
-        }
         //Ausm Abilitysystem geworfene Art Granate ziehen
-        switch(selectedGrenade)
+        switch (selectedGrenade)
         {
             case Enums.Effects.Explosion:
                 grenadeInstance = (GameObject)Instantiate(armory.grenade);
@@ -162,6 +238,10 @@ public class WeaponHolding : MonoBehaviour {
         anim.SetInteger("Stance", (int) getActiveStance());
     }
 
+
+    //retrieve active Items
+    //[0] -> leftHand
+    //[1] -> rightHand
     private GameObject[] getActiveItems()
     {
         GameObject[] value = { null, null };
