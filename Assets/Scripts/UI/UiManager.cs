@@ -231,10 +231,12 @@ public class UiManager : MonoBehaviour {
         // Audiofeedback wenn Waffe gewechselt wird
         AudioManager.playMainClick();
 
-        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
-        InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
+        AttributeComponent attr = managerSys.getSelectedFigurine().GetComponent<AttributeComponent>();
+        InventoryComponent inv = managerSys.getSelectedFigurine().GetComponent<InventoryComponent>();
         dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
         inv.isPrimary = !inv.isPrimary;
+
+        attr.model.GetComponent<WeaponHolding>().swapWeapons();
     }
     public void heal() {
         actionCancel();

@@ -36,6 +36,7 @@ public class UnitScreenMP : MonoBehaviour {
 
 
     public Texture2D backgroundTexture;
+    public Texture2D notPickingTexture;
     public Texture2D unitListBackground;
     public Texture2D unitBackground;
     public Texture2D newUnitButton;
@@ -136,10 +137,7 @@ public class UnitScreenMP : MonoBehaviour {
         if (!done)
         {
             //erstelle hintergrund
-           // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
-
-            
-            
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);          
 
             //rebellen
             drawP1();
@@ -147,6 +145,24 @@ public class UnitScreenMP : MonoBehaviour {
             //staat
             drawP2();
 
+
+            //picking info   
+            GUIStyle gs = new GUIStyle();
+            gs.fixedHeight = Screen.height;
+            gs.fixedWidth = 0;
+            gs.fixedHeight = 0;
+            gs.stretchHeight = true;
+            gs.stretchWidth = true;
+
+            if (player1Picking)
+            {
+                GUI.Label(new Rect(Screen.width / 2 + 1, 0, Screen.width / 2, Screen.height+200), notPickingTexture,gs);
+            }
+            else
+            {
+                GUI.Label(new Rect(0, 0, Screen.width / 2, Screen.height+200), notPickingTexture,gs);
+            }
+          
 
             //Tooltip label
             GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 150, 150), GUI.tooltip);

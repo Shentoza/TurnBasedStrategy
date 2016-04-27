@@ -37,8 +37,7 @@ public class MainMenu : MonoBehaviour {
            //StartButton
            if (GUI.Button(new Rect((int)(Screen.width / 2 - buttonWidth / 2), (int)(Screen.height / 4 - buttonHeight / 2), buttonWidth, buttonHeight), new GUIContent(StartGameButton, "Start")))
            {
-               
-               SceneManager.LoadScene("MPTestScene");
+                SceneManager.LoadScene("MPTestScene");
            }
            //OptionsButton
            if (GUI.Button(new Rect((int)(Screen.width / 2 - buttonWidth / 2), (int)(Screen.height /2 - buttonHeight / 2), buttonWidth, buttonHeight),  new GUIContent(OptionButtons,"Options")))
