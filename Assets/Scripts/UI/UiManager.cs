@@ -57,6 +57,10 @@ public class UiManager : MonoBehaviour {
 
         dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
 
+        if (isPlayer1)
+            input = player1.GetComponent<inputSystem>();
+        else
+            input = player2.GetComponent<inputSystem>();
     }
 	
 
