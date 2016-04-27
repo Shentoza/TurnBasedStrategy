@@ -130,23 +130,23 @@ public class inputSystem : MonoBehaviour {
 				{
                     if (selectedCell != null && figurGewaehlt)
                     {
-						abilSys.throwSmoke(selectedCell, player);
+						abilSys.throwGrenade(selectedCell, player,Enums.Effects.Smoke);
 						smokeAusgewaehlt = false;
 					}
 				}
 				if (molotovAusgewaehlt)
 				{
                     if(selectedCell != null && figurGewaehlt)
-                    { 
-						abilSys.throwMolotov(selectedCell, player);
-						molotovAusgewaehlt = false;
+                    {
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Fire);
+                        molotovAusgewaehlt = false;
 				}
 				}
                 if (gasAusgewaehlt)
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGas(selectedCell, player);
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Gas);
                         gasAusgewaehlt = false;
                     }
 
@@ -155,7 +155,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player);
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Explosion);
                         granateAusgewaehlt = false;
                     }
 

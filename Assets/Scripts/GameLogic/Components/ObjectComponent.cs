@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Dieses Script dient zur beschreibung der Objekte
+//Hier wird die groesse der Objekte in X und Z Achse bestimmt, ob es Deckung bietet und eine Zelle belegt
+
 public class ObjectComponent : MonoBehaviour {
 
 	Cell cell;

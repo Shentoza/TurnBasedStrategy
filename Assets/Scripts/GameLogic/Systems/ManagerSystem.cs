@@ -62,7 +62,7 @@ public class ManagerSystem : MonoBehaviour {
 
 	}
 
-    public void loadUI()
+    public void startGame()
     {
         Instantiate(uiManager);
         selectedFigurine = unitListP1[0];

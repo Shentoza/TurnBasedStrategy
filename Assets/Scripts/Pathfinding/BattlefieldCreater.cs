@@ -9,6 +9,7 @@ public class BattlefieldCreater : MonoBehaviour {
 	public float sizeZ;
 	GameObject[,] Zellen;
 	public Material material;
+	public Material woodCubeMaterial;
     public float gridHeight;
 
     public int mapSizeX;
@@ -61,6 +62,12 @@ public class BattlefieldCreater : MonoBehaviour {
 		//Verschiebt Plane in den 0 Punkt(Oben links)
 		transformPlane.position = new Vector3 (sizeX * 5, 0, sizeZ * -5);
         LayerMask cellLayer = LayerMask.NameToLayer("Cell");
+
+		GameObject brett = GameObject.CreatePrimitive (PrimitiveType.Cube);
+		brett.transform.position = new Vector3 (transformPlane.position.x, transformPlane.position.y - 1.05f, transformPlane.position.z);
+		brett.transform.localScale = new Vector3 ((float)sizeX * 10, 2, (float)sizeZ * 10);
+		brett.GetComponent<MeshRenderer> ().material = woodCubeMaterial;
+
 
         //Initialisiert alle Zellen
         for (float z = 0; z > -(sizeZint); z--) {

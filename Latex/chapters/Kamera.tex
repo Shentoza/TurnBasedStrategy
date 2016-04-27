@@ -1,1 +1,29 @@
 \chapter{Kamera}
+
+Die Kamera ist eine beweglich Orbitkamera mit Zoom und Rotation die sich nur innerhalb des Levels bewegen kann. Realisiert wird dies durch einen konstanten Focus auf ein bewegliches, unsichtbares Objekt. Die Kamera l"asst sich "uber das Feld bewegen in dem die Maus an den jeweilige Rand bewegt wird der in die gew"unschte Richtung f"uhrt.
+
+Die folgende Funktion pr"uft ob die Kamera im Feld ist:
+
+\begin{lstlisting}[brealines = true]
+	public bool inBattlefield()
+	{
+		bool inField = true;
+		if (target.transform.position.x < 0) {
+			inField = false;
+			target.transform.position = new Vector3(0, target.transform.position.y, target.transform.position.z);
+		}
+		if (target.transform.position.z > 0) {
+			inField = false;
+			target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, 0);
+		}
+		if (target.transform.position.x > (plane.transform.position.x * 2)) {
+			inField = false;
+			target.transform.position = new Vector3((plane.transform.position.x * 2), target.transform.position.y, target.transform.position.z);
+		}
+		if (target.transform.position.z < (plane.transform.position.z * 2)) {
+			inField = false;
+			target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, (plane.transform.position.z * 2));
+		}
+	return inField;
+	}
+\end{lstlisting}

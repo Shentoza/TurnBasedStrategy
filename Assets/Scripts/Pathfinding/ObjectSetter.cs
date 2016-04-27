@@ -57,7 +57,6 @@ public class ObjectSetter : MonoBehaviour {
         // 0 x x 0
         // 0 0 0 0
 
-        Debug.Log(this.gameObject);
         Vector3 posi = Zellen[x + objectComp.sizeX - 1, z + objectComp.sizeZ -1].transform.position - Zellen[x, z].transform.position;
         posi /= 2;
         posi += Zellen[x, z].transform.position;
