@@ -222,26 +222,15 @@ public class WeaponHolding : MonoBehaviour {
 
     public void swapWeapons()
     {
-        Debug.Log("Primary ? " + primary);
         foreach (GameObject g in getActiveItems())
             if (g != null)
-            {
                 g.SetActive(false);
-                Debug.Log(g.name);
-            }
-            else
-                Debug.Log("Null");
 
         primary = !primary;
 
         foreach (GameObject g in getActiveItems())
             if (g != null)
-            {
-                Debug.Log(g.name);
                 g.SetActive(true);
-            }
-            else
-                Debug.Log("Null");
 
         anim.SetInteger(animId_iStance, (int) getActiveStance());
     }
