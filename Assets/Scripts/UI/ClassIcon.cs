@@ -53,23 +53,28 @@ public class ClassIcon : MonoBehaviour {
     void OnGUI()
     {
 
-        if (Input.GetKey("space") && iconToShow != null)
+        if (Input.GetKey("tab") && iconToShow != null)
         {
-            xOffset = 0;
-            yOffset = 0;
+
+            Debug.Log("FICK DICH");
 
             int healthIconWidth = GetComponentInParent<HealthBar>().width;
             int healthIconHeight = GetComponentInParent<HealthBar>().height;
 
             int hpBars = (unit.GetComponentInParent<AttributeComponent>().hp + 9) / 10;
-    
-            if(hpBars <= 5){
-                xOffset = hpBars * (healthIconWidth+barOffset) / 2;
+
+            int xOffset = 0;
+            int yOffset = 0;
+
+            if (hpBars <= 5)
+            {
+                xOffset = (hpBars * (healthIconWidth + barOffset) / 2);
+                yOffset = 0;
             }
             else
             {
-                xOffset = 5 * (healthIconWidth + barOffset) / 2;
-                yOffset = ((hpBars+4) / 5) * (healthIconHeight + barOffset) ;
+                xOffset = (5 * (healthIconWidth + barOffset) / 2);
+                yOffset = hpBars / 5 * (healthIconHeight + barOffset);
             }
             
              
@@ -78,16 +83,17 @@ public class ClassIcon : MonoBehaviour {
             worldPosition.y += figureOffset;
             Vector3 position = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(worldPosition);
 
-
+            /*
             //links neben healthbars
             GUI.DrawTexture(new Rect(position.x - xOffset - width, (Screen.height - position.y) - yOffset , width, height), iconToShow);
-
+            */
             //links über healthbars
-            GUI.DrawTexture(new Rect(position.x - xOffset , (Screen.height - position.y) - yOffset - height, width, height), iconToShow);
-
+            Debug.Log("Class offset: " + xOffset + ", " + yOffset);
+            GUI.DrawTexture(new Rect(position.x - xOffset , (Screen.height - position.y) - yOffset - healthIconHeight - 2*barOffset, width, height), iconToShow);
+            /*
             //links über neben healthbars
             GUI.DrawTexture(new Rect(position.x - xOffset - width, (Screen.height - position.y) - yOffset - height, width, height), iconToShow);
-
+            */
         }
 
     }

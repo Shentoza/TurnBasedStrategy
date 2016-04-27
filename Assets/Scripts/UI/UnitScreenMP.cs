@@ -105,7 +105,7 @@ public class UnitScreenMP : MonoBehaviour {
                 //pickingphase beenden 
                 //übergang zum gameplay
                 done = true;
-                manager.loadUI();
+                manager.startGame();
                 Destroy(this);
             }
         }
