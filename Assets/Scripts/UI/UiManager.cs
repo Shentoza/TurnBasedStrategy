@@ -276,11 +276,6 @@ public class UiManager : MonoBehaviour {
         actionCancel();
         activeSkill = Enums.Actions.Teargas;
         input.gasAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
-        audioSource.Play();
-
-        
     }
 
 

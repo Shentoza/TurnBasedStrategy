@@ -126,4 +126,24 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public static void playGrenade()
+    {
+        grenadeSound.Play();
+    }
+
+    public static void playMolotov()
+    {
+        molotovSound.Play();
+    }
+
+    public static void playSmoke()
+    {
+
+    }
+
+    public static void playTeargasLauncher()
+    {
+        launcherSound.Play();
+    }
+
 }
