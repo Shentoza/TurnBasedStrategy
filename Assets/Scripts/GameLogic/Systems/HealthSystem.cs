@@ -15,6 +15,11 @@ public class HealthSystem : MonoBehaviour
 
     //Für Animationen
     Animator anim;
+    private int animId_tgetHit;
+
+    void Awake() {
+        animId_tgetHit = Animator.StringToHash("getHit");
+    }
 
     /* Generates and inflicts damage if necessary */
     public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
@@ -74,7 +79,7 @@ public class HealthSystem : MonoBehaviour
 
         //Zeug für Animationen
         anim = damageTakingPlayerAttr.model.GetComponent<Animator>();
-        anim.SetTrigger("getHit");
+        anim.SetTrigger(animId_tgetHit);
 
         if (damageTakingPlayerAttr.hp <= 0)
             killFigurine(damageTakingPlayerAttr);
@@ -116,7 +121,7 @@ public class HealthSystem : MonoBehaviour
 
         //Zeug für Animationen
         anim = damageTakingPlayerAttr.gameObject.GetComponent<Animator>();
-        anim.SetTrigger("getHit");
+        anim.SetTrigger(animId_tgetHit);
         if (damageTakingPlayerAttr.hp <= 0)
             killFigurine(damageTakingPlayerAttr);
     }

@@ -229,14 +229,14 @@ public class UiManager : MonoBehaviour {
         actionCancel();
         activeSkill = Enums.Actions.ChangeWeapon;
         // Audiofeedback wenn Waffe gewechselt wird
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-        audioSource.Play();
+        AudioManager.playMainClick();
 
-        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
-        InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
+        AttributeComponent attr = managerSys.getSelectedFigurine().GetComponent<AttributeComponent>();
+        InventoryComponent inv = managerSys.getSelectedFigurine().GetComponent<InventoryComponent>();
         dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
         inv.isPrimary = !inv.isPrimary;
+
+        attr.model.GetComponent<WeaponHolding>().swapWeapons();
     }
     public void heal() {
         actionCancel();
@@ -245,9 +245,7 @@ public class UiManager : MonoBehaviour {
         if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
         {
             // Audiofeedpack wenn heilen klappt
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/medikit") as AudioClip;
-            audioSource.Play();
+            AudioManager.playMedikit();
 
             healthSystem.doHeal(null, activeUnit, HealthSystem.MEDIPACK);
         }
@@ -259,23 +257,15 @@ public class UiManager : MonoBehaviour {
     public void molotov() {
         actionCancel();
         activeSkill = Enums.Actions.Molotov;
-        input.molotovAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
-        audioSource.Play();
-
-        
+        input.molotovAusgewaehlt = true;     
     }
+
     public void grenade(){
         actionCancel();
         activeSkill = Enums.Actions.Grenade;
-        input.granateAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
-        audioSource.Play();
-
-        
+        input.granateAusgewaehlt = true;        
     }
+
     public void  smoke(){
         actionCancel();
         activeSkill = Enums.Actions.Smoke;
@@ -286,11 +276,6 @@ public class UiManager : MonoBehaviour {
         actionCancel();
         activeSkill = Enums.Actions.Teargas;
         input.gasAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
-        audioSource.Play();
-
-        
     }
 
 

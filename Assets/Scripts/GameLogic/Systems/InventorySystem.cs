@@ -37,9 +37,7 @@ public class InventorySystem : MonoBehaviour {
                 }
             }
 
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/reload") as AudioClip;
-            audioSource.Play();
+            AudioManager.playReload();
 
             //Verringert Anzahl der Magazine im Inventar
             inventory.amountMagazines--;
