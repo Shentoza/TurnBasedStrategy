@@ -232,6 +232,8 @@ public class CameraRotationScript : MonoBehaviour {
 	//Ändert das Ziel der Kamera
 	public void setNewTarget(GameObject newTarget)
 	{
+        if (newTarget == null)
+            return;
 		mapCameraEnabled = false;
 		if (oldTarget != target) {
 			oldTarget = target;

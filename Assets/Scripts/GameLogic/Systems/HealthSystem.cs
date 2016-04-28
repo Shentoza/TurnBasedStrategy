@@ -58,7 +58,7 @@ public class HealthSystem : MonoBehaviour
     /* SHOOT related */
     private int generateShootDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr)
     {
-        WeaponComponent attackingPlayerWeapon = (WeaponComponent)attackingPlayerAttr.weapon.GetComponent(typeof(WeaponComponent));
+        WeaponComponent attackingPlayerWeapon = attackingPlayerAttr.items.getCurrentWeapon();
         int damage = attackingPlayerWeapon.damage;
 
         if (targetHasArmor(damageTakingPlayerAtrr))

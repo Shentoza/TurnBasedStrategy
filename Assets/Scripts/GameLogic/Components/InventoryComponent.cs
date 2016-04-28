@@ -14,6 +14,8 @@ public class InventoryComponent : MonoBehaviour {
     public WeaponComponent primary;
     //Sekundärwaffe
     public WeaponComponent secondary;
+
+    public ArmorComponent armor;
     //Ist Primärwaffe ausgewählt? 
     public bool isPrimary;
     //Anzahl Rauchgranaten
@@ -34,8 +36,11 @@ public class InventoryComponent : MonoBehaviour {
         isPrimary = true;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
+	public WeaponComponent getCurrentWeapon()
+    {
+        if (isPrimary)
+            return primary;
+        else
+            return secondary;
+    }
 }
