@@ -23,8 +23,7 @@ public class HealthSystem : MonoBehaviour
         {
             case SHOOT:
                 int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
-                inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);
-                                
+                inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);                    
                 break;
 
             default:
@@ -66,16 +65,19 @@ public class HealthSystem : MonoBehaviour
         return damage;
     }
 
-    private void inflictShootDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damage)
+    private void inflictShootDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAttr, int damage)
     {
         Debug.Log("Damage taken : " + damage);
-        damageTakingPlayerAtrr.hp -= damage;
+        damageTakingPlayerAttr.hp -= damage;
         attackingPlayerComp.useAP();
         attackingPlayerAttr.canShoot = false;
 
         //Zeug für Animationen
-        anim = damageTakingPlayerAtrr.gameObject.GetComponent<Animator>();
+        anim = damageTakingPlayerAttr.model.GetComponent<Animator>();
         anim.SetTrigger("getHit");
+
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
     }
 
     /* MEDIPACK related */
@@ -115,15 +117,29 @@ public class HealthSystem : MonoBehaviour
         //Zeug für Animationen
         anim = damageTakingPlayerAttr.gameObject.GetComponent<Animator>();
         anim.SetTrigger("getHit");
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
     }
 
     public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
     {
         damageTakingPlayerAttr.hp -= 10;
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
     }
 
     public void inflictGasDamage(AttributeComponent damageTakingPlayerAttr)
     {
         damageTakingPlayerAttr.hp -= 10;
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
+    }
+
+    public void killFigurine(AttributeComponent damageTakingPlayerAttr)
+    {
+        GameObject figurine = damageTakingPlayerAttr.gameObject;
+
+        FindObjectOfType<ManagerSystem>().removeUnit(figurine, damageTakingPlayerAttr.team);
+        Destroy(figurine);
     }
 }

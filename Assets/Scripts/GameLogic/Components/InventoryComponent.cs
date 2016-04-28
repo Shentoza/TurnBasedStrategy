@@ -4,7 +4,7 @@ using System.Collections;
 public class InventoryComponent : MonoBehaviour {
 
 
-    //Inventar (primärwaffe, sekundärwaffe, equipment, equipment) siehe Enums.cs    
+    //Inventar (primaerwaffe, sekundaerwaffe, equipment1, equipment2) siehe Enums.cs    
     public Enums.PrimaryWeapons primaryWeaponType;
     public Enums.SecondaryWeapons secondaryWeaponType;
     public Enums.Equipment utility1;
@@ -28,13 +28,6 @@ public class InventoryComponent : MonoBehaviour {
     public int amountMediKits;
     //Anzahl Magazine
     public int amountMagazines;
-
-    // ??
-    public GameObject equipment;
-
-    //Anzahl Minen
-    //public int amountMines;
-
 
 	// Use this for initialization
 	void Start () {

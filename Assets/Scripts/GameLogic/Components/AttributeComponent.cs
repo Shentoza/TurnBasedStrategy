@@ -33,39 +33,17 @@ public class AttributeComponent : MonoBehaviour {
     public GameObject model;
     ArmoryComponent armory;
 
-
-    public int deathCount = 50;
-    bool isDead = false;
-
 	// Use this for initialization
 	void Start ()
     {
       //  skills = new List<Enums.Actions>();
-       
-    
         canShoot = true;
         skills.Add(Enums.Actions.Move);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (hp <= 0)
-        {
-            isDead = true;
-            this.gameObject.tag = "Untagged";
-            deathCount--;
-            Debug.Log("Tick");
-            if (deathCount <= 0)
-            {
-               
-                FindObjectOfType<ManagerSystem>().removeUnit(this.gameObject, team);
-                Debug.Log("death!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                Destroy(this.gameObject);
-
-            }
-        }
-
+        
         if (items.isPrimary && items.primary != null)
         {
             weapon = items.primary.gameObject;
@@ -74,6 +52,7 @@ public class AttributeComponent : MonoBehaviour {
         {
             weapon = items.secondary.gameObject;
         }
+        
     }
 
     public void setCurrentCell(Cell cell)

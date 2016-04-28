@@ -62,6 +62,13 @@ public class InventorySystem : MonoBehaviour {
         InventoryComponent inventory = figurine.GetComponent<InventoryComponent>();
         inventory.amountSmokes--;
     }
+    
+    public void decreaseAmmoInMagazine(GameObject figurine, int amount)
+    {
+        WeaponComponent weapon = figurine.GetComponentInChildren<WeaponComponent>();
+        Debug.Log("Munition im Magazin verringert");
+        weapon.currentBulletsInMagazine -= amount;
+    }
 
     //Wird durch MolotovAktion aufgerufen
     public void decreaseMolotovs(GameObject figurine)

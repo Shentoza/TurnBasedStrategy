@@ -5,7 +5,7 @@
 \BOOKMARK [0][-]{chapter.5}{Manager Objekt}{}% 5
 \BOOKMARK [1][-]{section.5.1}{Manager System}{chapter.5}% 6
 \BOOKMARK [1][-]{section.5.2}{Shooting System}{chapter.5}% 7
-\BOOKMARK [1][-]{section.5.3}{Inventory System \046 Inventory Component}{chapter.5}% 8
+\BOOKMARK [1][-]{section.5.3}{Inventory System}{chapter.5}% 8
 \BOOKMARK [1][-]{section.5.4}{Player Assistance System}{chapter.5}% 9
 \BOOKMARK [1][-]{section.5.5}{Ability System}{chapter.5}% 10
 \BOOKMARK [1][-]{section.5.6}{Health System}{chapter.5}% 11
@@ -15,21 +15,22 @@
 \BOOKMARK [0][-]{chapter.7}{Spielfiguren}{}% 15
 \BOOKMARK [1][-]{section.7.1}{Bewegung}{chapter.7}% 16
 \BOOKMARK [1][-]{section.7.2}{Attribute Component}{chapter.7}% 17
-\BOOKMARK [1][-]{section.7.3}{Selektierte Spielfigur}{chapter.7}% 18
-\BOOKMARK [0][-]{chapter.8}{Pathfinding}{}% 19
-\BOOKMARK [0][-]{chapter.9}{Kamera}{}% 20
-\BOOKMARK [0][-]{chapter.10}{User-Interface}{}% 21
-\BOOKMARK [1][-]{section.10.1}{Action-Points Leiste}{chapter.10}% 22
-\BOOKMARK [1][-]{section.10.2}{Dynamische Ability-Icons}{chapter.10}% 23
-\BOOKMARK [1][-]{section.10.3}{HP Leisten}{chapter.10}% 24
-\BOOKMARK [0][-]{chapter.11}{3D Modelling}{}% 25
-\BOOKMARK [1][-]{section.11.1}{Figuren}{chapter.11}% 26
-\BOOKMARK [1][-]{section.11.2}{Waffen}{chapter.11}% 27
-\BOOKMARK [1][-]{section.11.3}{Equipment}{chapter.11}% 28
-\BOOKMARK [0][-]{chapter.12}{Animationen}{}% 29
-\BOOKMARK [1][-]{section.12.1}{Motion Capture Aufnahmen}{chapter.12}% 30
-\BOOKMARK [1][-]{section.12.2}{Einbindung der Animationen}{chapter.12}% 31
-\BOOKMARK [0][-]{chapter.13}{Sounds}{}% 32
-\BOOKMARK [0][-]{chapter.14}{Effekte}{}% 33
-\BOOKMARK [0][-]{chapter.15}{Status quo}{}% 34
-\BOOKMARK [0][-]{chapter.16}{Fazit}{}% 35
+\BOOKMARK [1][-]{section.7.3}{Inventory Component}{chapter.7}% 18
+\BOOKMARK [1][-]{section.7.4}{Selektierte Spielfigur}{chapter.7}% 19
+\BOOKMARK [0][-]{chapter.8}{Pathfinding}{}% 20
+\BOOKMARK [0][-]{chapter.9}{Kamera}{}% 21
+\BOOKMARK [0][-]{chapter.10}{User-Interface}{}% 22
+\BOOKMARK [1][-]{section.10.1}{Action-Points Leiste}{chapter.10}% 23
+\BOOKMARK [1][-]{section.10.2}{Dynamische Ability-Icons}{chapter.10}% 24
+\BOOKMARK [1][-]{section.10.3}{HP Leisten}{chapter.10}% 25
+\BOOKMARK [0][-]{chapter.11}{3D Modelling}{}% 26
+\BOOKMARK [1][-]{section.11.1}{Figuren}{chapter.11}% 27
+\BOOKMARK [1][-]{section.11.2}{Waffen}{chapter.11}% 28
+\BOOKMARK [1][-]{section.11.3}{Equipment}{chapter.11}% 29
+\BOOKMARK [0][-]{chapter.12}{Animationen}{}% 30
+\BOOKMARK [1][-]{section.12.1}{Motion Capture Aufnahmen}{chapter.12}% 31
+\BOOKMARK [1][-]{section.12.2}{Einbindung der Animationen}{chapter.12}% 32
+\BOOKMARK [0][-]{chapter.13}{Sounds}{}% 33
+\BOOKMARK [0][-]{chapter.14}{Effekte}{}% 34
+\BOOKMARK [0][-]{chapter.15}{Status quo}{}% 35
+\BOOKMARK [0][-]{chapter.16}{Fazit}{}% 36
