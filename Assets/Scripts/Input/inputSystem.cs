@@ -234,8 +234,11 @@ public class inputSystem : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(isActionSelected())
+            if(isActionSelected()){
                 cancelActions();
+
+                Debug.Log("esc 1");
+             }
             else if(figurGewaehlt)
             {
                 player = null;
@@ -246,6 +249,8 @@ public class inputSystem : MonoBehaviour {
                 //ui manager informieren
                     // scheinbar redundant
                // uiManager.deselect();
+
+                Debug.Log("esc 2");
             }
         }
 	}
