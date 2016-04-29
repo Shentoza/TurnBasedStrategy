@@ -89,12 +89,12 @@ public class CameraRotationScript : MonoBehaviour {
 		mousePosY = Input.mousePosition.y;
 
 		//Führt die Kamerafahrt am Anfang durch
-		if (startLerp) {
+		/*if (startLerp) {
 			transform.position = Vector3.Lerp(transform.position, new Vector3(5, 10, -15), 5.0f * 0.03f);
 			if (transform.position == new Vector3 (5, 10, -15)) {
 				startLerp = false;
 			}
-		}
+		}*/
 
 		//Links scrollen
 		if (mousePosX / Screen.width < 1 - scrollDistance && !startRotation) {
@@ -145,7 +145,7 @@ public class CameraRotationScript : MonoBehaviour {
 			}
 		}
 
-		if (!startLerp && target) {
+		if (target) {
 			y = ClampAngle (y, yMinLimit, yMaxLimit);
 
 			Quaternion rotation = Quaternion.Euler (y, x, 0);
@@ -167,7 +167,7 @@ public class CameraRotationScript : MonoBehaviour {
 		}
 
 		//Die Rotation um ein Objekt
-		if (startRotation && !startLerp && target) {
+		if (startRotation && target) {
 			x += Input.GetAxis ("Mouse X") * xSpeed * distance * 0.02f;
 			y -= Input.GetAxis ("Mouse Y") * ySpeed * 0.02f;
 

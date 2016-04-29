@@ -10,6 +10,7 @@ public class DijkstraSystem : MonoBehaviour {
     public Material attackableMat;
     public Material defaultMat;
     public Material highlightedMat;
+    public Material highlightedFigurineMat;
 
     private CellComparer comp;
     private ArrayList entdeckteZellen;
@@ -50,6 +51,7 @@ public class DijkstraSystem : MonoBehaviour {
                 }
             }
         }
+        
     }
 
     public ArrayList getPath(Cell startKnoten, Cell zielKnoten)
@@ -91,12 +93,16 @@ public class DijkstraSystem : MonoBehaviour {
     {
         MeshRenderer meshRend = (MeshRenderer)cell.gameObject.GetComponent(typeof(MeshRenderer));
         meshRend.enabled = true;
-        if (cell.dij_GesamtKosten <= moveRange)
+        if (cell.dij_GesamtKosten == 0)
+            meshRend.material = highlightedFigurineMat;
+        else if (cell.dij_GesamtKosten <= moveRange)
             meshRend.material = begebarMat;
         else if (cell.dij_GesamtKosten <= moveRange + attackRange)
             meshRend.material = attackableMat;
+        
         else
             meshRend.enabled = false;
+        
 
     }
 
@@ -124,6 +130,7 @@ public class DijkstraSystem : MonoBehaviour {
                 Cell currentCell = battleField.getCell(i, j);
                 colorCell(currentCell, moveRange, attackRange);
             }
+        
     }
 
     public void resetAllCellColors()

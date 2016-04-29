@@ -14,7 +14,7 @@ public class PlayerAssistanceSystem : MonoBehaviour {
     public Material startArrow;
     public Material endArrow;
     public Material middleArrow;
-
+    public Material highlight;
     public Material pathMaterial;
 
 	// Use this for initialization
@@ -55,7 +55,7 @@ public class PlayerAssistanceSystem : MonoBehaviour {
     {
         foreach (Cell current in walkPath)
         {
-            MeshRenderer mr = (MeshRenderer)current.gameObject.GetComponent(typeof(MeshRenderer));
+            MeshRenderer mr = (MeshRenderer)current.gameObject.GetComponent<MeshRenderer>();
             mr.material = dij.begebarMat;
         }
 

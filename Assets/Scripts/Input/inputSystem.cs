@@ -5,6 +5,7 @@ public class inputSystem : MonoBehaviour {
 
     //Stuff vom Manager
     ManagerSystem manager;
+
     DijkstraSystem dijSys;
     PlayerAssistanceSystem assist;
     AbilitySystem abilSys;
@@ -37,7 +38,7 @@ public class inputSystem : MonoBehaviour {
     public bool molotovAusgewaehlt;
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
-
+   
     UiManager uiManager;
 
 	// Use this for initialization
@@ -233,7 +234,24 @@ public class inputSystem : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            cancelActions();
+            if(isActionSelected()){
+                cancelActions();
+
+                Debug.Log("esc 1");
+             }
+            else if(figurGewaehlt)
+            {
+                player = null;
+                manager.setSelectedFigurine(null);
+                figurGewaehlt = false; 
+                dijSys.resetDijkstra();
+
+                //ui manager informieren
+                    // scheinbar redundant
+               // uiManager.deselect();
+
+                Debug.Log("esc 2");
+            }
         }
 	}
 
@@ -243,6 +261,7 @@ public class inputSystem : MonoBehaviour {
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
         movementAusgewaehlt = false;
+        gasAusgewaehlt = false;
         GameObject.Find("UiManager(Clone)").GetComponent<UiManager>().activeSkill = Enums.Actions.Cancel;
     }
 
@@ -268,6 +287,13 @@ public class inputSystem : MonoBehaviour {
             figurGewaehlt = true;
             rotationScript.setNewTarget(player);
         }
+        
+    }
+
+    public bool isActionSelected()
+    {
+        return granateAusgewaehlt || movementAusgewaehlt || angriffAusgewaehlt || molotovAusgewaehlt ||
+                gasAusgewaehlt || smokeAusgewaehlt;
     }
 }
 
