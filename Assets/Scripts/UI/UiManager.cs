@@ -48,10 +48,6 @@ public class UiManager : MonoBehaviour {
         isPlayer1 = managerSys.getPlayerTurn();       
 
 
-        //getActiveUnitSkills
-        activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
-        activeUnitSkills = activeUnit.skills;
-
         //setStyle
         style = new GUIStyle();
 
@@ -61,20 +57,27 @@ public class UiManager : MonoBehaviour {
             input = player1.GetComponent<inputSystem>();
         else
             input = player2.GetComponent<inputSystem>();
+
+        figureUpdate();
     }
 	
 
     // Update is called once per frame
     void Update()
     {
+
+        // welcher spieler ist am zug
         isPlayer1 = managerSys.getPlayerTurn();
+        //beschaffe aktionspunkte
         player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
+        //wähle inputchannel
         if (isPlayer1)
             input = player1.GetComponent<inputSystem>();
         else
             input = player2.GetComponent<inputSystem>();
 
+        figureUpdate();
         if (managerSys.selectedFigurine != null && figureSelected == false)
         {
             figureSelected = true;
@@ -92,6 +95,7 @@ public class UiManager : MonoBehaviour {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
         }
+
     }
 
 
@@ -293,5 +297,36 @@ public class UiManager : MonoBehaviour {
     public void actionCancel()
     {
         input.cancelActions();
+    }
+
+    public bool isFigureSelected()
+    {
+        return figureSelected;
+    }
+
+    private void figureUpdate()
+    {
+        //wenn einheit ausgewählt ist, markiere sie
+        if (managerSys.selectedFigurine != null && figureSelected == false)
+        {
+            figureSelected = true;
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        }
+        else if (managerSys.selectedFigurine == null)
+        {
+            figureSelected = true;
+            activeUnit = null;
+        }
+
+        //beschaffe skills der aktiven einheit
+        if (figureSelected)
+        {
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+            activeUnitSkills = activeUnit.skills;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            actionCancel();
+        }
     }
 }
