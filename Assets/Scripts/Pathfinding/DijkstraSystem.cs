@@ -4,15 +4,15 @@ using System;
 
 public class DijkstraSystem : MonoBehaviour {
 
-    public BattlefieldCreater battleField;
+    [SerializeField]
+    private BattlefieldCreater battleField;
     public Material begebarMat;
     public Material attackableMat;
     public Material defaultMat;
     public Material highlightedMat;
 
-    CellComparer comp;
-
-    ArrayList entdeckteZellen;
+    private CellComparer comp;
+    private ArrayList entdeckteZellen;
 
 	// Use this for initialization
 	void Start () {

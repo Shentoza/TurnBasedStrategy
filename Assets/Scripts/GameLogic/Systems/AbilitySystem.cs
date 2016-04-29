@@ -18,7 +18,7 @@ public class AbilitySystem : MonoBehaviour {
 
     //Grenade Stuff
     private GameObject throwing_Object;
-    private float throwing_TimePerCell = 0.25f;
+    private float throwing_TimePerCell = 360f;
     private float throwing_TimeNeeded;
     private float throwing_TimeSum;
     private float throwing_Length;
@@ -40,7 +40,7 @@ public class AbilitySystem : MonoBehaviour {
 	}
 
     //Methode um anfangen shit zu schmeißen
-    public void throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
+    public IEnumerator throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
         InventoryComponent invent = figur.GetComponent<InventoryComponent>();
@@ -64,7 +64,8 @@ public class AbilitySystem : MonoBehaviour {
         if (ziel.dij_GesamtKosten <= playerAttr.attackRange && amountOfGrenades > 0)
         {
             figur.GetComponentInParent<PlayerComponent>().useAP();
-            checkRotation(ziel, playerAttr);
+            while (!checkRotation(ziel, playerAttr))
+                yield return null;
             throwing_DestinationCell = ziel;
             //Einsatz von AP durch Faehigkeit
             figur.GetComponentInParent<PlayerComponent>().useAP();
@@ -259,6 +260,7 @@ public class AbilitySystem : MonoBehaviour {
         throwing_Object = grenade;
         throwing_StartPos = throwing_Object.transform.position;
         throwing_DestinationPos = throwing_DestinationCell.gameObject.transform.position;
+        
 
         Vector3 baselength = throwing_DestinationPos - throwing_StartPos;
         baselength.y = 0.0f;
@@ -279,7 +281,6 @@ public class AbilitySystem : MonoBehaviour {
         float progress = Mathf.Clamp01(throwing_TimeSum / throwing_TimeNeeded);
         float yValue = -20 * (progress * progress) + 20 * progress;
 
-        //Debug.Log(progress);
         Vector3 result = Vector3.Lerp(throwing_StartPos, throwing_DestinationPos, progress);
         result.y += yValue;
         throwing_Object.transform.position = result;
@@ -313,7 +314,6 @@ public class AbilitySystem : MonoBehaviour {
         }
         throwing_Active = false;
         GameObject.Destroy(throwing_Object);
-        Debug.Log("BOOM");
     }
 
 

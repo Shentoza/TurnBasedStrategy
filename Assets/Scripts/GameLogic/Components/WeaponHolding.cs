@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class WeaponHolding : MonoBehaviour {
 
@@ -24,12 +25,15 @@ public class WeaponHolding : MonoBehaviour {
 
     bool primary;
 
+    public GameObject owner { get; set; }
+
     private AbilitySystem ability;
     private GameObject grenadeInstance;
     private ArmoryComponent armory;
     private Animator anim;
 
     private int animId_iStance;
+    private bool anim_shotIsHit;
 
 
 
@@ -39,7 +43,10 @@ public class WeaponHolding : MonoBehaviour {
         armory = FindObjectOfType<ArmoryComponent>();
         anim = GetComponent<Animator>();
         animId_iStance = Animator.StringToHash("Stance");
+        anim_shotIsHit = false;
+
         primary = true;
+        anim_shotIsHit = false;
     }
 	
 	// Update is called once per frame
@@ -95,6 +102,19 @@ public class WeaponHolding : MonoBehaviour {
         addedItem.transform.localScale = item.transform.lossyScale;
 
         return addedItem;
+    }
+
+    public void shoot_isNextShotHit(bool value)
+    {
+        anim_shotIsHit = value;
+    }
+
+    public void shoot_playSound()
+    {
+        if (anim_shotIsHit)
+            AudioManager.playShootingSound(owner.GetComponent<AttributeComponent>().items.getCurrentWeapon());
+        else
+            AudioManager.playMissed();
     }
 
     public void initializeEquip(GameObject itemLeftPrim, GameObject itemRightPrim, GameObject itemLeftSec, GameObject itemRightSec, Enums.Stance primStance, Enums.Stance secondStance)
@@ -204,13 +224,13 @@ public class WeaponHolding : MonoBehaviour {
                 break;
         }
         grenadeInstance.transform.position = leftHand.transform.position;
-        grenadeInstance.transform.parent = leftHand.transform;
-        
+        grenadeInstance.transform.SetParent(leftHand.transform);
     }
 
     public void throwIt()
     {
         ability.throwIt(grenadeInstance);
+        grenadeInstance.transform.SetParent(null);
         if (leftHandObjectPrimary != null)
             leftHandObjectPrimary.SetActive(true);
     }

@@ -43,11 +43,11 @@ public class inputSystem : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GameObject managerObj = GameObject.Find("Manager");
-        uiManager = (UiManager)managerObj.GetComponent<UiManager>();
-        manager = (ManagerSystem)managerObj.GetComponent(typeof(ManagerSystem));
-        dijSys = (DijkstraSystem)managerObj.GetComponent(typeof(DijkstraSystem));
-        assist = (PlayerAssistanceSystem)managerObj.GetComponent(typeof(PlayerAssistanceSystem));
-        abilSys = (AbilitySystem)managerObj.GetComponent(typeof(AbilitySystem));
+        uiManager = managerObj.GetComponent<UiManager>();
+        manager = managerObj.GetComponent<ManagerSystem>();
+        dijSys = managerObj.GetComponent<DijkstraSystem>();
+        assist = managerObj.GetComponent<PlayerAssistanceSystem>();
+        abilSys = managerObj.GetComponent<AbilitySystem>();
 
 
         selectedCell = selectedMovementCell =  null;
@@ -130,7 +130,7 @@ public class inputSystem : MonoBehaviour {
 				{
                     if (selectedCell != null && figurGewaehlt)
                     {
-						abilSys.throwGrenade(selectedCell, player,Enums.Effects.Smoke);
+                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Smoke));
 						smokeAusgewaehlt = false;
 					}
 				}
@@ -138,7 +138,7 @@ public class inputSystem : MonoBehaviour {
 				{
                     if(selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Fire);
+                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Fire));
                         molotovAusgewaehlt = false;
 				}
 				}
@@ -146,7 +146,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Gas);
+                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Gas));
                         gasAusgewaehlt = false;
                     }
 
@@ -155,7 +155,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Explosion);
+                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Explosion));
                         granateAusgewaehlt = false;
                     }
 
@@ -239,7 +239,6 @@ public class inputSystem : MonoBehaviour {
 
     public void cancelActions()
     {
-        Debug.Log("Cancel Actions");
         angriffAusgewaehlt = false;
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;

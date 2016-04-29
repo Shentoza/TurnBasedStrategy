@@ -183,7 +183,6 @@ public class ActionButtons : MonoBehaviour {
             if(clicked7)
             {
                 uiM.molotov();
-                Debug.Log("Molotov");
             }
         }
         else if (skills[i] == Enums.Actions.Grenade)

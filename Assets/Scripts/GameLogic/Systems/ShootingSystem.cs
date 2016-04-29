@@ -61,9 +61,8 @@ public class ShootingSystem : MonoBehaviour
         {
             float hitChance = chanceOfHittingTarget();
             Debug.Log("Hitchance: " + hitChance);
-            if(hitChance >= Random.value)
+            if (hitChance >= Random.value)
             {
-                AudioManager.playShootingSound(currentPlayerWeapon);                
                 if (healthSystem == null)
                     Debug.Log("Healthsys");
                 if (currentplayerAttr == null)
@@ -77,7 +76,6 @@ public class ShootingSystem : MonoBehaviour
             }
             else
             {
-                AudioManager.playMissed();                
                 return false;
             }
         }

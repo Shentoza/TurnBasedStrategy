@@ -35,7 +35,6 @@ public class InventoryComponent : MonoBehaviour {
 	void Start () {
         isPrimary = true;
 	}
-	
 	public WeaponComponent getCurrentWeapon()
     {
         if (isPrimary)

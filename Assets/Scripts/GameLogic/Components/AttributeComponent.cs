@@ -104,6 +104,7 @@ public class AttributeComponent : MonoBehaviour {
 
         profession = (Enums.Prof)i;
         WeaponHolding weapons = (WeaponHolding)model.GetComponent(typeof(WeaponHolding));
+        weapons.owner = this.gameObject;
 
         if (profession == Enums.Prof.Riot)
         {
@@ -217,6 +218,7 @@ public class AttributeComponent : MonoBehaviour {
         Enums.Stance stance = Enums.Stance.Range1H;
 
         WeaponHolding weapons = (WeaponHolding)model.GetComponent(typeof(WeaponHolding));
+        weapons.owner = this.gameObject;
         GameObject tmp;
 
         //primärwaffe

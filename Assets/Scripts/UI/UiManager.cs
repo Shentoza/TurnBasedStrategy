@@ -282,6 +282,7 @@ public class UiManager : MonoBehaviour {
     public void actionCancel()
     {
        // activeSkill = Enums.Actions.Cancel;
+
         input.cancelActions();
     }
 }

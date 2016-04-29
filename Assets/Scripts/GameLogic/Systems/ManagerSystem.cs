@@ -18,6 +18,8 @@ public class ManagerSystem : MonoBehaviour {
     CameraRotationScript cam;
     public int rounds;             //Spiegelt Rundenzahl wieder
     private bool isPlayer1;         //Spieler1 an der Reihe
+
+
     GameObject player1;
     GameObject player2;
     public GameObject selectedFigurine;    //Aktuell ausgewählte Spielfigur
@@ -44,6 +46,7 @@ public class ManagerSystem : MonoBehaviour {
         isPlayer1 = true;
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
+
         player2.GetComponent<inputSystem>().enabled = false;
         cam = GameObject.Find("Main Camera").GetComponent<CameraRotationScript>();
         shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
@@ -78,15 +81,18 @@ public class ManagerSystem : MonoBehaviour {
         AttributeComponent attackAttr = (AttributeComponent) attacker.GetComponent(typeof(AttributeComponent));
         AttributeComponent targetAttr = (AttributeComponent)attacker.GetComponent(typeof(AttributeComponent));
 
+        WeaponHolding weapon_anim = attackAttr.model.GetComponent<WeaponHolding>();
         attackAttr.anim.SetTrigger("Shoot");
         if (shootingSys.shoot(attacker, target))
         {
             Debug.Log("HIIIIT!!!");
             targetAttr.anim.SetTrigger("getHit");
+            weapon_anim.shoot_isNextShotHit(true);
             Debug.Log("Getroffen");
         }
         else
         {
+            weapon_anim.shoot_isNextShotHit(false);
             Debug.Log("Nicht getroffen");
         }
     }
@@ -145,6 +151,14 @@ public class ManagerSystem : MonoBehaviour {
             input.selectFigurine(null);
             player1.GetComponent<inputSystem>().enabled = false;
         }
+
+        //Setze Aktionen wieder frei
+        if(isPlayer1)
+            foreach(GameObject g in unitListP1)
+                g.GetComponent<AttributeComponent>().canShoot = true;
+        else
+            foreach (GameObject g in unitListP2)
+                g.GetComponent<AttributeComponent>().canShoot = true;
     }
 
     public void setSelectedFigurine(GameObject selected)
