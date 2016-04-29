@@ -87,7 +87,6 @@ public class AbilitySystem : MonoBehaviour {
                     invent.amountSmokes--;
                     break;
             }
-
         }
         else {
             Debug.Log("OutOfRange");

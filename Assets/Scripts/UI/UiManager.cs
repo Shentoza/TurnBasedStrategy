@@ -31,7 +31,7 @@ public class UiManager : MonoBehaviour {
 
    public Enums.Actions activeSkill = 0;
 
-    private bool figureSelected = false;
+    public bool figureSelected = false;
     
 	// Use this for initialization
 	void Start () {
@@ -80,18 +80,18 @@ public class UiManager : MonoBehaviour {
             figureSelected = true;
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
         }
+
+        if(managerSys.selectedFigurine == null)
+        {
+            figureSelected = false;
+        }
         
         //beschaffe aktive einheit
-        if (activeUnit)
+        if (figureSelected)
         {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            actionCancel();
-        }
-
     }
 
 
@@ -222,8 +222,13 @@ public class UiManager : MonoBehaviour {
     }
     public void reload(){
         actionCancel();
-        activeSkill = Enums.Actions.Reload;
-        inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
+        AttributeComponent attr = managerSys.getSelectedFigurine().GetComponent<AttributeComponent>();
+        //Es wird nur nachgeladen wenn das Magazin nicht komplett voll ist
+        if (attr.items.getCurrentWeapon().currentBulletsInMagazine < attr.items.getCurrentWeapon().magazineSize)
+        {  
+            activeSkill = Enums.Actions.Reload;
+            inventSys.reloadAmmo(managerSys.getSelectedFigurine());
+        }
     }
     public void changeWeapon(){
         actionCancel();
@@ -257,19 +262,25 @@ public class UiManager : MonoBehaviour {
     public void molotov() {
         actionCancel();
         activeSkill = Enums.Actions.Molotov;
-        input.molotovAusgewaehlt = true;     
+        input.molotovAusgewaehlt = true;
+        AttributeComponent temp = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        dijkstra.executeDijsktra(temp.getCurrentCell(), 0, temp.attackRange);
     }
 
     public void grenade(){
         actionCancel();
         activeSkill = Enums.Actions.Grenade;
-        input.granateAusgewaehlt = true;        
+        input.granateAusgewaehlt = true;
+        AttributeComponent temp = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        dijkstra.executeDijsktra(temp.getCurrentCell(), 0, temp.attackRange);
     }
 
     public void  smoke(){
         actionCancel();
         activeSkill = Enums.Actions.Smoke;
         input.smokeAusgewaehlt = true;
+        AttributeComponent temp = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        dijkstra.executeDijsktra(temp.getCurrentCell(), 0, temp.attackRange);
     }
     public void teargas()
     {
@@ -281,7 +292,6 @@ public class UiManager : MonoBehaviour {
 
     public void actionCancel()
     {
-       // activeSkill = Enums.Actions.Cancel;
         input.cancelActions();
     }
 }

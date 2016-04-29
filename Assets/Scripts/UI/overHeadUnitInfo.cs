@@ -77,7 +77,7 @@ public class overHeadUnitInfo : MonoBehaviour {
         }
 
 
-        hpBars = (unit.GetComponent<AttributeComponent>().hp + 9) / 10;
+        hpBars = unit.GetComponent<AttributeComponent>().hp;
     }
 
 

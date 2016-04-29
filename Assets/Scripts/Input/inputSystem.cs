@@ -5,6 +5,7 @@ public class inputSystem : MonoBehaviour {
 
     //Stuff vom Manager
     ManagerSystem manager;
+
     DijkstraSystem dijSys;
     PlayerAssistanceSystem assist;
     AbilitySystem abilSys;
@@ -37,7 +38,7 @@ public class inputSystem : MonoBehaviour {
     public bool molotovAusgewaehlt;
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
-
+   
     UiManager uiManager;
 
 	// Use this for initialization
@@ -233,7 +234,18 @@ public class inputSystem : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            cancelActions();
+            if(isActionSelected())
+                cancelActions();
+            else if(figurGewaehlt)
+            {
+                player = null;
+                manager.setSelectedFigurine(null);
+                figurGewaehlt = false; 
+                dijSys.resetDijkstra();
+                //Hier muss die ActionLeiste dann ausgeblendet werden
+                //uiManager <---Variable ist im InputSystem definiert, schreib bitte eine Methode in dem Skript
+                //in dem du die Actionleiste zeichnest, blende die dort aus und ruf die Methode hier auf
+            }
         }
 	}
 
@@ -244,6 +256,7 @@ public class inputSystem : MonoBehaviour {
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
         movementAusgewaehlt = false;
+        gasAusgewaehlt = false;
         GameObject.Find("UiManager(Clone)").GetComponent<UiManager>().activeSkill = Enums.Actions.Cancel;
     }
 
@@ -269,6 +282,13 @@ public class inputSystem : MonoBehaviour {
             figurGewaehlt = true;
             rotationScript.setNewTarget(player);
         }
+        
+    }
+
+    public bool isActionSelected()
+    {
+        return granateAusgewaehlt || movementAusgewaehlt || angriffAusgewaehlt || molotovAusgewaehlt ||
+                gasAusgewaehlt || smokeAusgewaehlt;
     }
 }
 

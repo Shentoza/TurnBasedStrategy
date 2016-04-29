@@ -139,7 +139,6 @@ public class ActionButtons : MonoBehaviour {
        
             if(clicked4)
             {
-                
                 uiM.reload();
                 Debug.Log("Reload");
             }
