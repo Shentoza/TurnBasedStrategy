@@ -242,9 +242,10 @@ public class inputSystem : MonoBehaviour {
                 manager.setSelectedFigurine(null);
                 figurGewaehlt = false; 
                 dijSys.resetDijkstra();
-                //Hier muss die ActionLeiste dann ausgeblendet werden
-                //uiManager <---Variable ist im InputSystem definiert, schreib bitte eine Methode in dem Skript
-                //in dem du die Actionleiste zeichnest, blende die dort aus und ruf die Methode hier auf
+
+                //ui manager informieren
+                    // scheinbar redundant
+               // uiManager.deselect();
             }
         }
 	}

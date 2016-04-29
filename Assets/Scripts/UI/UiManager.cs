@@ -304,6 +304,12 @@ public class UiManager : MonoBehaviour {
         return figureSelected;
     }
 
+    public void deselect()
+    {
+        figureSelected = false;
+        activeUnit = null;
+    }
+
     private void figureUpdate()
     {
         //wenn einheit ausgewählt ist, markiere sie
@@ -314,7 +320,7 @@ public class UiManager : MonoBehaviour {
         }
         else if (managerSys.selectedFigurine == null)
         {
-            figureSelected = true;
+            figureSelected = false;
             activeUnit = null;
         }
 
