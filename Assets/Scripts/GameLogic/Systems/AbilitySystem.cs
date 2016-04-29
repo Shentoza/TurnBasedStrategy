@@ -18,7 +18,7 @@ public class AbilitySystem : MonoBehaviour {
 
     //Grenade Stuff
     private GameObject throwing_Object;
-    private float throwing_TimePerCell = 360f;
+    private float throwing_TimePerCell = 0.25f;
     private float throwing_TimeNeeded;
     private float throwing_TimeSum;
     private float throwing_Length;
@@ -40,7 +40,7 @@ public class AbilitySystem : MonoBehaviour {
 	}
 
     //Methode um anfangen shit zu schmeißen
-    public IEnumerator throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
+    public void throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
     {
         AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
         InventoryComponent invent = figur.GetComponent<InventoryComponent>();
@@ -64,8 +64,9 @@ public class AbilitySystem : MonoBehaviour {
         if (ziel.dij_GesamtKosten <= playerAttr.attackRange && amountOfGrenades > 0)
         {
             figur.GetComponentInParent<PlayerComponent>().useAP();
-            while (!checkRotation(ziel, playerAttr))
-                yield return null;
+            //while (!checkRotation(ziel, playerAttr))
+                            //yield return null;
+            checkRotation(ziel, playerAttr);
             throwing_DestinationCell = ziel;
             //Einsatz von AP durch Faehigkeit
             figur.GetComponentInParent<PlayerComponent>().useAP();

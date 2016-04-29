@@ -130,7 +130,7 @@ public class inputSystem : MonoBehaviour {
 				{
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Smoke));
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Smoke);
 						smokeAusgewaehlt = false;
 					}
 				}
@@ -138,7 +138,7 @@ public class inputSystem : MonoBehaviour {
 				{
                     if(selectedCell != null && figurGewaehlt)
                     {
-                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Fire));
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Fire);
                         molotovAusgewaehlt = false;
 				}
 				}
@@ -146,7 +146,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Gas));
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Gas);
                         gasAusgewaehlt = false;
                     }
 
@@ -155,7 +155,7 @@ public class inputSystem : MonoBehaviour {
                 {
                     if (selectedCell != null && figurGewaehlt)
                     {
-                        StartCoroutine(abilSys.throwGrenade(selectedCell, player, Enums.Effects.Explosion));
+                        abilSys.throwGrenade(selectedCell, player, Enums.Effects.Explosion);
                         granateAusgewaehlt = false;
                     }
 
