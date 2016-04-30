@@ -111,10 +111,14 @@ public class WeaponHolding : MonoBehaviour {
 
     public void shoot_playSound()
     {
+        WeaponComponent weaponComp = owner.GetComponent<AttributeComponent>().items.getCurrentWeapon();
         if (anim_shotIsHit)
-            AudioManager.playShootingSound(owner.GetComponent<AttributeComponent>().items.getCurrentWeapon());
+            AudioManager.playShootingSound(weaponComp);
         else
             AudioManager.playMissed();
+
+        if (weaponComp.particle != null)
+            weaponComp.particle.Play();
     }
 
     public void initializeEquip(GameObject itemLeftPrim, GameObject itemRightPrim, GameObject itemLeftSec, GameObject itemRightSec, Enums.Stance primStance, Enums.Stance secondStance)

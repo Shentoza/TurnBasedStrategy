@@ -11,10 +11,12 @@ public class WeaponComponent : MonoBehaviour
     public int currentBulletsInMagazine;
     public int magazineSize;
     public float weaponAccuracy;
+    public ParticleSystem particle;
 
     // Use this for initialization
     void Start ()
     {
+        particle = GetComponentInChildren<ParticleSystem>();
     }
 	
 	// Update is called once per frame

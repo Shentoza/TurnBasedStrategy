@@ -1,19 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.6)  27 APR 2016 14:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.24)  30 APR 2016 20:07
 entering extended mode
 **vorlage.tex
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\vorlage.tex"
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2013-05-26, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
- lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
-german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
-ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
-an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
-ishmax, welsh, loaded.
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\i-studis.cls"
+(vorlage.tex
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 69 languages loaded.
+(i-studis.cls
 Document Class: i-studis 2005/09/23 v4.11 
 Springer Verlag global LaTeX document class for monographs
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\url\url.sty"
@@ -24,9 +15,9 @@ Class Springer-SVMono Info: extra/valid Springer sub-package
 (Springer-SVMono)           not found in option list - using "global" style.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo"
-File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -78,10 +69,10 @@ LaTeX Font Info:    Redeclaring math symbol \Omega on input line 748.
 \c@merk=\count90
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\makeidx.sty"
-Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\multicol.sty"
-Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
 \c@tracingmulticols=\count91
 \mult@box=\box26
 \multicol@leftmargin=\dimen124
@@ -98,6 +89,7 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \multicolbaselineskip=\skip44
 \partial@page=\box27
 \last@line=\box28
+\maxbalancingoverflow=\dimen129
 \mult@rightbox=\box29
 \mult@grightbox=\box30
 \mult@gfirstbox=\box31
@@ -121,22 +113,22 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \@tempa=\box49
 \c@columnbadness=\count97
 \c@finalcolumnbadness=\count98
-\last@try=\dimen129
-\multicolovershoot=\dimen130
-\multicolundershoot=\dimen131
+\last@try=\dimen130
+\multicolovershoot=\dimen131
+\multicolundershoot=\dimen132
 \mult@nat@firstbox=\box50
 \colbreak@box=\box51
-\multicol@sort@counter=\count99
+\mc@col@check@num=\count99
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
@@ -144,7 +136,7 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 94.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -157,8 +149,8 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count100
 ))
-\Gin@req@height=\dimen132
-\Gin@req@width=\dimen133
+\Gin@req@height=\dimen133
+\Gin@req@width=\dimen134
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
@@ -217,7 +209,7 @@ Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
-\@linkdim=\dimen134
+\@linkdim=\dimen135
 \Hy@linkcounter=\count101
 \Hy@pagecounter=\count102
 
@@ -239,10 +231,10 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count104
 LaTeX Info: Redefining \url on input line 5041.
-\XeTeXLinkMargin=\dimen135
+\XeTeXLinkMargin=\dimen136
 \Fld@menulength=\count105
-\Field@Width=\dimen136
-\Fld@charsize=\dimen137
+\Field@Width=\dimen137
+\Fld@charsize=\dimen138
 Package hyperref Info: Hyper figures OFF on input line 6295.
 Package hyperref Info: Link nesting OFF on input line 6300.
 Package hyperref Info: Hyper index ON on input line 6303.
@@ -272,15 +264,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip45
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: pdftex.def on input line 142.
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
-Package: babel 2008/07/08 v3.8m The Babel package
+Package: babel 2015/08/03 3.9m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
@@ -288,44 +280,48 @@ Package: babel 2008/07/08 v3.8m The Babel package
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
-Language: english 2005/03/30 v3.3o English support from the babel system
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-english\english.ldf"
+Language: english 2012/08/20 v3.3p English support from the babel system
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+File: babel.def 2015/08/03 3.9m Babel common definitions
 \babel@savecnt=\count111
-\U@D=\dimen138
+\U@D=\dimen139
 )
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\ngermanb.ldf"
-Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-german\ngerman.ldf"
+Language: ngerman 2013/12/13 v2.7 German support for babel (new orthography)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-german\ngermanb.ldf"
+Language: ngermanb 2013/12/13 v2.7 German support for babel (new orthography)
 \l@naustrian = a dialect from \language\l@ngerman 
-Package babel Info: Making " an active character on input line 92.
-))
+\l@nswissgerman = a dialect from \language\l@ngerman 
+Package babel Info: Making " an active character on input line 88.
+)))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
-Package: inputenc 2008/03/30 v1.1d Input encoding file
+Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
+File: latin1.def 2015/03/17 v1.2c Input encoding file
 ))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
 \lst@mode=\count112
 \lst@gtempboxa=\box52
 \lst@token=\toks17
 \lst@length=\count113
-\lst@currlwidth=\dimen139
+\lst@currlwidth=\dimen140
 \lst@column=\count114
 \lst@pos=\count115
-\lst@lostspace=\dimen140
-\lst@width=\dimen141
+\lst@lostspace=\dimen141
+\lst@width=\dimen142
 \lst@newlines=\count116
 \lst@lineno=\count117
-\lst@maxwidth=\dimen142
+\lst@maxwidth=\dimen143
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
@@ -351,73 +347,74 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             only a restricted character set as indicated.
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
-Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1enc.def"
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
-LaTeX Info: Redefining \oldstylenums on input line 266.
-Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
-Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
-Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
-Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
-Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
-Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
-Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
-Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
-Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
-Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
-Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
-Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
-Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
-Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
-Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
-Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
-Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
-Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
-Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
-Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
-Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
-Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
-Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
-Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
 
-Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
-Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
-Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
-Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
-Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
-Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
-Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
-Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
-Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
-Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
-Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
-Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
-Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
-Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
-Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
-Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
-Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
-Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
-Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
-Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
-Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
-Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
-Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
-Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
-Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
-Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
-Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
-Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
-Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
-Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
-Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
-Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
-Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
-Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
-Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
-Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
@@ -436,7 +433,7 @@ Package: amstext 2000/06/29 v2.01
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks19
-\ex@=\dimen143
+\ex@=\dimen144
 ))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2013/01/14 v2.14 AMS math features
@@ -445,7 +442,7 @@ Package: amsmath 2013/01/14 v2.14 AMS math features
 For additional information on amsmath, use the `?' option.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen144
+\pmbraise@=\dimen145
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
@@ -462,7 +459,7 @@ LaTeX Info: Redefining \dots on input line 381.
 LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box54
 \strutbox@=\box55
-\big@size=\dimen145
+\big@size=\dimen146
 LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count125
@@ -475,12 +472,12 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \column@=\count130
 \maxfields@=\count131
 \andhelp@=\toks21
-\eqnshift@=\dimen146
-\alignsep@=\dimen147
-\tagshift@=\dimen148
-\tagwidth@=\dimen149
-\totwidth@=\dimen150
-\lineht@=\dimen151
+\eqnshift@=\dimen147
+\alignsep@=\dimen148
+\tagshift@=\dimen149
+\tagwidth@=\dimen150
+\totwidth@=\dimen151
+\lineht@=\dimen152
 \@envbody=\toks22
 \multlinegap=\skip47
 \multlinetaggap=\skip48
@@ -493,10 +490,10 @@ Package: algorithm2e 2013/01/06 v5.00 algorithms environments
 \c@AlgoLine=\count132
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
-Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\xspace.sty"
-Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\relsize.sty"
 Package: relsize 2003/07/04 ver 3.1
@@ -516,12 +513,12 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \skiplength=\skip54
 \algomargin=\skip55
 \skipalgocfslide=\skip56
-\algowidth=\dimen152
-\inoutsize=\dimen153
-\inoutindent=\dimen154
-\interspacetitleruled=\dimen155
-\interspacealgoruled=\dimen156
-\interspacetitleboxruled=\dimen157
+\algowidth=\dimen153
+\inoutsize=\dimen154
+\inoutindent=\dimen155
+\interspacetitleruled=\dimen156
+\interspacealgoruled=\dimen157
+\interspacetitleboxruled=\dimen158
 \algocf@inoutbox=\box56
 \algocf@inputbox=\box57
 \AlCapSkip=\skip57
@@ -546,14 +543,14 @@ Package: geometry 2010/09/12 v5.6 Page Geometry
 \Gm@cnth=\count136
 \Gm@cntv=\count137
 \c@Gm@tempcnt=\count138
-\Gm@bindingoffset=\dimen158
-\Gm@wd@mp=\dimen159
-\Gm@odd@mp=\dimen160
-\Gm@even@mp=\dimen161
-\Gm@layoutwidth=\dimen162
-\Gm@layoutheight=\dimen163
-\Gm@layouthoffset=\dimen164
-\Gm@layoutvoffset=\dimen165
+\Gm@bindingoffset=\dimen159
+\Gm@wd@mp=\dimen160
+\Gm@odd@mp=\dimen161
+\Gm@even@mp=\dimen162
+\Gm@layoutwidth=\dimen163
+\Gm@layoutheight=\dimen164
+\Gm@layouthoffset=\dimen165
+\Gm@layoutvoffset=\dimen166
 \Gm@dimlist=\toks24
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
@@ -565,9 +562,9 @@ Package: bibgerm 2000/08/18 v0.1 Support for mixed language bibliographies
 ** Modified for LaTeX 2e and german.sty 2.5b by A. Scherer 1 Nov 1995 **
 ** Modified for ngerman.sty and babel.sty by H. Harders 21 August 2000 **)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
-Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen166
-\extrarowheight=\dimen167
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen167
+\extrarowheight=\dimen168
 \NC@list=\toks25
 \extratabsurround=\skip65
 \backup@length=\skip66
@@ -575,7 +572,7 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \@indexfile=\write3
 
 Writing index file vorlage.idx
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\vorlage.aux")
+(vorlage.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
 LaTeX Font Info:    ... okay on input line 73.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
@@ -592,22 +589,21 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
 LaTeX Font Info:    ... okay on input line 73.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 73.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
-File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 73.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count139
-\scratchdimen=\dimen168
+\scratchdimen=\dimen169
 \scratchbox=\box64
 \nofMPsegments=\count140
 \nofMParguments=\count141
 \everyMPshowfont=\toks26
 \MPscratchCnt=\count142
-\MPscratchDim=\dimen169
+\MPscratchDim=\dimen170
 \MPnumerator=\count143
 \makeMPintoPDFobject=\count144
 \everyMPtoPDFconversion=\toks27
@@ -626,8 +622,7 @@ LaTeX Info: Redefining \ref on input line 73.
 LaTeX Info: Redefining \pageref on input line 73.
 LaTeX Info: Redefining \nameref on input line 73.
 
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\vorlage.out")
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\vorlage.out")
+(vorlage.out) (vorlage.out)
 \@outlinefile=\write4
 
 Man spricht deutsch.
@@ -669,26 +664,24 @@ Man spricht deutsch.
 
 bibgerm.sty: babel.sty detected
 
-<fhlogo_new.pdf, id=147, 208.22191pt x 64.9889pt>
+<fhlogo_new.pdf, id=135, 208.22191pt x 64.9889pt>
 File: fhlogo_new.pdf Graphic file (type pdf)
  <use fhlogo_new.pdf>
 Package pdftex.def Info: fhlogo_new.pdf used on input line 96.
 (pdftex.def)             Requested size: 209.12683pt x 65.27133pt.
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Daniel/Spielepro
-g Projects/TurnBasedStrategy/Latex/fhlogo_new.pdf>]
+{C:/Users/Shentoza/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./fhlogo
+_new.pdf>]
 LaTeX Font Info:    Try loading font information for U+msa on input line 102.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 102.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\vorlage.toc"
+) (vorlage.toc
 [2
 
 
@@ -696,60 +689,49 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ])
 \tf@toc=\write5
- [3]
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Einleitu
-ng.tex"
+ [3] (chapters/Einleitung.tex
 Kapitel 1.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Konzepti
-onierung.tex" [1
+) (chapters/Konzeptionierung.tex [1
 
 
 
 
 ]
 Kapitel 2.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/SquadBui
-lder.tex" [2
+) (chapters/SquadBuilder.tex [2
 
 
 ]
 Kapitel 3.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Levelauf
-bau.tex" [3
+) (chapters/Levelaufbau.tex [3
 
 
 ]
 Kapitel 4.
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 7.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
-File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 7.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 7.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 7.
 
-<images/FinalLevel.png, id=248, 575.90157pt x 246.1697pt>
+<images/FinalLevel.png, id=233, 575.90157pt x 246.1697pt>
 File: images/FinalLevel.png Graphic file (type png)
 
 <use images/FinalLevel.png>
 Package pdftex.def Info: images/FinalLevel.png used on input line 22.
 (pdftex.def)             Requested size: 399.40244pt x 170.71652pt.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/ManagerO
-bjekt.tex" [4
+) (chapters/ManagerObjekt.tex [4
 
 
- <C:/Users/Daniel/Spieleprog Projects/TurnBasedStrategy/Latex/images/FinalLevel
-.png>]
+ <./images/FinalLevel.png>]
 Kapitel 5.
 
 Overfull \hbox (7.42303pt too wide) in paragraph at lines 7--8
@@ -763,129 +745,151 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
  []
 
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Spieler.
-tex" [5
+) (chapters/Spieler.tex [5
 
 
 ] [6]
 Kapitel 6.
-<images/Aktionspunkte.png, id=279, 501.37312pt x 235.63031pt>
+<images/Aktionspunkte.png, id=264, 501.37312pt x 235.63031pt>
 File: images/Aktionspunkte.png Graphic file (type png)
 
 <use images/Aktionspunkte.png>
 Package pdftex.def Info: images/Aktionspunkte.png used on input line 14.
 (pdftex.def)             Requested size: 302.70816pt x 142.26378pt.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Spielfig
-uren.tex" [7
+) (chapters/Spielfiguren.tex [7
 
 
- <C:/Users/Daniel/Spieleprog Projects/TurnBasedStrategy/Latex/images/Aktionspun
-kte.png>]
+ <./images/Aktionspunkte.png>]
 Kapitel 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
+Underfull \hbox (badness 10000) in paragraph at lines 10--12
 
  []
 
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Pathfind
-ing.tex" [8
+) (chapters/Pathfinding.tex [8
 
 
-]
+] [9]
 Kapitel 8.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Kamera.t
-ex" [9
+) (chapters/Kamera.tex [10
 
 
 ]
 Kapitel 9.
-) ("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/UI.tex
-" [10
+) (chapters/UI.tex [11
 
 
 ]
 Kapitel 10.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/3dmodell
-ing.tex" [11
+) (chapters/3dmodelling.tex [12
 
 
 ]
 Kapitel 11.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Animatio
-nen.tex" [12
+<images/screenshot3.png, id=334, 1156.32pt x 650.43pt>
+File: images/screenshot3.png Graphic file (type png)
+
+<use images/screenshot3.png>
+Package pdftex.def Info: images/screenshot3.png used on input line 6.
+(pdftex.def)             Requested size: 303.49443pt x 170.71652pt.
+
+<images/screenshot2.png, id=335, 1156.32pt x 620.91975pt>
+File: images/screenshot2.png Graphic file (type png)
+
+<use images/screenshot2.png>
+Package pdftex.def Info: images/screenshot2.png used on input line 13.
+(pdftex.def)             Requested size: 317.90959pt x 170.71652pt.
+
+<images/screenshot4.png, id=336, 1156.32pt x 620.01637pt>
+File: images/screenshot4.png Graphic file (type png)
+
+<use images/screenshot4.png>
+Package pdftex.def Info: images/screenshot4.png used on input line 20.
+(pdftex.def)             Requested size: 318.38597pt x 170.71652pt.
+
+<images/screenshot1.png, id=337, 1156.32pt x 620.61862pt>
+File: images/screenshot1.png Graphic file (type png)
+
+<use images/screenshot1.png>
+Package pdftex.def Info: images/screenshot1.png used on input line 27.
+(pdftex.def)             Requested size: 318.06837pt x 170.71652pt.
+) (chapters/Animationen.tex [13
 
 
-]
+ <./images/screenshot3.png>] [14 <./images/screenshot2.png> <./images/screensho
+t4.png> <./images/screenshot1.png>]
 Kapitel 12.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Sounds.t
-ex" [13
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+<images/animator_tree.png, id=354, 971.88094pt x 550.30594pt>
+File: images/animator_tree.png Graphic file (type png)
+
+<use images/animator_tree.png>
+Package pdftex.def Info: images/animator_tree.png used on input line 15.
+(pdftex.def)             Requested size: 452.26105pt x 256.0748pt.
+
+Overfull \hbox (34.00737pt too wide) in paragraph at lines 15--16
+ [][] 
+ []
+
+) (chapters/Sounds.tex [15
 
 
-]
+] [16 <./images/animator_tree.png>]
 Kapitel 13.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Effekte.
-tex" [14
+) (chapters/Effekte.tex [17
 
 
 ]
 Kapitel 14.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/StatusQu
-o.tex" [15
+) (chapters/StatusQuo.tex [18
 
 
 ]
 Kapitel 15.
-)
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\chapters/Fazit.te
-x" [16
+) (chapters/Fazit.tex [19
 
 
 ]
 Kapitel 16.
-) [17
+) [20
 
 
 ]
 No file vorlage.ind.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 138.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 138.
-("C:\Users\Daniel\Spieleprog Projects\TurnBasedStrategy\Latex\vorlage.aux")
+(vorlage.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 138.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 138.
 Package rerunfilecheck Info: File `vorlage.out' has not changed.
-(rerunfilecheck)             Checksum: 403DB27B0A4C83F74568D377F7BD9C4E;2052.
+(rerunfilecheck)             Checksum: 0F25A538E879DF66CF290013CD21568B;1880.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 138.
  ) 
 Here is how much of TeX's memory you used:
- 10946 strings out of 493921
- 156519 string characters out of 3144874
- 365262 words of memory out of 3000000
- 13933 multiletter control sequences out of 15000+200000
+ 11121 strings out of 493673
+ 156690 string characters out of 3141520
+ 374585 words of memory out of 3000000
+ 14148 multiletter control sequences out of 15000+200000
  11421 words of font info for 43 fonts, out of 3000000 for 9000
- 846 hyphenation exceptions out of 8191
- 29i,8n,32p,498b,1293s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Daniel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600
-\tcrm0800.pk> <C:\Users\Daniel\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappe
-n\ec\dpi600\tcrm1200.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9
-.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
-b>
-Output written on vorlage.pdf (20 pages, 754701 bytes).
+ 1030 hyphenation exceptions out of 8191
+ 29i,8n,32p,573b,1293s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Shentoza\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
+00\tcrm0800.pk> <C:\Users\Shentoza\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkn
+appen\ec\dpi600\tcrm1200.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb>
+Output written on vorlage.pdf (23 pages, 3363796 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 112 named destinations out of 1000 (max. 500000)
- 304 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 444 PDF objects out of 1000 (max. 8388607)
+ 117 named destinations out of 1000 (max. 500000)
+ 305 words of extra memory for PDF output out of 10000 (max. 10000000)
 
