@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
         clips.Add(grenadeSound);
 
         launcherSound = gameObject.AddComponent<AudioSource>();
-        launcherSound.clip = Resources.Load("Audio/launcher") as AudioClip;
+        launcherSound.clip = Resources.Load("Audio/smoke") as AudioClip;
         clips.Add(launcherSound);
 
         mainClickSound = gameObject.AddComponent<AudioSource>();
@@ -156,10 +156,10 @@ public class AudioManager : MonoBehaviour
 
     public static void playSmoke()
     {
-
+        launcherSound.Play();
     }
 
-    public static void playTeargasLauncher()
+    public static void playTeargas()
     {
         launcherSound.Play();
     }
