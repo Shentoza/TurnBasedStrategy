@@ -316,7 +316,7 @@ public class AbilitySystem : MonoBehaviour {
                 break;
             case Enums.Effects.Gas:
                 gasEffect();
-                AudioManager.playSmoke();
+                AudioManager.playTeargas();
                 break;
             case Enums.Effects.Smoke:
                 smokeEffect();
