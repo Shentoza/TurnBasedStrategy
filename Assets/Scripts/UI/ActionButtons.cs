@@ -137,7 +137,7 @@ public class ActionButtons : MonoBehaviour {
             }
         */
             bool clicked4 = (GUI.Button(new Rect(posX, posY, width, height), new GUIContent(Reload, "Reload")));
-       
+            GUI.Label(new Rect(posX + width/3, posY+height/3, width/2, height/2), uiM.activeUnit.GetComponent<InventoryComponent>().amountMagazines.ToString());
             if(clicked4)
             {
                 uiM.reload();
