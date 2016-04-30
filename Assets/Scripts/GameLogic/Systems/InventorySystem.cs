@@ -37,9 +37,7 @@ public class InventorySystem : MonoBehaviour {
                 }
             }
 
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/reload") as AudioClip;
-            audioSource.Play();
+            AudioManager.playReload();
 
             //Verringert Anzahl der Magazine im Inventar
             inventory.amountMagazines--;
@@ -61,6 +59,13 @@ public class InventorySystem : MonoBehaviour {
     {
         InventoryComponent inventory = figurine.GetComponent<InventoryComponent>();
         inventory.amountSmokes--;
+    }
+    
+    public void decreaseAmmoInMagazine(GameObject figurine, int amount)
+    {
+        WeaponComponent weapon = figurine.GetComponentInChildren<WeaponComponent>();
+        Debug.Log("Munition im Magazin verringert");
+        weapon.currentBulletsInMagazine -= amount;
     }
 
     //Wird durch MolotovAktion aufgerufen

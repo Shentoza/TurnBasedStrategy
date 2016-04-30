@@ -31,7 +31,7 @@ public class UiManager : MonoBehaviour {
 
    public Enums.Actions activeSkill = 0;
 
-    private bool figureSelected = false;
+    public bool figureSelected = false;
     
 	// Use this for initialization
 	void Start () {
@@ -48,44 +48,52 @@ public class UiManager : MonoBehaviour {
         isPlayer1 = managerSys.getPlayerTurn();       
 
 
-        //getActiveUnitSkills
-        activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
-        activeUnitSkills = activeUnit.skills;
-
         //setStyle
         style = new GUIStyle();
 
         dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
 
+        if (isPlayer1)
+            input = player1.GetComponent<inputSystem>();
+        else
+            input = player2.GetComponent<inputSystem>();
+
+        figureUpdate();
     }
 	
 
     // Update is called once per frame
     void Update()
     {
+
+        // welcher spieler ist am zug
         isPlayer1 = managerSys.getPlayerTurn();
+        //beschaffe aktionspunkte
         player1AP = player1.GetComponent<PlayerComponent>().actionPoints;
         player2AP = player2.GetComponent<PlayerComponent>().actionPoints;
+        //wähle inputchannel
         if (isPlayer1)
             input = player1.GetComponent<inputSystem>();
         else
             input = player2.GetComponent<inputSystem>();
 
+        figureUpdate();
         if (managerSys.selectedFigurine != null && figureSelected == false)
         {
             figureSelected = true;
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
         }
+
+        if(managerSys.selectedFigurine == null)
+        {
+            figureSelected = false;
+        }
         
         //beschaffe aktive einheit
-        if (activeUnit)
+        if (figureSelected)
         {
             activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
             activeUnitSkills = activeUnit.skills;
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            actionCancel();
         }
 
     }
@@ -218,21 +226,26 @@ public class UiManager : MonoBehaviour {
     }
     public void reload(){
         actionCancel();
-        activeSkill = Enums.Actions.Reload;
-        inventSys.reloadAmmo(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine());
+        AttributeComponent attr = managerSys.getSelectedFigurine().GetComponent<AttributeComponent>();
+        //Es wird nur nachgeladen wenn das Magazin nicht komplett voll ist
+        if (attr.items.getCurrentWeapon().currentBulletsInMagazine < attr.items.getCurrentWeapon().magazineSize)
+        {  
+            activeSkill = Enums.Actions.Reload;
+            inventSys.reloadAmmo(managerSys.getSelectedFigurine());
+        }
     }
     public void changeWeapon(){
         actionCancel();
         activeSkill = Enums.Actions.ChangeWeapon;
         // Audiofeedback wenn Waffe gewechselt wird
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-        audioSource.Play();
+        AudioManager.playMainClick();
 
-        AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
-        InventoryComponent inv = (InventoryComponent)managerSys.getSelectedFigurine().GetComponent(typeof(InventoryComponent));
+        AttributeComponent attr = managerSys.getSelectedFigurine().GetComponent<AttributeComponent>();
+        InventoryComponent inv = managerSys.getSelectedFigurine().GetComponent<InventoryComponent>();
         dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
         inv.isPrimary = !inv.isPrimary;
+
+        attr.model.GetComponent<WeaponHolding>().swapWeapons();
     }
     public void heal() {
         actionCancel();
@@ -241,9 +254,7 @@ public class UiManager : MonoBehaviour {
         if (inventSys.decreaseMedikits(GameObject.Find("Manager").GetComponent<ManagerSystem>().getSelectedFigurine()) > 0)
         {
             // Audiofeedpack wenn heilen klappt
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/medikit") as AudioClip;
-            audioSource.Play();
+            AudioManager.playMedikit();
 
             healthSystem.doHeal(null, activeUnit, HealthSystem.MEDIPACK);
         }
@@ -256,43 +267,72 @@ public class UiManager : MonoBehaviour {
         actionCancel();
         activeSkill = Enums.Actions.Molotov;
         input.molotovAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/molotov") as AudioClip;
-        audioSource.Play();
-
-        
+        AttributeComponent temp = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        dijkstra.executeDijsktra(temp.getCurrentCell(), 0, temp.attackRange);
     }
+
     public void grenade(){
         actionCancel();
         activeSkill = Enums.Actions.Grenade;
         input.granateAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/granate") as AudioClip;
-        audioSource.Play();
-
-        
+        AttributeComponent temp = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        dijkstra.executeDijsktra(temp.getCurrentCell(), 0, temp.attackRange);
     }
+
     public void  smoke(){
         actionCancel();
         activeSkill = Enums.Actions.Smoke;
         input.smokeAusgewaehlt = true;
+        AttributeComponent temp = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        dijkstra.executeDijsktra(temp.getCurrentCell(), 0, temp.attackRange);
     }
     public void teargas()
     {
         actionCancel();
         activeSkill = Enums.Actions.Teargas;
         input.gasAusgewaehlt = true;
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/launcher") as AudioClip;
-        audioSource.Play();
-
-        
     }
 
 
     public void actionCancel()
     {
-       // activeSkill = Enums.Actions.Cancel;
         input.cancelActions();
+    }
+
+    public bool isFigureSelected()
+    {
+        return figureSelected;
+    }
+
+    public void deselect()
+    {
+        figureSelected = false;
+        activeUnit = null;
+    }
+
+    private void figureUpdate()
+    {
+        //wenn einheit ausgewählt ist, markiere sie
+        if (managerSys.selectedFigurine != null && figureSelected == false)
+        {
+            figureSelected = true;
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+        }
+        else if (managerSys.selectedFigurine == null)
+        {
+            figureSelected = false;
+            activeUnit = null;
+        }
+
+        //beschaffe skills der aktiven einheit
+        if (figureSelected)
+        {
+            activeUnit = managerSys.selectedFigurine.GetComponent<AttributeComponent>();
+            activeUnitSkills = activeUnit.skills;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            actionCancel();
+        }
     }
 }

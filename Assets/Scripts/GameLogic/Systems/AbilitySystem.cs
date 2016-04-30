@@ -81,12 +81,12 @@ public class AbilitySystem : MonoBehaviour {
                     break;
                 case Enums.Effects.Gas:
                     invent.amountTeargas--;
+                    AudioManager.playTeargasLauncher();
                     break;
                 case Enums.Effects.Smoke:
                     invent.amountSmokes--;
                     break;
             }
-
         }
         else {
             Debug.Log("OutOfRange");
@@ -296,15 +296,18 @@ public class AbilitySystem : MonoBehaviour {
         {
             case Enums.Effects.Explosion:
                 grenadeEffect();
+                AudioManager.playGrenade();
                 break;
             case Enums.Effects.Fire:
                 molotovEffect();
+                AudioManager.playMolotov();
                 break;
             case Enums.Effects.Gas:
                 gasEffect();
                 break;
             case Enums.Effects.Smoke:
                 smokeEffect();
+                AudioManager.playSmoke();
                 break;
         }
         throwing_Active = false;

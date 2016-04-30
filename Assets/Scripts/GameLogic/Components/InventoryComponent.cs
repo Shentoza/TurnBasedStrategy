@@ -4,7 +4,7 @@ using System.Collections;
 public class InventoryComponent : MonoBehaviour {
 
 
-    //Inventar (primärwaffe, sekundärwaffe, equipment, equipment) siehe Enums.cs    
+    //Inventar (primaerwaffe, sekundaerwaffe, equipment1, equipment2) siehe Enums.cs    
     public Enums.PrimaryWeapons primaryWeaponType;
     public Enums.SecondaryWeapons secondaryWeaponType;
     public Enums.Equipment utility1;
@@ -14,6 +14,8 @@ public class InventoryComponent : MonoBehaviour {
     public WeaponComponent primary;
     //Sekundärwaffe
     public WeaponComponent secondary;
+
+    public ArmorComponent armor;
     //Ist Primärwaffe ausgewählt? 
     public bool isPrimary;
     //Anzahl Rauchgranaten
@@ -29,20 +31,16 @@ public class InventoryComponent : MonoBehaviour {
     //Anzahl Magazine
     public int amountMagazines;
 
-    // ??
-    public GameObject equipment;
-
-    //Anzahl Minen
-    //public int amountMines;
-
-
 	// Use this for initialization
 	void Start () {
         isPrimary = true;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
+	public WeaponComponent getCurrentWeapon()
+    {
+        if (isPrimary)
+            return primary;
+        else
+            return secondary;
+    }
 }

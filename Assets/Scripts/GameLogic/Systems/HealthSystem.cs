@@ -15,6 +15,11 @@ public class HealthSystem : MonoBehaviour
 
     //Für Animationen
     Animator anim;
+    private int animId_tgetHit;
+
+    void Awake() {
+        animId_tgetHit = Animator.StringToHash("getHit");
+    }
 
     /* Generates and inflicts damage if necessary */
     public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
@@ -23,8 +28,7 @@ public class HealthSystem : MonoBehaviour
         {
             case SHOOT:
                 int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
-                inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);
-                                
+                inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);                    
                 break;
 
             default:
@@ -54,7 +58,7 @@ public class HealthSystem : MonoBehaviour
     /* SHOOT related */
     private int generateShootDamage(AttributeComponent attackingPlayerAttr, AttributeComponent damageTakingPlayerAtrr)
     {
-        WeaponComponent attackingPlayerWeapon = (WeaponComponent)attackingPlayerAttr.weapon.GetComponent(typeof(WeaponComponent));
+        WeaponComponent attackingPlayerWeapon = attackingPlayerAttr.items.getCurrentWeapon();
         int damage = attackingPlayerWeapon.damage;
 
         if (targetHasArmor(damageTakingPlayerAtrr))
@@ -66,16 +70,19 @@ public class HealthSystem : MonoBehaviour
         return damage;
     }
 
-    private void inflictShootDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damage)
+    private void inflictShootDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAttr, int damage)
     {
         Debug.Log("Damage taken : " + damage);
-        damageTakingPlayerAtrr.hp -= damage;
+        damageTakingPlayerAttr.hp -= damage;
         attackingPlayerComp.useAP();
         attackingPlayerAttr.canShoot = false;
 
         //Zeug für Animationen
-        anim = damageTakingPlayerAtrr.gameObject.GetComponent<Animator>();
-        anim.SetTrigger("getHit");
+        anim = damageTakingPlayerAttr.model.GetComponent<Animator>();
+        anim.SetTrigger(animId_tgetHit);
+
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
     }
 
     /* MEDIPACK related */
@@ -114,16 +121,30 @@ public class HealthSystem : MonoBehaviour
 
         //Zeug für Animationen
         anim = damageTakingPlayerAttr.gameObject.GetComponent<Animator>();
-        anim.SetTrigger("getHit");
+        anim.SetTrigger(animId_tgetHit);
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
     }
 
     public void inflictFireDamage(AttributeComponent damageTakingPlayerAttr)
     {
         damageTakingPlayerAttr.hp -= 10;
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
     }
 
     public void inflictGasDamage(AttributeComponent damageTakingPlayerAttr)
     {
         damageTakingPlayerAttr.hp -= 10;
+        if (damageTakingPlayerAttr.hp <= 0)
+            killFigurine(damageTakingPlayerAttr);
+    }
+
+    public void killFigurine(AttributeComponent damageTakingPlayerAttr)
+    {
+        GameObject figurine = damageTakingPlayerAttr.gameObject;
+
+        FindObjectOfType<ManagerSystem>().removeUnit(figurine, damageTakingPlayerAttr.team);
+        Destroy(figurine);
     }
 }

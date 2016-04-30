@@ -4,5 +4,28 @@
 
 \section{Attribute Component}
 
+
+\section{Inventory Component}
+Jeder einzelnen Spielfigur wird eine Inventory Component angehangen. In dieser wird das gesamte Inventar der jeweiligen Figur gespeichert. Das Inventory System kümmert sich dabei um die Berechnungen und Aktualisierung der Inventory Komponenten.\newline
+Es folgt ein Auszug der verschiedenen Variablen:\newline
+
+\begin{lstlisting}[breaklines = true]
+//Inventar (primaerwaffe, sekundaerwaffe, equipment1, equipment2) siehe Enums.cs    
+public Enums.PrimaryWeapons primaryWeaponType;
+public Enums.SecondaryWeapons secondaryWeaponType;
+public Enums.Equipment utility1;
+public Enums.Equipment utility2;
+
+public WeaponComponent primary; //Primaerwaffe
+public WeaponComponent secondary; //Sekundaerwaffe
+public bool isPrimary; //Ist Primaerwaffe ausgewaehlt? 
+public int amountSmokes; //Anzahl Rauchgranaten
+public int amountTeargas; //Anzahl Teargas
+public int amountGrenades; //Anzahl Granaten
+public int amountMolotovs; //Anzahl Molotovs
+public int amountMediKits; //Anzahl Medikits
+public int amountMagazines; //Anzahl Magazine//Anzahl Magazine
+\end{lstlisting}
+
 \section{Selektierte Spielfigur}
 Die aktuell ausgewählte Spielfigur wird durch eine diese umgebende Box gekennzeichnet.

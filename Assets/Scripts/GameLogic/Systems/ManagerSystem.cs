@@ -28,9 +28,8 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject unit;
     public GameObject uiManager;
     public GameObject plane;
+    public DijkstraSystem dijkstra;
     
-
-    public AudioSource endTurnSound;
 
     public bool uiManagerSet;
 
@@ -48,6 +47,7 @@ public class ManagerSystem : MonoBehaviour {
         player2.GetComponent<inputSystem>().enabled = false;
         cam = GameObject.Find("Main Camera").GetComponent<CameraRotationScript>();
         shootingSys = (ShootingSystem)this.gameObject.GetComponent(typeof(ShootingSystem));
+        dijkstra = FindObjectOfType<DijkstraSystem>();
 
         plane = GameObject.Find("Plane");
  
@@ -62,7 +62,7 @@ public class ManagerSystem : MonoBehaviour {
 
 	}
 
-    public void loadUI()
+    public void startGame()
     {
         Instantiate(uiManager);
         selectedFigurine = unitListP1[0];
@@ -108,7 +108,7 @@ public class ManagerSystem : MonoBehaviour {
     //Legt fest, welcher Spieler am Zug ist
     public void setPlayerTurn()
     {
-        endTurnSound.Play();
+        AudioManager.playEndTurn();
         roundHalf++;
         if(roundHalf == 2)
         {
@@ -118,24 +118,33 @@ public class ManagerSystem : MonoBehaviour {
         isPlayer1 = !isPlayer1;
         if(isPlayer1) //wenn Spieler 1 dran ist
         {
+            /*AttributeComponent attr = unitListP1[0].GetComponent<AttributeComponent>();
             //To-Do: Mit UI verknüpfen 
             Debug.Log("Spieler1 ist am Zug");
             setSelectedFigurine(unitListP1[0]);               //Wählt das erste Child von Spieler2
+            dijkstra.executeDijsktra(attr.getCurrentCell(), attr.actMovRange, attr.items.getCurrentWeapon().weaponRange);
             cam.setNewTarget(selectedFigurine);                 //Gibt der Kamera ein neues Target
             player1.GetComponent<inputSystem>().enabled = true;                         //Aktiviere InputSys von Spieler1
+            player2.GetComponent<inputSystem>().enabled = false; */
+
+
+            setSelectedFigurine(unitListP1[0]);
+            cam.setNewTarget(selectedFigurine);                 //Gibt der Kamera ein neues Target
+            inputSystem input = player1.GetComponent<inputSystem>();
+            input.enabled = true;
+            input.selectFigurine(null);
             player2.GetComponent<inputSystem>().enabled = false;
         }
         else
         {
             //To-Do: Mit UI verknüpfen 
-            setSelectedFigurine(unitListP2[0]);             //Wählt das erste Child von Spieler2
-            cam.setNewTarget(selectedFigurine);              //Gibt der Kamera ein neues Target
+            setSelectedFigurine(unitListP2[0]);                 
+            cam.setNewTarget(selectedFigurine);                 //Gibt der Kamera ein neues Target
+            inputSystem input = player2.GetComponent<inputSystem>();
+            input.enabled = true;
+            input.selectFigurine(null);
             player1.GetComponent<inputSystem>().enabled = false;
-            player2.GetComponent<inputSystem>().enabled = true;                      //Aktiviere InputSys von Spieler2
         }
-
-        plane.GetComponent<DijkstraSystem>().resetDijkstra();
-
     }
 
     public void setSelectedFigurine(GameObject selected)

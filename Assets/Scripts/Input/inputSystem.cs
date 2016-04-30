@@ -5,6 +5,7 @@ public class inputSystem : MonoBehaviour {
 
     //Stuff vom Manager
     ManagerSystem manager;
+
     DijkstraSystem dijSys;
     PlayerAssistanceSystem assist;
     AbilitySystem abilSys;
@@ -37,7 +38,7 @@ public class inputSystem : MonoBehaviour {
     public bool molotovAusgewaehlt;
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
-
+   
     UiManager uiManager;
 
 	// Use this for initialization
@@ -233,7 +234,24 @@ public class inputSystem : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            cancelActions();
+            if(isActionSelected()){
+                cancelActions();
+
+                Debug.Log("esc 1");
+             }
+            else if(figurGewaehlt)
+            {
+                player = null;
+                manager.setSelectedFigurine(null);
+                figurGewaehlt = false; 
+                dijSys.resetDijkstra();
+
+                //ui manager informieren
+                    // scheinbar redundant
+               // uiManager.deselect();
+
+                Debug.Log("esc 2");
+            }
         }
 	}
 
@@ -244,21 +262,39 @@ public class inputSystem : MonoBehaviour {
         molotovAusgewaehlt = false;
         smokeAusgewaehlt = false;
         movementAusgewaehlt = false;
+        gasAusgewaehlt = false;
         GameObject.Find("UiManager(Clone)").GetComponent<UiManager>().activeSkill = Enums.Actions.Cancel;
     }
 
-    void selectFigurine(GameObject figurine)
+    public void selectFigurine(GameObject figurine)
     {
-        manager.setSelectedFigurine(figurine);
         assist.ClearThrowPath();
         assist.ClearWalkPath();
+        dijSys.resetDijkstra();
         player = figurine;
-        figurGewaehlt = true;
-        attr = (AttributeComponent)player.GetComponent(typeof(AttributeComponent));
-        movement = (MovementSystem)player.GetComponent(typeof(MovementSystem));
-        Cell currentCell = (Cell)attr.getCurrentCell().GetComponent(typeof(Cell));
-        dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.weapon.GetComponent<WeaponComponent>().weaponRange);
-        rotationScript.setNewTarget(player);
+        if (figurine == null)
+        {
+            player = null;
+            rotationScript.setNewTarget(null);
+            figurGewaehlt = false;
+        }
+        else
+        {
+            attr = (AttributeComponent)player.GetComponent(typeof(AttributeComponent));
+            movement = (MovementSystem)player.GetComponent(typeof(MovementSystem));
+            Cell currentCell = (Cell)attr.getCurrentCell().GetComponent(typeof(Cell));
+            dijSys.executeDijsktra(currentCell, attr.actMovRange, attr.items.getCurrentWeapon().weaponRange);
+            manager.setSelectedFigurine(figurine);
+            figurGewaehlt = true;
+            rotationScript.setNewTarget(player);
+        }
+        
+    }
+
+    public bool isActionSelected()
+    {
+        return granateAusgewaehlt || movementAusgewaehlt || angriffAusgewaehlt || molotovAusgewaehlt ||
+                gasAusgewaehlt || smokeAusgewaehlt;
     }
 }
 

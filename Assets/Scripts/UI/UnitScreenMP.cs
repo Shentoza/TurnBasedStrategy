@@ -36,6 +36,7 @@ public class UnitScreenMP : MonoBehaviour {
 
 
     public Texture2D backgroundTexture;
+    public Texture2D notPickingTexture;
     public Texture2D unitListBackground;
     public Texture2D unitBackground;
     public Texture2D newUnitButton;
@@ -65,10 +66,7 @@ public class UnitScreenMP : MonoBehaviour {
 
     bool done = false;
 
-    // for music
-    private float pitch;
-
-	// Use this for initialization
+   	// Use this for initialization
 	void Start () {
          
     unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
@@ -83,8 +81,6 @@ public class UnitScreenMP : MonoBehaviour {
 
         if (!done)
         {
-            pitch = UnityEngine.Random.Range(0.75f, 1.25f);
-
             unitListXAnkerP2 = Screen.width - unitListXAnkerP1 - unitIconWidth - 2 * borderWidth;
 
             if (unitCountP1 > unitCountP2 && unitCountP2 < p2UnitCap)
@@ -105,7 +101,7 @@ public class UnitScreenMP : MonoBehaviour {
                 //pickingphase beenden 
                 //übergang zum gameplay
                 done = true;
-                manager.loadUI();
+                manager.startGame();
                 Destroy(this);
             }
         }
@@ -113,10 +109,7 @@ public class UnitScreenMP : MonoBehaviour {
 
 
     void  p1Pick(){
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-        audioSource.pitch = pitch;
-        audioSource.Play();
+        AudioManager.playMainClick();
 
         if (player1Picking)
         {
@@ -129,10 +122,7 @@ public class UnitScreenMP : MonoBehaviour {
 
     void p2Pick( Enums.Prof i)
     {
-        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-        audioSource.pitch = pitch;
-        audioSource.Play();
+        AudioManager.playMainClick();
 
         if (!player1Picking)
         {
@@ -147,10 +137,7 @@ public class UnitScreenMP : MonoBehaviour {
         if (!done)
         {
             //erstelle hintergrund
-           // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
-
-            
-            
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);          
 
             //rebellen
             drawP1();
@@ -158,6 +145,24 @@ public class UnitScreenMP : MonoBehaviour {
             //staat
             drawP2();
 
+
+            //picking info   
+            GUIStyle gs = new GUIStyle();
+            gs.fixedHeight = Screen.height;
+            gs.fixedWidth = 0;
+            gs.fixedHeight = 0;
+            gs.stretchHeight = true;
+            gs.stretchWidth = true;
+
+            if (player1Picking)
+            {
+                GUI.Label(new Rect(Screen.width / 2 + 1, 0, Screen.width / 2, Screen.height+200), notPickingTexture,gs);
+            }
+            else
+            {
+                GUI.Label(new Rect(0, 0, Screen.width / 2, Screen.height+200), notPickingTexture,gs);
+            }
+          
 
             //Tooltip label
             GUI.Label(new Rect(Input.mousePosition.x + 15, Screen.height - Input.mousePosition.y, 150, 150), GUI.tooltip);
@@ -246,11 +251,8 @@ public class UnitScreenMP : MonoBehaviour {
             for (int i = 0; i < Enum.GetNames(typeof(Enums.PrimaryWeapons)).Length; i++)
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(pWeapons[i], ((Enums.PrimaryWeapons)i).ToString())))
-                {   
-                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                    audioSource.clip = Resources.Load("Audio/second_click") as AudioClip;
-                    audioSource.pitch = pitch;
-                    audioSource.Play();
+                {
+                    AudioManager.playSecondClick();
 
                     equip.x = i;
                     dp1 = false;             
@@ -265,10 +267,7 @@ public class UnitScreenMP : MonoBehaviour {
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize), new GUIContent(sWeapons[i], ((Enums.SecondaryWeapons)i).ToString())))
                 {
-                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                    audioSource.clip = Resources.Load("Audio/second_click") as AudioClip;
-                    audioSource.pitch = pitch;
-                    audioSource.Play();
+                    AudioManager.playSecondClick();
 
                     equip.y = i;
                     dp2 = false;
@@ -285,10 +284,8 @@ public class UnitScreenMP : MonoBehaviour {
             {
                 if (GUI.Button(new Rect(xBase + i * dropdownOptionSize, yBase, dropdownOptionSize, dropdownOptionSize),new GUIContent( util[i], ((Enums.Equipment)i).ToString())))
                 {
-                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                    audioSource.clip = Resources.Load("Audio/second_click") as AudioClip;
-                    audioSource.pitch = pitch;
-                    audioSource.Play();
+                    AudioManager.playSecondClick();
+
                     if (dp3)
                     {
                         equip.z = i;
@@ -328,37 +325,25 @@ public class UnitScreenMP : MonoBehaviour {
 
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker, 75, 75), new GUIContent(pWeapons[(int)equip.x], ((Enums.PrimaryWeapons)equip.x).ToString())))
         {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-            audioSource.pitch = pitch;
-            audioSource.Play();
+            AudioManager.playMainClick();
 
             dp1 = true;
         }
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + buttonYOffset, 75, 75), new GUIContent( sWeapons[(int)equip.y], ((Enums.SecondaryWeapons)equip.y).ToString())))
         {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-            audioSource.pitch = pitch;
-            audioSource.Play();
+            AudioManager.playMainClick();
 
             dp2 = true;
         }
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 2 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.z], ((Enums.Equipment)equip.z).ToString())))
         {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-            audioSource.pitch = pitch;
-            audioSource.Play();
+            AudioManager.playMainClick();
 
             dp3 = true;
         }
         if (GUI.Button(new Rect((int)(Screen.width * dropdownBaseX), unitListYAnker + 3 * buttonYOffset, 75, 75), new GUIContent( util[(int)equip.w], ((Enums.Equipment)equip.w).ToString())))
         {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load("Audio/main_click") as AudioClip;
-            audioSource.pitch = pitch;
-            audioSource.Play();
+            AudioManager.playMainClick();
 
             dp4 = true;
         }
