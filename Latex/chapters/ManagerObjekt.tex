@@ -51,16 +51,16 @@ Der eigentliche Vorgang wird dabei unterteilt in Berechnung des Schadens- bzw. H
 \begin{lstlisting}[breaklines = true]
 public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
 {
-switch(damageFlag)
-{
-case SHOOT:
-int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
-inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);                    
-break;
+	switch(damageFlag)
+	{
+	case SHOOT:
+		int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
+		inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);                    
+		break;
 
-default:
+	default:
 
-break;
-}
+	break;
+	}
 }
 \end{lstlisting}
