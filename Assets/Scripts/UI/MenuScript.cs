@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MenuScript : MonoBehaviour {
 
@@ -35,6 +36,7 @@ public class MenuScript : MonoBehaviour {
         no = no.GetComponent<Text>();
         settingsCanvas.enabled = false;
         quitCanvas.enabled = false;
+        currentVolume.text = volumeSlider.value + "";
     }
 	
 	// Update is called once per frame
@@ -83,7 +85,8 @@ public class MenuScript : MonoBehaviour {
 
     public void sliderChanged()
     {
-        currentVolume.text = System.Math.Round(volumeSlider.value, 2)+"";
+        currentVolume.text = Math.Round(volumeSlider.value, 2)+"";
+        AudioManager.changeVolume(volumeSlider.value);
     }
 
     public void changeResolution()

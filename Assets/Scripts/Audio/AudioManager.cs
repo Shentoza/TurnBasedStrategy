@@ -20,47 +20,65 @@ public class AudioManager : MonoBehaviour
 
     private static float pitch;
 
+    private static System.Collections.Generic.List<AudioSource> clips;
+
     // Use this for initialization
     void Start ()
     {
+        clips = new System.Collections.Generic.List<AudioSource>();
+
         endTurnSound = gameObject.AddComponent<AudioSource>();
         endTurnSound.clip = Resources.Load("Audio/endTurn1") as AudioClip;
+        clips.Add(endTurnSound);
 
         grenadeSound = gameObject.AddComponent<AudioSource>();
         grenadeSound.clip = Resources.Load("Audio/granate") as AudioClip;
+        clips.Add(grenadeSound);
 
         launcherSound = gameObject.AddComponent<AudioSource>();
         launcherSound.clip = Resources.Load("Audio/launcher") as AudioClip;
+        clips.Add(launcherSound);
 
         mainClickSound = gameObject.AddComponent<AudioSource>();
         mainClickSound.clip = Resources.Load("Audio/main_click") as AudioClip;
+        clips.Add(mainClickSound);
+
 
         secondClickSound = gameObject.AddComponent<AudioSource>();
         secondClickSound.clip = Resources.Load("Audio/second_click") as AudioClip;
+        clips.Add(secondClickSound);
 
         medikitSound = gameObject.AddComponent<AudioSource>();
         medikitSound.clip = Resources.Load("Audio/medikit") as AudioClip;
+        clips.Add(medikitSound);
 
         missedSound = gameObject.AddComponent<AudioSource>();
         missedSound.clip = Resources.Load("Audio/missed") as AudioClip;
+        clips.Add(missedSound);
 
         molotovSound = gameObject.AddComponent<AudioSource>();
         molotovSound.clip = Resources.Load("Audio/molotov") as AudioClip;
+        clips.Add(molotovSound);
 
         reloadSound = gameObject.AddComponent<AudioSource>();
         reloadSound.clip = Resources.Load("Audio/reload") as AudioClip;
+        clips.Add(reloadSound);
 
         soldierCrouch1Sound = gameObject.AddComponent<AudioSource>();
         soldierCrouch1Sound.clip = Resources.Load("Audio/soldierCrouch1") as AudioClip;
+        clips.Add(soldierCrouch1Sound);
 
         soldierCrouch2Sound = gameObject.AddComponent<AudioSource>();
         soldierCrouch2Sound.clip = Resources.Load("Audio/soldierCrouch2") as AudioClip;
+        clips.Add(soldierCrouch2Sound);
 
         soldierWalk1Sound = gameObject.AddComponent<AudioSource>();
         soldierWalk1Sound.clip = Resources.Load("Audio/soldierWalk1") as AudioClip;
+        clips.Add(soldierWalk1Sound);
 
         soldierWalk2Sound = gameObject.AddComponent<AudioSource>();
         soldierWalk2Sound.clip = Resources.Load("Audio/soldierWalk2") as AudioClip;
+        clips.Add(soldierWalk2Sound);
     }
 	
 	// Update is called once per frame
@@ -144,6 +162,14 @@ public class AudioManager : MonoBehaviour
     public static void playTeargasLauncher()
     {
         launcherSound.Play();
+    }
+
+    public static void changeVolume(float f)
+    {
+        for(int i=0; i < clips.Count; i++)
+        {
+            clips[i].volume = f;
+        }
     }
 
 }
