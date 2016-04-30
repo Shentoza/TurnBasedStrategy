@@ -99,7 +99,6 @@ public class ActionButtons : MonoBehaviour {
             {
                 
                 uiM.move();
-                Debug.Log("move");
             }
         }
         else if (skills[i] == Enums.Actions.Hit)

@@ -12,9 +12,6 @@ public class ManagerSystem : MonoBehaviour {
     public List<GameObject> unitListP1;
     public List<GameObject> unitListP2;
 
-    
-    public GameObject activeUnitMarker;
-
     CameraRotationScript cam;
     public int rounds;             //Spiegelt Rundenzahl wieder
     private bool isPlayer1;         //Spieler1 an der Reihe
@@ -31,9 +28,6 @@ public class ManagerSystem : MonoBehaviour {
     public GameObject uiManager;
     public GameObject plane;
     public DijkstraSystem dijkstra;
-    
-
-    public bool uiManagerSet;
 
     public GameObject policePrefab;
     public GameObject rebelPrefab;
@@ -60,9 +54,6 @@ public class ManagerSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        activeUnitMark();
-
 	}
 
     public void startGame()
@@ -71,8 +62,6 @@ public class ManagerSystem : MonoBehaviour {
         selectedFigurine = unitListP1[0];
         isPlayer1 = true;
         Camera.main.GetComponent<CameraRotationScript>().enabled = true;
-
-        uiManagerSet = true;
     }
 
 
@@ -198,19 +187,6 @@ public class ManagerSystem : MonoBehaviour {
         
     }
 
-
-    public void activeUnitMark()
-    {
-        if (selectedFigurine)
-        {
-            activeUnitMarker.transform.position = selectedFigurine.transform.position;
-            activeUnitMarker.transform.rotation = selectedFigurine.transform.rotation;
-        }
-        
-
-    }
-
-
     public void placeUnit(int team, GameObject unit)
     {
 
@@ -268,7 +244,6 @@ public class ManagerSystem : MonoBehaviour {
             if (unit == selectedFigurine)
             {
                 selectedFigurine = unitListP1[0];
-                activeUnitMark();
             }
 
             unitListP1.Remove(unit);
@@ -279,7 +254,6 @@ public class ManagerSystem : MonoBehaviour {
             if (unit == selectedFigurine)
             {
                 selectedFigurine = unitListP2[0];
-                activeUnitMark();
             }
             unitListP2.Remove(unit);
         }

@@ -205,7 +205,6 @@ public class UiManager : MonoBehaviour {
             player1.GetComponent<PlayerComponent>().useAP();
         else
             player2.GetComponent<PlayerComponent>().useAP();
-        Debug.Log("Move Aktion");
         AttributeComponent attr = (AttributeComponent)managerSys.getSelectedFigurine().GetComponent(typeof(AttributeComponent));
         input.cancelActions();
         attr.regenerateMovepoints();

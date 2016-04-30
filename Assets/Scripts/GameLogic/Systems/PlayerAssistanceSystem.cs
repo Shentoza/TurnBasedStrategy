@@ -10,12 +10,8 @@ public class PlayerAssistanceSystem : MonoBehaviour {
 
     DijkstraSystem dij;
 
-    public Material oneArrow;
-    public Material startArrow;
-    public Material endArrow;
-    public Material middleArrow;
-    public Material highlight;
-    public Material pathMaterial;
+    [SerializeField]
+    private Material pathMaterial;
 
 	// Use this for initialization
 	void Start () {

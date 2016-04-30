@@ -3,10 +3,15 @@ using System.Collections;
 
 public class AbilitySystem : MonoBehaviour {
 
-    public GameObject smoke;
-    public GameObject fire;
-    public GameObject explosion;
-    public GameObject gas;
+
+    [SerializeField]
+    private GameObject smoke;
+    [SerializeField]
+    private GameObject fire;
+    [SerializeField]
+    private GameObject explosion;
+    [SerializeField]
+    private GameObject gas;
 
     public int effektDauer;
     //Shit für animationen zum drehen
@@ -24,27 +29,36 @@ public class AbilitySystem : MonoBehaviour {
     private float throwing_Length;
     private Vector3 throwing_StartPos;
     private Vector3 throwing_DestinationPos;
+    private AttributeComponent throwing_throwersAttributes;
     private Cell throwing_DestinationCell;
     private bool throwing_Active = false;
+    private bool throw_turning = false;
     private Enums.Effects throwing_effect;
     
     // Use this for initialization
     void Start () {
-        
+        startAngle = 0.0f;
+        startAngleSet = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (throw_turning)
+        {
+            throw_turning = !checkRotation(throwing_DestinationCell, throwing_throwersAttributes);
+        }
         if (throwing_Active)
             continousThrowing(Time.deltaTime);
 	}
 
     //Methode um anfangen shit zu schmeißen
-    public void throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
+    public IEnumerator throwGrenade(Cell ziel, GameObject figur, Enums.Effects effectType)
     {
-        AttributeComponent playerAttr = figur.GetComponent<AttributeComponent>();
+        throwing_throwersAttributes = figur.GetComponent<AttributeComponent>();
         InventoryComponent invent = figur.GetComponent<InventoryComponent>();
+        throwing_DestinationCell = ziel;
         int amountOfGrenades = 0;
+
         switch(effectType)
         {
             case Enums.Effects.Explosion:
@@ -61,18 +75,19 @@ public class AbilitySystem : MonoBehaviour {
                 break;
         }
 
-        if (ziel.dij_GesamtKosten <= playerAttr.attackRange && amountOfGrenades > 0)
+        if (ziel.dij_GesamtKosten <= throwing_throwersAttributes.attackRange && amountOfGrenades > 0)
         {
             figur.GetComponentInParent<PlayerComponent>().useAP();
-            //while (!checkRotation(ziel, playerAttr))
-                            //yield return null;
-            checkRotation(ziel, playerAttr);
-            throwing_DestinationCell = ziel;
+            
+            throw_turning = true;
+            while(throw_turning)
+                yield return null;
+            
             //Einsatz von AP durch Faehigkeit
             figur.GetComponentInParent<PlayerComponent>().useAP();
             throwing_effect = effectType;
-            WeaponHolding throwy = (WeaponHolding)playerAttr.model.GetComponent(typeof(WeaponHolding));
-            playerAttr.anim.SetTrigger("Throw");
+            WeaponHolding throwy = (WeaponHolding)throwing_throwersAttributes.model.GetComponent(typeof(WeaponHolding));
+            throwing_throwersAttributes.anim.SetTrigger("Throw");
             switch (effectType)
             {
                 case Enums.Effects.Explosion:
@@ -83,7 +98,6 @@ public class AbilitySystem : MonoBehaviour {
                     break;
                 case Enums.Effects.Gas:
                     invent.amountTeargas--;
-                    AudioManager.playTeargasLauncher();
                     break;
                 case Enums.Effects.Smoke:
                     invent.amountSmokes--;
@@ -242,11 +256,10 @@ public class AbilitySystem : MonoBehaviour {
                 startAngle = angle;
                 startAngleSet = true;
             }
-
             float yRotation = Mathf.Clamp(Time.deltaTime * turningSpeed * turningDirection, -angle, angle);
             angle += yRotation;
             Vector3 euler = playerAttr.transform.rotation.eulerAngles;
-            euler.y += angle;
+            euler.y += yRotation;
             playerAttr.transform.rotation = Quaternion.Euler(euler);
         }
         else
@@ -267,7 +280,6 @@ public class AbilitySystem : MonoBehaviour {
 
         throwing_TimeSum = 0.0f;
         throwing_TimeNeeded = throwing_TimePerCell * baselength.magnitude;
-
         throwing_Active = true;
         
     }
@@ -284,7 +296,10 @@ public class AbilitySystem : MonoBehaviour {
         Vector3 result = Vector3.Lerp(throwing_StartPos, throwing_DestinationPos, progress);
         result.y += yValue;
         throwing_Object.transform.position = result;
-        if(progress == 1.0f)
+        throwing_Object.GetComponent<Rigidbody>().AddTorque(Vector3.up * 3.0f);
+        throwing_Object.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 3.0f);
+
+        if (progress == 1.0f)
         {
             grenadeReachedDestination();
         }
@@ -306,6 +321,7 @@ public class AbilitySystem : MonoBehaviour {
                 break;
             case Enums.Effects.Gas:
                 gasEffect();
+                AudioManager.playSmoke();
                 break;
             case Enums.Effects.Smoke:
                 smokeEffect();
@@ -314,11 +330,5 @@ public class AbilitySystem : MonoBehaviour {
         }
         throwing_Active = false;
         GameObject.Destroy(throwing_Object);
-    }
-
-
-    public void setThrowDestination(Cell destination)
-    {
-        throwing_DestinationCell = destination;
     }
 }
