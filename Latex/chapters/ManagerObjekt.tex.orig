@@ -1,0 +1,70 @@
+\chapter{Manager Objekt}
+
+Um die verschiedenen Systeme, die f"ur den korrekten Ablauf der Spielz"uge und allgemein spielregeltechnischen Abl"aufe zu handeln, wurde ein Spielobjekt, das als Manager bezeichnet wird, erstellt. Im folgenden Kapitel wird auf die einzelnen Skripte die an diesem Manager Objekt h"angen genauer eingegangen. 
+
+\section{Manager System}
+
+Das Manager System ist für den korrekten Ablauf der einzelnen Züge zuständig. Es z"ahlt die Runden hoch, stellt sicher, dass nur das die Eingabe des Spielers, der aktuell an der Reihe ist, abgehandelt wird, merkt sich die aktuell ausgew"ahlte Spielfigur, damit das User-Interface korrekt dargestellt wird, f"ugt jedem Spieler seine Spielfiguren zu und setzt die Spielfiguren zu Beginn der Sitzung an zuvor festgelegte Positionen.
+
+\section{Shooting System}
+
+Das ShootingSystem beschreibt das Schussverhalten der verschiedenen Waffen im Spiel. Dabei werden hier verschiedene Boni und Mali auf die Angriffskraft der Waffe verteilt, um so situationsabh"angig agieren zu k"onnen. Zum Beispiel wird auch die Distanz zum Gegner in Betracht gezogen . Die Ver"anderung des Angriffs wird wie folgt unterteilt. \newline
+Einen Bonus erh"alt man, wenn sich das Ziel nahe dem Angreifer befindet oder das Ziel sich nicht hinter einer Deckung aufh"alt. \newline
+Einen Malus erh"alt man, wenn sich das Ziel weit weg vom Angreifer, hinter einer hohen Deckung oder im Nebel einer Rauchgranate befindet.\newline
+
+Hinzu kommt noch die Frage ob ein Spieler "uberhaupt die M"oglichkeit besitzt zu schie"sen, dies kann durch mangelnde Ressourcen wie Munition der Fall sein.
+Desweiteren wird eine Wahrscheinlichkeit berechnet, die zuf"allig bestimmt, ob ein Spieler seinen Gegner trifft, diese steigt jedoch je besser sich der Angreifer mit den oben erw"ahnten Boni aufgestellt hat.
+
+
+\section{Inventory System}
+
+Das Inventory System wird aufgerufen sobald ein Spieler eine der folgenden Aktionen ausf"uhrt um die Anzahl der im Inventar der Spielfigur enthaltenen Gegenst"ande zu verringern:\newline
+
+
+\begin{itemize}
+	\item Nachladen der Prim"arwaffe
+	\item Einsatz von Handgranaten
+	\item Einsatz von Tr"anengas
+	\item Einsatz von Rauchgranaten
+	\item Einsatz von Molotovcocktails
+\end{itemize}
+
+
+
+
+
+\section{Player Assistance System}
+Das Player Assistance System wird dazu benutzt, um die Kachel einzuf"arben, "uber der man sich mit der Maus befindet. Die Information, welche Kachel ausgew"ahlt ist, wird durch das Input System gesetzt.
+Zus"atzlich wird beim ausw"ahlen einer Bewegung, der Pfad eingezeichnet, den die Figur w"ahlen wird.
+Dadurch l"asst sich erkennen, ob eine Figur einen Weg durch beispielsweise Feuer zur"ucklegen muss.
+
+
+\section{Ability System}
+
+
+
+\section{Health System}
+<<<<<<< HEAD
+
+Die Schadensberechnung sowie auch Heilung erfolgt durch das HealthSystem. Hierf"ur wird für die Schadensberechnung beispielsweise die Angriffskraft der Waffe betrachtet. Beim Einsatz eines Medipacks wird einfach ein definierter Wert an Lebenspunkten wieder hergestellt.
+Der eigentliche Vorgang wird dabei unterteilt in Berechnung des Schadens- bzw. Heilwertes und das entsprechende ver"andern der Werte, dies sorgt für weitere "Ubersicht und l"asst sich wie folgt verbildlichen:
+
+\begin{lstlisting}[breaklines = true]
+public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
+{
+switch(damageFlag)
+{
+case SHOOT:
+int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
+inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);                    
+break;
+
+default:
+
+break;
+}
+}
+\end{lstlisting}
+
+=======
+>>>>>>> a41b5ffc17f81e307cc73a00faf258fb73c3765a
