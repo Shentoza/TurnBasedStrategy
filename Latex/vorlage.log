@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.24)  30 APR 2016 23:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.24)  30 APR 2016 23:40
 entering extended mode
 **vorlage.tex
 (vorlage.tex
@@ -887,7 +887,7 @@ Here is how much of TeX's memory you used:
  14158 multiletter control sequences out of 15000+200000
  11421 words of font info for 43 fonts, out of 3000000 for 9000
  1030 hyphenation exceptions out of 8191
- 29i,8n,32p,573b,1831s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,8n,32p,710b,1831s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Shentoza\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
 00\tcrm0800.pk> <C:\Users\Shentoza\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkn
 appen\ec\dpi600\tcrm1200.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
@@ -898,7 +898,7 @@ nts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb>
-Output written on vorlage.pdf (22 pages, 4938577 bytes).
+Output written on vorlage.pdf (22 pages, 4940196 bytes).
 PDF statistics:
  444 PDF objects out of 1000 (max. 8388607)
  130 named destinations out of 1000 (max. 500000)
