@@ -29,7 +29,7 @@ public class MenuScript : MonoBehaviour {
         playButton = playButton.GetComponent<Text>();
         quitButton = quitButton.GetComponent<Text>();
         currentVolume = currentVolume.GetComponent<Text>();
-        volumeSlider = quitButton.GetComponent<Slider>();
+        //volumeSlider = quitButton.GetComponent<Slider>();
         resolutionDropdrown = resolutionDropdrown.GetComponent<Dropdown>();
         okay = okay.GetComponent<Text>();
         yes = yes.GetComponent<Text>();

@@ -11,7 +11,7 @@
 \BOOKMARK [1][-]{section.5.6}{Health System}{chapter.5}% 11
 \BOOKMARK [0][-]{chapter.6}{Spieler}{}% 12
 \BOOKMARK [1][-]{section.6.1}{Player Component}{chapter.6}% 13
-\BOOKMARK [1][-]{section.6.2}{Input Component}{chapter.6}% 14
+\BOOKMARK [1][-]{section.6.2}{Input System}{chapter.6}% 14
 \BOOKMARK [0][-]{chapter.7}{Spielfiguren}{}% 15
 \BOOKMARK [1][-]{section.7.1}{Bewegung}{chapter.7}% 16
 \BOOKMARK [1][-]{section.7.2}{Attribute Component}{chapter.7}% 17
@@ -22,7 +22,7 @@
 \BOOKMARK [0][-]{chapter.10}{User-Interface}{}% 22
 \BOOKMARK [1][-]{section.10.1}{Action-Points Leiste}{chapter.10}% 23
 \BOOKMARK [1][-]{section.10.2}{Dynamische Ability-Icons}{chapter.10}% 24
-\BOOKMARK [1][-]{section.10.3}{HP Leisten}{chapter.10}% 25
+\BOOKMARK [1][-]{section.10.3}{OverHeadUnitInfo}{chapter.10}% 25
 \BOOKMARK [0][-]{chapter.11}{3D Modelling}{}% 26
 \BOOKMARK [0][-]{chapter.12}{Animationen}{}% 27
 \BOOKMARK [1][-]{section.12.1}{Motion Capture Aufnahmen}{chapter.12}% 28

@@ -225,7 +225,7 @@ public class AbilitySystem : MonoBehaviour {
     public bool checkRotation(Cell targetCell, AttributeComponent playerAttr)
     {
 
-        Cell currentCell = (Cell)playerAttr.getCurrentCell();
+        Cell currentCell = playerAttr.getCurrentCell();
 
         //Richtung, in die der Pfad von currentCell zu  targetCell schaut.
         Vector3 walkingDirection = targetCell.transform.position - currentCell.transform.position;
