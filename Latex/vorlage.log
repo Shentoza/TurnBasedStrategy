@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.24)  30 APR 2016 23:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.10.24)  1 MAY 2016 00:12
 entering extended mode
 **vorlage.tex
 (vorlage.tex
@@ -734,94 +734,94 @@ Package pdftex.def Info: images/FinalLevel.png used on input line 22.
  <./images/FinalLevel.png>]
 Kapitel 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 11--14
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 21--22
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
  []
 
 [4
 
 
-]) (chapters/Spieler.tex [5]
+]
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+
+ []
+
+[5]) (chapters/Spieler.tex [6]
 Kapitel 5.
-<images/Aktionspunkte.png, id=260, 501.37312pt x 235.63031pt>
+<images/Aktionspunkte.png, id=264, 501.37312pt x 235.63031pt>
 File: images/Aktionspunkte.png Graphic file (type png)
 
 <use images/Aktionspunkte.png>
 Package pdftex.def Info: images/Aktionspunkte.png used on input line 14.
 (pdftex.def)             Requested size: 302.70816pt x 142.26378pt.
- [6
+ [7
 
 
  <./images/Aktionspunkte.png>])
-(chapters/Spielfiguren.tex [7]
+(chapters/Spielfiguren.tex [8]
 Kapitel 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 11--13
 
  []
 
-[8
+[9
 
 
-]) (chapters/Pathfinding.tex [9]
+]) (chapters/Pathfinding.tex [10]
 Kapitel 7.
-<images/cell_info.png, id=298, 928.21782pt x 518.6878pt>
+<images/cell_info.png, id=303, 928.21782pt x 518.6878pt>
 File: images/cell_info.png Graphic file (type png)
 
 <use images/cell_info.png>
 Package pdftex.def Info: images/cell_info.png used on input line 16.
 (pdftex.def)             Requested size: 330.97139pt x 184.9429pt.
-) (chapters/Kamera.tex [10
+) (chapters/Kamera.tex [11
 
 
  <./images/cell_info.png>]
 Kapitel 8.
-) (chapters/UI.tex [11
+) (chapters/UI.tex [12
 
 
 ]
 Kapitel 9.
-) (chapters/3dmodelling.tex [12
+) (chapters/3dmodelling.tex [13
 
 
 ]
 Kapitel 10.
-<images/screenshot3.png, id=337, 1156.32pt x 650.43pt>
+<images/screenshot3.png, id=341, 1156.32pt x 650.43pt>
 File: images/screenshot3.png Graphic file (type png)
 
 <use images/screenshot3.png>
 Package pdftex.def Info: images/screenshot3.png used on input line 6.
 (pdftex.def)             Requested size: 303.49443pt x 170.71652pt.
 
-<images/screenshot2.png, id=338, 1156.32pt x 620.91975pt>
+<images/screenshot2.png, id=342, 1156.32pt x 620.91975pt>
 File: images/screenshot2.png Graphic file (type png)
 
 <use images/screenshot2.png>
 Package pdftex.def Info: images/screenshot2.png used on input line 13.
 (pdftex.def)             Requested size: 317.90959pt x 170.71652pt.
 
-<images/screenshot4.png, id=339, 1156.32pt x 620.01637pt>
+<images/screenshot4.png, id=343, 1156.32pt x 620.01637pt>
 File: images/screenshot4.png Graphic file (type png)
 
 <use images/screenshot4.png>
 Package pdftex.def Info: images/screenshot4.png used on input line 20.
 (pdftex.def)             Requested size: 318.38597pt x 170.71652pt.
 
-<images/screenshot1.png, id=340, 1156.32pt x 620.61862pt>
+<images/screenshot1.png, id=344, 1156.32pt x 620.61862pt>
 File: images/screenshot1.png Graphic file (type png)
 
 <use images/screenshot1.png>
 Package pdftex.def Info: images/screenshot1.png used on input line 27.
 (pdftex.def)             Requested size: 318.06837pt x 170.71652pt.
-) (chapters/Animationen.tex [13
+) (chapters/Animationen.tex [14
 
 
- <./images/screenshot3.png>] [14 <./images/screenshot2.png> <./images/screensho
+ <./images/screenshot3.png>] [15 <./images/screenshot2.png> <./images/screensho
 t4.png> <./images/screenshot1.png>]
 Kapitel 11.
 
@@ -829,7 +829,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--8
 
  []
 
-<images/animator_tree.png, id=357, 971.88094pt x 550.30594pt>
+<images/animator_tree.png, id=361, 971.88094pt x 550.30594pt>
 File: images/animator_tree.png Graphic file (type png)
 
 <use images/animator_tree.png>
@@ -840,17 +840,17 @@ Overfull \hbox (34.00737pt too wide) in paragraph at lines 15--16
  [][] 
  []
 
-) (chapters/Sounds.tex [15
+) (chapters/Sounds.tex [16
 
 
-] [16 <./images/animator_tree.png>]
+] [17 <./images/animator_tree.png>]
 Kapitel 12.
-) (chapters/Effekte.tex [17
+) (chapters/Effekte.tex [18
 
 
 ]
 Kapitel 13.
-<images/Partikeleffekte.png, id=373, 660.21657pt x 157.33781pt>
+<images/Partikeleffekte.png, id=377, 660.21657pt x 157.33781pt>
 File: images/Partikeleffekte.png Graphic file (type png)
 
 <use images/Partikeleffekte.png>
@@ -861,12 +861,17 @@ Overfull \hbox (59.31818pt too wide) in paragraph at lines 7--8
  [][] 
  []
 
-) (chapters/Fazit.tex [18
+) (chapters/Fazit.tex [19
 
 
  <./images/Partikeleffekte.png>]
 Kapitel 14.
-) [19
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+
+ []
+
+) [20
 
 
 ]
@@ -881,13 +886,13 @@ Package rerunfilecheck Info: File `vorlage.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 136.
  ) 
 Here is how much of TeX's memory you used:
- 11140 strings out of 493673
- 157041 string characters out of 3141520
- 374734 words of memory out of 3000000
+ 11141 strings out of 493673
+ 157048 string characters out of 3141520
+ 374732 words of memory out of 3000000
  14158 multiletter control sequences out of 15000+200000
  11421 words of font info for 43 fonts, out of 3000000 for 9000
  1030 hyphenation exceptions out of 8191
- 29i,8n,32p,710b,1831s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,9n,32p,718b,1946s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Shentoza\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
 00\tcrm0800.pk> <C:\Users\Shentoza\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkn
 appen\ec\dpi600\tcrm1200.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
@@ -898,9 +903,9 @@ nts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb>
-Output written on vorlage.pdf (22 pages, 4940196 bytes).
+Output written on vorlage.pdf (23 pages, 4941194 bytes).
 PDF statistics:
- 444 PDF objects out of 1000 (max. 8388607)
- 130 named destinations out of 1000 (max. 500000)
+ 448 PDF objects out of 1000 (max. 8388607)
+ 131 named destinations out of 1000 (max. 500000)
  291 words of extra memory for PDF output out of 10000 (max. 10000000)
 

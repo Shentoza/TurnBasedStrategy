@@ -8,9 +8,20 @@ Das Manager System ist f"ur den korrekten Ablauf der einzelnen Z"uge zust"andig.
 
 \section{Shooting System}
 
-Das ShootingSystem beschreibt das Schussverhalten der verschiedenen Waffen im Spiel. Dabei werden hier verschiedene Boni und Mali auf die Angriffskraft der Waffe verteilt, um so situationsabh"angig agieren zu k"onnen. Zum Beispiel wird auch die Distanz zum Gegner in Betracht gezogen . Die Ver"anderung des Angriffs wird wie folgt unterteilt. \newline
-Einen Bonus erh"alt man, wenn sich das Ziel nahe dem Angreifer befindet oder das Ziel sich nicht hinter einer Deckung aufh"alt. \newline
-Einen Malus erh"alt man, wenn sich das Ziel weit weg vom Angreifer, hinter einer hohen Deckung oder im Nebel einer Rauchgranate befindet.\newline
+Das ShootingSystem beschreibt das Schussverhalten der verschiedenen Waffen im Spiel. Dabei werden hier verschiedene Boni und Mali auf die Angriffskraft der Waffe verteilt, um so situationsabh"angig agieren zu k"onnen. Zum Beispiel wird auch die Distanz zum Gegner in Betracht gezogen . Die Ver"anderung des Angriffs wird wie folgt unterteilt:\newline
+
+\textbf{Bonus:}
+\begin{itemize}
+	\item Das Ziel befindet sich nahe zum Angreifer
+	\item Das Ziel h"alt sich hinter keiner Deckung auf
+\end{itemize}
+
+	\textbf{Malus:}
+\begin{itemize}
+	\item Das Ziel befindet sich weit weg vom Gegner
+	\item Das Ziel befindet sich hinter einer hohen Deckung
+	\item Das Ziel ist in einer Rauchgranate nur schwer sichtbar	
+\end{itemize}
 
 Hinzu kommt noch die Frage ob ein Spieler "uberhaupt die M"oglichkeit besitzt zu schie"sen, dies kann durch mangelnde Ressourcen wie Munition der Fall sein.
 Desweiteren wird eine Wahrscheinlichkeit berechnet, die zuf"allig bestimmt, ob ein Spieler seinen Gegner trifft, diese steigt jedoch je besser sich der Angreifer mit den oben erw"ahnten Boni aufgestellt hat.
@@ -40,7 +51,7 @@ Dadurch l"asst sich erkennen, ob eine Figur einen Weg durch beispielsweise Feuer
 
 
 \section{Ability System}
-Die Funktionen im AbilitySystem werden "uber das InputSystem aufgerufen. Je nach Wahl des Spielers wird die dazugeh"orige Methode ausgef"uhrt. Diese kopiert einen Effekt, weist diesem Zelle und Partikeleffekt zu und ruft den Start der Animationen auf. Dem Effekt-GameObject wird ein weiteres Script angef"ugt, welches die Zellen "uberwacht und gegebenenfalls Schaden an Figuren, die diese betreten, austeilt. Nach einer festgelegten Anzahl an runden zerst"ort sich das Objekt selbst.
+Die Funktionen im AbilitySystem werden "uber das InputSystem aufgerufen. Je nach Wahl des Spielers wird die dazugeh"orige Methode ausgef"uhrt. Diese kopiert einen Effekt, weist diesem Zelle und Partikeleffekt zu und ruft den Start der Animationen auf. Dem Effekt-GameObject wird ein weiteres Script angef"ugt, welches die Zellen "uberwacht und gegebenenfalls Schaden an Figuren, die diese betreten, austeilt. Nach einer festgelegten Anzahl an Runden zerst"ort sich das Objekt selbst.
 
 
 \section{Health System}
