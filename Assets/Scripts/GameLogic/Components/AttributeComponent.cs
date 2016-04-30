@@ -22,8 +22,8 @@ public class AttributeComponent : MonoBehaviour {
     public InventoryComponent items; //Inventory
     public static int maxMoveAP; //Maximale AP die für Movement ausgegeben werden können
     public static int maxShootAP; //Maximale AP die Schießen ausgegeben werden können
-    public Enums.Prof prof;
-    Cell cell;
+    public Enums.Prof prof; //Die Klasse der Einheit
+    Cell cell; //Zelle auf der sich die Einheit befindet
 
     public List<Enums.Actions> skills;
 
@@ -83,6 +83,7 @@ public class AttributeComponent : MonoBehaviour {
     }
 
 
+    //Legt die Klasse fuer die Einheit fest
     public void setProf(int i)
     {
         prof = (Enums.Prof)i;

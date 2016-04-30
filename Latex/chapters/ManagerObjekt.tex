@@ -8,6 +8,12 @@ Das Manager System ist für den korrekten Ablauf der einzelnen Züge zuständig.
 
 \section{Shooting System}
 
+Das ShootingSystem beschreibt das Schussverhalten der verschiedenen Waffen im Spiel. Dabei werden hier verschiedene Boni und Mali auf die Angriffskraft der Waffe verteilt, um so situationsabh"angig agieren zu k"onnen. Zum Beispiel wird auch die Distanz zum Gegner in Betracht gezogen . Die Ver"anderung des Angriffs wird wie folgt unterteilt. \newline
+Einen Bonus erh"alt man, wenn sich das Ziel nahe dem Angreifer befindet oder das Ziel sich nicht hinter einer Deckung aufh"alt. \newline
+Einen Malus erh"alt man, wenn sich das Ziel weit weg vom Angreifer, hinter einer hohen Deckung oder im Nebel einer Rauchgranate befindet.\newline
+
+Hinzu kommt noch die Frage ob ein Spieler "uberhaupt die M"oglichkeit besitzt zu schie"sen, dies kann durch mangelnde Ressourcen wie Munition der Fall sein.
+Desweiteren wird eine Wahrscheinlichkeit berechnet, die zuf"allig bestimmt, ob ein Spieler seinen Gegner trifft, diese steigt jedoch je besser sich der Angreifer mit den oben erw"ahnten Boni aufgestellt hat.
 
 
 \section{Inventory System}
@@ -37,4 +43,23 @@ Das Inventory System wird aufgerufen sobald ein Spieler eine der folgenden Aktio
 
 \section{Health System}
 
+Die Schadensberechnung sowie auch Heilung erfolgt durch das HealthSystem. Hierf"ur wird für die Schadensberechnung beispielsweise die Angriffskraft der Waffe betrachtet. Beim Einsatz eines Medipacks wird einfach ein definierter Wert an Lebenspunkten wieder hergestellt.
+Der eigentliche Vorgang wird dabei unterteilt in Berechnung des Schadens- bzw. Heilwertes und das entsprechende ver"andern der Werte, dies sorgt für weitere "Ubersicht und l"asst sich wie folgt verbildlichen:
+
+\begin{lstlisting}[breaklines = true]
+public void doDamage(AttributeComponent attackingPlayerAttr, PlayerComponent attackingPlayerComp, AttributeComponent damageTakingPlayerAtrr, int damageFlag)
+{
+switch(damageFlag)
+{
+case SHOOT:
+int damage = generateShootDamage(attackingPlayerAttr, damageTakingPlayerAtrr);
+inflictShootDamage(attackingPlayerAttr, attackingPlayerComp, damageTakingPlayerAtrr, damage);                    
+break;
+
+default:
+
+break;
+}
+}
+\end{lstlisting}
 
