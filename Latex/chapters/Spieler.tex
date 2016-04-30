@@ -16,6 +16,8 @@ Das Skript speichert die maximale Anzahl an Aktionspunkten, die f"ur die verschi
 	\label{fig:Aktionspunkte}
 \end{figure}
 
-\section{Input Component}
+\section{Input System}
+Jedes Spielerobjekt, welches die verschiedenen Spielfiguren besitzt, besitzt jeweils ein Input System.
+Dieses Inputsystem ist f"ur das Starten von Aktionen, sowie die Auswahl von Zielen oder Figuren zust"andig. Mit Hilfe von Raycasts in die Szene hinein, wird ermittelt, welches Objekt oder Zelle getroffen wird. 
 
-
+Das Input System wird auch durch das UI System benutzt. Wenn Buttons f"ur Aktionen gedr"uckt werden, wird im Input System die entsprechende Aktion ausgew"ahlt, die als n"achstes ausgef"uhrt werden soll. Diese Aktionen werden dann an die entsprechenden Systeme (Movement- , Ability- oder Shooting Sytem) weitergegeben, wo die Logik ausgef"uhrt wird.
