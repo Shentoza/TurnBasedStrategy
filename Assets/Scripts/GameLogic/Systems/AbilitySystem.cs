@@ -16,7 +16,6 @@ public class AbilitySystem : MonoBehaviour {
     public int effektDauer;
     //Shit für animationen zum drehen
     private float turningSpeed = 360.0f;
-    private float startAngle;
     private bool startAngleSet;
     private float turningDirection;
 
@@ -37,7 +36,6 @@ public class AbilitySystem : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
-        startAngle = 0.0f;
         startAngleSet = false;
 	}
 	
@@ -86,7 +84,6 @@ public class AbilitySystem : MonoBehaviour {
             //Einsatz von AP durch Faehigkeit
             figur.GetComponentInParent<PlayerComponent>().useAP();
             throwing_effect = effectType;
-            WeaponHolding throwy = (WeaponHolding)throwing_throwersAttributes.model.GetComponent(typeof(WeaponHolding));
             throwing_throwersAttributes.anim.SetTrigger("Throw");
             switch (effectType)
             {
@@ -252,8 +249,6 @@ public class AbilitySystem : MonoBehaviour {
                 {
                     turningDirection = -1.0f;
                 }
-
-                startAngle = angle;
                 startAngleSet = true;
             }
             float yRotation = Mathf.Clamp(Time.deltaTime * turningSpeed * turningDirection, -angle, angle);

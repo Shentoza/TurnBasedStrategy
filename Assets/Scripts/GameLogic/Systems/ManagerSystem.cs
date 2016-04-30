@@ -192,9 +192,6 @@ public class ManagerSystem : MonoBehaviour {
 
         Vector2 posi = new Vector2(0,0);
         
-        float sizeX = plane.GetComponent<BattlefieldCreater>().mapSizeX;
-        float sizeZ = plane.GetComponent<BattlefieldCreater>().mapSizeZ;
-
         if (team == 1)
         {
             posi = plane.GetComponent<BattlefieldCreater>().startPostionsP1[unitListP1.Count];           

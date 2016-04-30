@@ -39,12 +39,10 @@ public class inputSystem : MonoBehaviour {
     public bool gasAusgewaehlt;
     public bool granateAusgewaehlt;
    
-    UiManager uiManager;
 
 	// Use this for initialization
 	void Start () {
         GameObject managerObj = GameObject.Find("Manager");
-        uiManager = managerObj.GetComponent<UiManager>();
         manager = managerObj.GetComponent<ManagerSystem>();
         dijSys = managerObj.GetComponent<DijkstraSystem>();
         assist = managerObj.GetComponent<PlayerAssistanceSystem>();

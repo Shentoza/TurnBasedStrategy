@@ -19,7 +19,6 @@ public class MovementSystem : MonoBehaviour {
     float deltaSum;
 
     private float turningSpeed = 360.0f;
-    private float startAngle;
     private bool startAngleSet;
     private float turningDirection;
     
@@ -28,7 +27,6 @@ public class MovementSystem : MonoBehaviour {
         secondsPerCell = 0.5f;
         dijkstra = (DijkstraSystem)FindObjectOfType(typeof(DijkstraSystem));
         playerAttr = (AttributeComponent)this.gameObject.GetComponent(typeof(AttributeComponent));
-        startAngle = 0.0f;
         startAngleSet = false;
     }
 	
@@ -101,11 +99,11 @@ public class MovementSystem : MonoBehaviour {
                 //Nächste Zelle das Ziel?
                 if(nextCell == targetCell)
                 {
-                    parabelY = parabelY = -4.5f * progress * progress + 3.75f * progress + 0.75f + yHeight;
+                    parabelY = -4.5f * progress * progress + 3.75f * progress + 0.75f + yHeight;
                 }
                 else
                 {
-                    parabelY = parabelY = -3.0f * progress * progress + 3.0f * progress + 0.75f + yHeight;
+                    parabelY = -3.0f * progress * progress + 3.0f * progress + 0.75f + yHeight;
                 }
             }
             Vector3 yVector = new Vector3(0, parabelY, 0);
@@ -172,8 +170,6 @@ public class MovementSystem : MonoBehaviour {
                 {
                     turningDirection = -1.0f;
                 }
-
-                startAngle = angle;
                 startAngleSet = true;
             }
 

@@ -15,18 +15,18 @@ public class RTSCameraScript : MonoBehaviour {
     float scrollDistance = 0.98f;
     float scrollSpeed = 15.0f;
     Vector3 oldCamera;
-    float xRot = 27.9f;
-    Vector3 constantPos = new Vector3(0,10, -15);
+    //float xRot = 27.9f;
+    //Vector3 constantPos = new Vector3(0,10, -15);
     float lerpTime;
     Quaternion constantRot;
     float minDistance = 20.0f;
     float maxDistance = 60.0f;
-    float zoomSpeed = 5.0f;
-    bool isZoomed = false;
+    //float zoomSpeed = 5.0f;
+    //bool isZoomed = false;
     Camera cam;
     Vector3 lastCamPos;
 
-    float rotationSpeed = 20.0f;
+    //float rotationSpeed = 20.0f;
 	CameraRotationScript rotationScript;
 
     float currentAngle;
